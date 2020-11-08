@@ -1,0 +1,15 @@
+create schema "thirdsemesterexam";
+set search_path to "thirdsemesterexam"
+
+create domain d_Test varchar(30);
+
+create table Test(
+	test d_Test,
+	day_time timestamp
+)
+
+
+
+insert into Test (test) values ('Hello world!');
+
+select test from test;
