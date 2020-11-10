@@ -5,7 +5,7 @@ import Tier3.ProtoType.Networking.DataServerSocket;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class TestDatabaseController implements Tier3.ProtoType.DAOs.ProofOfConceptDAO.ITestDatabaseController
+public class TestDatabaseController implements ITestDatabaseController
 {
   private String username = "postgres";
   private String password = "ybf56qka";

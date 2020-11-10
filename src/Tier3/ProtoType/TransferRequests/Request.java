@@ -4,31 +4,42 @@ import java.io.Serializable;
 
 public class Request implements Serializable
 {
-  private RequestEnums requestEnums;
-  private Object object;
+  private RequestEnum requestEnum;
+  private Object objectToBeSend;
+  private String stringToBeSend;
 
-  public RequestEnums getRequestEnums()
+  public RequestEnum getRequestEnum()
   {
-    return requestEnums;
+    return requestEnum;
   }
 
-  public void setRequestEnums(RequestEnums requestEnums)
+  public void setRequestEnum(RequestEnum requestEnum)
   {
-    this.requestEnums = requestEnums;
+    this.requestEnum = requestEnum;
   }
 
-  public Object getObject()
+  public Object getObjectToBeSend()
   {
-    return object;
+    return objectToBeSend;
   }
 
-  public void setObject(Object object)
+  public void setObjectToBeSend(Object objectToBeSend)
   {
-    this.object = object;
+    this.objectToBeSend = objectToBeSend;
   }
 
   @Override public String toString()
   {
     return null;
+  }
+
+  public String getStringToBeSend()
+  {
+    return stringToBeSend;
+  }
+
+  public void setStringToBeSend(String stringToBeSend)
+  {
+    this.stringToBeSend = stringToBeSend;
   }
 }

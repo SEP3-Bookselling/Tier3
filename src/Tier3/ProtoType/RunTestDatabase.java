@@ -1,7 +1,7 @@
-package Tier3.Prototype;
+package Tier3.ProtoType;
 
-import Tier3.Prototype.DAOs.ProofOfConceptDAO.TestDatabaseController;
-import Tier3.Prototype.Networking.DataServerSocket;
+import Tier3.ProtoType.DAOs.ProofOfConceptDAO.TestDatabaseController;
+import Tier3.ProtoType.Networking.DataServerSocket;
 
 import java.io.IOException;
 
@@ -14,6 +14,7 @@ public class RunTestDatabase
 
 
 
+    // This stuff won't run since the the code above is stuck in a while true loop
     TestDatabaseController testDatabaseController = new TestDatabaseController();
     String message = "Hello!";
 
