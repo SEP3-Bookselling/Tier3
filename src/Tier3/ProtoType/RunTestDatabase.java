@@ -12,15 +12,5 @@ public class RunTestDatabase
     DataServerSocket dataServerSocket = new DataServerSocket();
     dataServerSocket.start();
 
-
-
-    // This stuff won't run since the the code above is stuck in a while true loop
-    TestDatabaseController testDatabaseController = new TestDatabaseController();
-    String message = "Hello!";
-
-    testDatabaseController.insertMessage(message);
-    //testDatabase.getAllMessages();
-
-    System.out.println(testDatabaseController.getAllMessages());
   }
 }

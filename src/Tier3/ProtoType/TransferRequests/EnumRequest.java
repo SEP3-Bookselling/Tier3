@@ -1,6 +1,6 @@
 package Tier3.ProtoType.TransferRequests;
 
-public enum RequestEnum
+public enum EnumRequest
 {
   recieveProofOfConcept,
   sendProofOfConcept

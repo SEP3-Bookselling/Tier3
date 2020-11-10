@@ -9,12 +9,12 @@ import com.google.gson.stream.JsonReader;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class DataServerSocketHandler implements Runnable
 {
   private Socket socket;
-  //private ObjectInputStream inputStream;
-  //private ObjectOutputStream outputStream;
+
   private InputStream inputStream;
   private OutputStream outputStream;
   private ITestDatabaseController controller; //TODO: May or may not work depending on the Interface injection stuff
@@ -28,9 +28,7 @@ public class DataServerSocketHandler implements Runnable
 
     try
     {
-      //inputStream = new ObjectInputStream(socket.getInputStream());
       inputStream = socket.getInputStream();
-      //outputStream = new ObjectOutputStream(socket.getOutputStream());
       outputStream = socket.getOutputStream();
 
 
@@ -44,33 +42,31 @@ public class DataServerSocketHandler implements Runnable
   @Override public void run()
   {
     // TODO: Make sure the GSON file is V_2.8.2
-    //while (true)
-    //{
+    while (true)
+    {
       byte[] byteArr = new byte[1024];
 
       try
       {
         int arrLength = inputStream.read(byteArr, 0, byteArr.length);
         String arrString = new String(byteArr, 0, arrLength);
-        //System.out.println(arrLength);
-
         Request request = gson.fromJson(arrString, Request.class);
 
-        switch (request.getRequestEnum())
+        switch (request.getEnumRequest())
         {
           case recieveProofOfConcept:
           {
-            // String could be BookSale, but remember that all tiers have the same domain Classes (books, booksale, user etc)
-            // String getMessage = gson.fromJson(request.getObject().toString(), String.class);
+            ArrayList<String> list = controller.getAllMessages();
+            StringBuffer sb = new StringBuffer();
 
-            // ArrayList<String> allMessages = controller.getAllMessages();
-            //String helloWorld = controller.getHelloWorld();
-            //String messagesGson = new Gson().toJson(helloWorld);
-            //String fromDatabase = new Gson().toJson(request.getStringToBeSend());
+            for (String s: list)
+            {
+              sb.append(s);
+              sb.append(" : ");
+            }
 
-            String fromDatabase = new Gson().toJson(controller.getHelloWorld());
-            byte[] array = fromDatabase.getBytes();
-            System.out.println(fromDatabase.toString());
+            String str = '"' + sb.toString() + '"';
+            byte[] array = str.getBytes();
             outputStream.write(array, 0, array.length);
 
             break;
@@ -78,11 +74,7 @@ public class DataServerSocketHandler implements Runnable
 
           case sendProofOfConcept:
           {
-            // IT WOOOOOOOORKS Den får dog en conncetion Reset på første forsøg?
-             //String putMessage = gson.toJson(request.getObject().toString(), String.class);
-            //String putMessage = gson.toJson(request.getStringToBeSend(), String.class);
-            //String putMessage = gson.fromJson(request.getStringToBeSend(), String.class);
-            JsonReader reader = new JsonReader(new StringReader(request.getStringToBeSend()));
+            JsonReader reader = new JsonReader(new StringReader(request.getHelloWorld()));
             reader.setLenient(true);
             String putMessage = gson.fromJson(reader, String.class);
             controller.insertMessage(putMessage);
@@ -96,7 +88,7 @@ public class DataServerSocketHandler implements Runnable
       {
         e.printStackTrace();
       }
-    //}
+    }
   }
 
 }

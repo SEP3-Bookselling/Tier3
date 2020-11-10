@@ -50,7 +50,7 @@ public class TestDatabaseController implements ITestDatabaseController
     {
       e.printStackTrace();
     }
-    return messages; //If shit doesn't work
+    return messages;
   }
 
   @Override public void insertMessage(String message)
@@ -89,7 +89,7 @@ public class TestDatabaseController implements ITestDatabaseController
     {
       e.printStackTrace();
     }
-    return null; //If shit doesn't work  }
+    return null;
   }
 
 }

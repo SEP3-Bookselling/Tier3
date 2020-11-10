@@ -4,28 +4,28 @@ import java.io.Serializable;
 
 public class Request implements Serializable
 {
-  private RequestEnum requestEnum;
-  private Object objectToBeSend;
-  private String stringToBeSend;
+  private EnumRequest EnumRequest;
+  private Object ob;
+  private String HelloWorld;
 
-  public RequestEnum getRequestEnum()
+  public EnumRequest getEnumRequest()
   {
-    return requestEnum;
+    return EnumRequest;
   }
 
-  public void setRequestEnum(RequestEnum requestEnum)
+  public void setEnumRequest(EnumRequest enumRequest)
   {
-    this.requestEnum = requestEnum;
+    this.EnumRequest = enumRequest;
   }
 
-  public Object getObjectToBeSend()
+  public Object getOb()
   {
-    return objectToBeSend;
+    return ob;
   }
 
-  public void setObjectToBeSend(Object objectToBeSend)
+  public void setOb(Object ob)
   {
-    this.objectToBeSend = objectToBeSend;
+    this.ob = ob;
   }
 
   @Override public String toString()
@@ -33,13 +33,13 @@ public class Request implements Serializable
     return null;
   }
 
-  public String getStringToBeSend()
+  public String getHelloWorld()
   {
-    return stringToBeSend;
+    return HelloWorld;
   }
 
-  public void setStringToBeSend(String stringToBeSend)
+  public void setHelloWorld(String helloWorld)
   {
-    this.stringToBeSend = stringToBeSend;
+    this.HelloWorld = helloWorld;
   }
 }
