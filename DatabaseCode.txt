@@ -8,8 +8,12 @@ create table Test(
 	day_time timestamp
 )
 
+drop table Test;
 
+insert into Test (test) values ('Hello world (ProofOfConcept)!');
+insert into Test(test) values('please work');
+insert into Test(test) values('pretty please work');
+insert into Test(test) values('please work pretty');
 
-insert into Test (test) values ('Hello world!');
 
 select test from test;
