@@ -105,12 +105,12 @@ public class BookSale
 
   public int getSellerID()
   {
-    return sellerID;
+    return customerID;
   }
 
   public void setSellerID(int sellerID)
   {
-    this.sellerID = sellerID;
+    this.customerID = sellerID;
   }
 
   private String title;
@@ -121,12 +121,13 @@ public class BookSale
   private String image;
   private double price;
   private boolean hardCopy;
-  private int sellerID;
+  private int customerID;
   private boolean available;
   private int ID;
-/*
+
   @Override public String toString()
   {
+    /*
     return "BookSale{" +
         "title='" + title + "'" +
         ", author='" + author + "'" +
@@ -139,7 +140,19 @@ public class BookSale
         ", user=" + user +
         ", available=" + available +
         ", ID=" + ID + "}";
-  } */
+        */
+    return "\"title\":" + "\"" + title + "\","
+        + "\"author\":" + "\"" + author + "\","
+        + "\"edition\":" + "\"" + edition + "\","
+        + "\"condition\":" + "\"" + condition + "\","
+        + "\"subject\":" + "\"" + subject + "\","
+        + "\"image\":" + "\"" + image + "\","
+        + "\"price\":" + "" + price + ","
+        + "\"hardCopy\":" + "\"" + hardCopy + "\","
+        + "\"customerID\":" + customerID + "\","
+        + "\"available\":" + "\"" + available + "\","
+        + "\"id\":" + "" + ID + ",";
+  }
 
 
 }
