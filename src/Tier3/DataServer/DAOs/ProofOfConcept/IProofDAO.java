@@ -1,8 +1,8 @@
-package Tier3.ProtoType.DAOs.ProofOfConceptDAO;
+package Tier3.DataServer.DAOs.ProofOfConcept;
 
 import java.util.ArrayList;
 
-public interface ITestDatabaseController
+public interface IProofDAO
 {
   ArrayList<String> getAllMessages();
   void insertMessage(String message);

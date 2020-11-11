@@ -1,4 +1,4 @@
-package Tier3.ProtoType.Networking;
+package Tier3.DataServer.Networking;
 
 import java.io.IOException;
 import java.net.ServerSocket;

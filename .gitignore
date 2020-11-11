@@ -106,4 +106,5 @@ fabric.properties
 /src/Tier3/Trash/
 #/src/Tier3/Prototype/
 /.idea/
-/src/Tier3/ProtoType/DAOs/ProofOfConceptDAO/PersonalLogin/LoginCredentials.java
+
+/src/Tier3/DataServer/DAOs/PersonalLogin/

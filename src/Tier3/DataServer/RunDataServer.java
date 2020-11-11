@@ -1,11 +1,10 @@
-package Tier3.ProtoType;
+package Tier3.DataServer;
 
-import Tier3.ProtoType.DAOs.ProofOfConceptDAO.TestDatabaseController;
-import Tier3.ProtoType.Networking.DataServerSocket;
+import Tier3.DataServer.Networking.DataServerSocket;
 
 import java.io.IOException;
 
-public class RunTestDatabase
+public class RunDataServer
 {
   public static void main(String[] args) throws IOException
   {

@@ -1,19 +1,67 @@
 create schema "thirdsemesterexam";
 set search_path to "thirdsemesterexam"
 
+/*Testing ProofOfConcept*/
 create domain d_Test varchar(30);
-
 create table Test(
 	test d_Test,
 	day_time timestamp
 )
-
 drop table Test;
-
-insert into Test (test) values ('Hello world (ProofOfConcept)!');
-insert into Test(test) values('please work');
-insert into Test(test) values('pretty please work');
-insert into Test(test) values('please work pretty');
-
-
 select test from test;
+
+/* Customer */
+create domain d_userName varchar(100);
+create domain d_password varchar(150);
+create domain d_customerID int;
+create domain d_location varchar(200);
+create domain d_firstName varchar(100);
+create domain d_lastName varchar(100);
+create domain d_email varchar(200);
+create domain d_phoneNumber int;
+create domain d_rating numeric;
+
+create table Customer(
+	username d_userName,
+	password d_password,
+	customerID d_customerID,
+	location d_location,
+	firstName d_firstName,
+	lastName d_lastName,
+	email d_email,
+	phoneNumber d_phoneNumber,
+	PRIMARY KEY (customerID)
+);
+
+/*Hardcoded Customer*/
+insert into Customer (userName, password, customerID, location, firstName, lastName, email, phoneNumber) values ('MagicalTermite','1234',1,'VIA','Markus','Lorensen','@fml.com',12345678);
+
+
+/* BookSale */
+create domain d_title varchar(200);
+create domain d_author varchar(200);
+create domain d_edition varchar(20);
+create domain d_condition varchar(20);
+create domain d_subject varchar(40);
+create domain d_image varchar(100);
+create domain d_price numeric;
+create domain d_hardCopy boolean;
+create domain d_bookSaleID int;
+create domain d_sellerID int;
+
+create table BookSale(
+	title d_title,
+	author d_author,
+	edition d_edition,
+	condition d_condition,
+	subject d_subject,
+	image d_image,
+	price d_price,
+	hardCopy d_hardCopy,
+	sellerID d_sellerID references Customer(customerID),
+	bookSaleID d_bookSaleID,
+	PRIMARY KEY (bookSaleID)
+);
+
+insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, sellerID, bookSaleID) values('TheLostPony','Anne Lindberg', '1st','New','ScienceFiction','INSERTIMAGEHERE',200.00,true,1,1);
+

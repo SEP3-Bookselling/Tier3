@@ -1,9 +1,11 @@
-package Tier3.ProtoType.Networking;
+package Tier3.DataServer.Networking;
 
-import Tier3.ProtoType.DAOs.ProofOfConceptDAO.ITestDatabaseController;
-import Tier3.ProtoType.DAOs.ProofOfConceptDAO.TestDatabaseController;
-import Tier3.ProtoType.TransferRequests.Request;
+import Tier3.DataServer.DAOs.BookSaleDAO.IBookSaleDAO;
+import Tier3.DataServer.DAOs.BookSaleDAO.BookSaleDAO;
+import Tier3.DataServer.DAOs.ProofOfConcept.ProofDAO;
+import Tier3.DataServer.TransferRequests.Request;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.stream.JsonReader;
 
@@ -17,21 +19,22 @@ public class DataServerSocketHandler implements Runnable
 
   private InputStream inputStream;
   private OutputStream outputStream;
-  private ITestDatabaseController controller; //TODO: May or may not work depending on the Interface injection stuff
+  //private IProofDAO controller; //TODO: May or may not work depending on the Interface injection stuff
   private Gson gson;
+  private IBookSaleDAO bookSaleDAO;
+
 
   public DataServerSocketHandler(Socket socket)
   {
     this.socket = socket;
     gson = new Gson();
-    controller = new TestDatabaseController();
+    //controller = new ProofDAO();
+    bookSaleDAO = new BookSaleDAO();
 
     try
     {
       inputStream = socket.getInputStream();
       outputStream = socket.getOutputStream();
-
-
     }
     catch (IOException e)
     {
@@ -39,6 +42,67 @@ public class DataServerSocketHandler implements Runnable
     }
   }
 
+  @Override public void run()
+  {
+    while (true)
+    {
+      byte[] inputFromTier2 = new byte[1024];
+      try
+      {
+        int arrLength = inputStream.read(inputFromTier2, 0, inputFromTier2.length);
+        String arrString = new String(inputFromTier2, 0, arrLength);
+        Request request = gson.fromJson(arrString, Request.class);
+
+        switch (request.getRequestEnum())
+        {
+          case CreateBookSale:
+            {
+              JsonReader reader = new JsonReader(new StringReader(request.getBookSale().toString()));
+              reader.setLenient(true);
+              String putMessage = gson.fromJson(reader, String.class);
+              //bookSaleDAO.createBookSale(putMessage);
+              break;
+            }
+        }
+
+      }
+      catch (Exception e)
+      {
+        e.printStackTrace();
+      }
+
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /*
   @Override public void run()
   {
     // TODO: Make sure the GSON file is V_2.8.2
@@ -90,5 +154,5 @@ public class DataServerSocketHandler implements Runnable
       }
     }
   }
-
+*/
 }

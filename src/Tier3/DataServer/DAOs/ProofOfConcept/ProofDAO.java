@@ -1,14 +1,15 @@
-package Tier3.ProtoType.DAOs.ProofOfConceptDAO;
+package Tier3.DataServer.DAOs.ProofOfConcept;
 
-import Tier3.ProtoType.Networking.DataServerSocket;
+
+
+import Tier3.DataServer.DAOs.PersonalLogin.LoginCredentials;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-public class TestDatabaseController implements ITestDatabaseController
+public class ProofDAO implements IProofDAO
 {
-  private String username = "postgres";
-  private String password = "ybf56qka";
+  private LoginCredentials login = new LoginCredentials();
 
   // Dummy string
   //private String dummyString = "Hello world!";
@@ -19,7 +20,7 @@ public class TestDatabaseController implements ITestDatabaseController
     Statement statement = null;
     try
     {
-      return connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres?currentSchema=thirdsemesterexam", username, password);
+      return connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres?currentSchema=thirdsemesterexam", login.getUsername(), login.getPassword());
     }
     catch (Exception e)
     {
@@ -93,3 +94,4 @@ public class TestDatabaseController implements ITestDatabaseController
   }
 
 }
+
