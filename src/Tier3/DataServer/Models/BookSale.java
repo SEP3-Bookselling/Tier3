@@ -82,15 +82,6 @@ public class BookSale
     this.hardCopy = hardCopy;
   }
 
-  public User getUser()
-  {
-    return user;
-  }
-
-  public void setUser(User user)
-  {
-    this.user = user;
-  }
 
   public int getID()
   {
@@ -102,6 +93,26 @@ public class BookSale
     this.ID = ID;
   }
 
+  public boolean isAvailable()
+  {
+    return available;
+  }
+
+  public void setAvailable(boolean available)
+  {
+    this.available = available;
+  }
+
+  public int getSellerID()
+  {
+    return sellerID;
+  }
+
+  public void setSellerID(int sellerID)
+  {
+    this.sellerID = sellerID;
+  }
+
   private String title;
   private String author;
   private String edition;
@@ -110,9 +121,10 @@ public class BookSale
   private String image;
   private double price;
   private boolean hardCopy;
-  private User user;
+  private int sellerID;
+  private boolean available;
   private int ID;
-
+/*
   @Override public String toString()
   {
     return "BookSale{" +
@@ -124,8 +136,10 @@ public class BookSale
         ", image='" + image + "'" +
         ", price=" + price +
         ", hardCopy=" + hardCopy +
-        ", user=" + user.getId() +
+        ", user=" + user +
+        ", available=" + available +
         ", ID=" + ID + "}";
+  } */
 
-  }
+
 }

@@ -5,20 +5,20 @@ import Tier3.DataServer.Models.*;
 
 public class Request implements Serializable
 {
-  private EnumRequest RequestEnum;
+  private EnumRequest EnumRequest;
 
   private BookSale BookSale;
   private User User;
   private Card Card;
 
-  public EnumRequest getRequestEnum()
+  public EnumRequest getEnumRequest()
   {
-    return RequestEnum;
+    return EnumRequest;
   }
 
-  public void setRequestEnum(EnumRequest requestEnum)
+  public void setEnumRequest(EnumRequest enumRequest)
   {
-    RequestEnum = requestEnum;
+    EnumRequest = enumRequest;
   }
 
   public Tier3.DataServer.Models.BookSale getBookSale()
@@ -51,6 +51,10 @@ public class Request implements Serializable
     Card = card;
   }
 
+  // Prototype
+
+  private String HelloWorld;
+
   public String getHelloWorld()
   {
     return HelloWorld;
@@ -61,6 +65,5 @@ public class Request implements Serializable
     HelloWorld = helloWorld;
   }
 
-  // Prototype
-  public String HelloWorld;
+
 }

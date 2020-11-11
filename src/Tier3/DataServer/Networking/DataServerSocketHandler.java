@@ -2,16 +2,15 @@ package Tier3.DataServer.Networking;
 
 import Tier3.DataServer.DAOs.BookSaleDAO.IBookSaleDAO;
 import Tier3.DataServer.DAOs.BookSaleDAO.BookSaleDAO;
+import Tier3.DataServer.DAOs.ProofOfConcept.IProofDAO;
 import Tier3.DataServer.DAOs.ProofOfConcept.ProofDAO;
+import Tier3.DataServer.Models.BookSale;
 import Tier3.DataServer.TransferRequests.Request;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonSyntaxException;
 import com.google.gson.stream.JsonReader;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.ArrayList;
 
 public class DataServerSocketHandler implements Runnable
 {
@@ -19,7 +18,7 @@ public class DataServerSocketHandler implements Runnable
 
   private InputStream inputStream;
   private OutputStream outputStream;
-  //private IProofDAO controller; //TODO: May or may not work depending on the Interface injection stuff
+  private IProofDAO testController; //TODO: May or may not work depending on the Interface injection stuff
   private Gson gson;
   private IBookSaleDAO bookSaleDAO;
 
@@ -30,6 +29,7 @@ public class DataServerSocketHandler implements Runnable
     gson = new Gson();
     //controller = new ProofDAO();
     bookSaleDAO = new BookSaleDAO();
+    testController = new ProofDAO();
 
     try
     {
@@ -44,8 +44,8 @@ public class DataServerSocketHandler implements Runnable
 
   @Override public void run()
   {
-    while (true)
-    {
+    //while (true)
+    //{
       byte[] inputFromTier2 = new byte[1024];
       try
       {
@@ -53,14 +53,27 @@ public class DataServerSocketHandler implements Runnable
         String arrString = new String(inputFromTier2, 0, arrLength);
         Request request = gson.fromJson(arrString, Request.class);
 
-        switch (request.getRequestEnum())
+        switch (request.getEnumRequest())
         {
           case CreateBookSale:
             {
               JsonReader reader = new JsonReader(new StringReader(request.getBookSale().toString()));
               reader.setLenient(true);
+              String message = request.getBookSale().toString();
+              System.out.println(message);
+
+              BookSale bookSale = new Gson().fromJson(message, BookSale.class);
+
+              bookSaleDAO.createBookSale(bookSale);
+              break;
+
+            }
+          case sendProofOfConcept:
+            {
+              JsonReader reader = new JsonReader(new StringReader(request.getHelloWorld()));
+              reader.setLenient(true);
               String putMessage = gson.fromJson(reader, String.class);
-              //bookSaleDAO.createBookSale(putMessage);
+              testController.insertMessage(putMessage);
               break;
             }
         }
@@ -71,7 +84,7 @@ public class DataServerSocketHandler implements Runnable
         e.printStackTrace();
       }
 
-    }
+    //}
   }
 
 

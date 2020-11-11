@@ -42,8 +42,9 @@ public class BookSaleDAO implements IBookSaleDAO
 
     try
     {
-      PreparedStatement insertBookSaleData = connection.prepareStatement("insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, sellerID, bookSaleID) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+      PreparedStatement insertBookSaleData = connection.prepareStatement("insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, sellerID, bookSaleID, available) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
+      // Might be getString? Check up on that
       insertBookSaleData.setString(1, bookSale.getTitle());
       insertBookSaleData.setString(2, bookSale.getAuthor());
       insertBookSaleData.setString(3, bookSale.getEdition());
@@ -52,8 +53,9 @@ public class BookSaleDAO implements IBookSaleDAO
       insertBookSaleData.setString(6, bookSale.getImage());
       insertBookSaleData.setDouble(7,bookSale.getPrice());
       insertBookSaleData.setBoolean(8,bookSale.isHardCopy());
-      insertBookSaleData.setInt(9,bookSale.getUser().getId());
+      insertBookSaleData.setInt(9,bookSale.getSellerID());
       insertBookSaleData.setInt(10,bookSale.getID());
+      insertBookSaleData.setBoolean(11, bookSale.isAvailable());
 
       insertBookSaleData.executeUpdate();
 

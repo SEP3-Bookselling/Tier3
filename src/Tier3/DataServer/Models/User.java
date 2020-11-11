@@ -28,6 +28,7 @@ public class User
 
   public int getId()
   {
+    Id = 1;
     return Id;
   }
 
