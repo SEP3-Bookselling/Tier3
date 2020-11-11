@@ -83,14 +83,14 @@ public class BookSale
   }
 
 
-  public int getID()
+  public int getId()
   {
-    return ID;
+    return id;
   }
 
-  public void setID(int ID)
+  public void setId(int id)
   {
-    this.ID = ID;
+    this.id = id;
   }
 
   public boolean isAvailable()
@@ -123,7 +123,7 @@ public class BookSale
   private boolean hardCopy;
   private int customerID;
   private boolean available;
-  private int ID;
+  private int id;
 
   @Override public String toString()
   {
@@ -141,7 +141,10 @@ public class BookSale
         ", available=" + available +
         ", ID=" + ID + "}";
         */
-    return "\"title\":" + "\"" + title + "\","
+
+    /*
+    return "{"
+        + "\"title\":" + "\"" + title + "\","
         + "\"author\":" + "\"" + author + "\","
         + "\"edition\":" + "\"" + edition + "\","
         + "\"condition\":" + "\"" + condition + "\","
@@ -149,9 +152,12 @@ public class BookSale
         + "\"image\":" + "\"" + image + "\","
         + "\"price\":" + "" + price + ","
         + "\"hardCopy\":" + "\"" + hardCopy + "\","
-        + "\"customerID\":" + customerID + "\","
+        + "\"customerID\":" + customerID + ","
         + "\"available\":" + "\"" + available + "\","
-        + "\"id\":" + "" + ID + ",";
+        + "\"id\":" + "" + id
+        + "}";
+        */
+     return "" + title + author + edition + condition + subject + image + price + hardCopy + customerID + available + id;
   }
 
 

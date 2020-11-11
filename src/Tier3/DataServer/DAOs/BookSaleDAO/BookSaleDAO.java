@@ -54,7 +54,7 @@ public class BookSaleDAO implements IBookSaleDAO
       insertBookSaleData.setDouble(7,bookSale.getPrice());
       insertBookSaleData.setBoolean(8,bookSale.isHardCopy());
       insertBookSaleData.setInt(9,bookSale.getSellerID());
-      insertBookSaleData.setInt(10,bookSale.getID());
+      insertBookSaleData.setInt(10,bookSale.getId());
       insertBookSaleData.setBoolean(11, bookSale.isAvailable());
 
       insertBookSaleData.executeUpdate();

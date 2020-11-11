@@ -65,6 +65,7 @@ public class DataServerSocketHandler implements Runnable
               BookSale bookSale = new Gson().fromJson(message, BookSale.class);
 
               bookSaleDAO.createBookSale(bookSale);
+              System.out.println(bookSale.toString());
               break;
 
             }
