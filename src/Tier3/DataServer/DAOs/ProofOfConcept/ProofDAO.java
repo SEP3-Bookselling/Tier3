@@ -20,12 +20,13 @@ public class ProofDAO implements IProofDAO
     Statement statement = null;
     try
     {
-      return connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres?currentSchema=thirdsemesterexam", login.getUsername(), login.getPassword());
+      return connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres?currentSchema=thirdsemesterexam", LoginCredentials.username, LoginCredentials.password);
     }
     catch (Exception e)
     {
       e.printStackTrace();
     }
+
     return null;
   }
 

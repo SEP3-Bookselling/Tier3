@@ -142,7 +142,7 @@ public class BookSale
         ", ID=" + ID + "}";
         */
 
-    /*
+
     return "{"
         + "\"title\":" + "\"" + title + "\","
         + "\"author\":" + "\"" + author + "\","
@@ -156,8 +156,7 @@ public class BookSale
         + "\"available\":" + "\"" + available + "\","
         + "\"id\":" + "" + id
         + "}";
-        */
-     return "" + title + author + edition + condition + subject + image + price + hardCopy + customerID + available + id;
+
   }
 
 

@@ -9,20 +9,21 @@ import java.util.ArrayList;
 
 public class BookSaleDAO implements IBookSaleDAO
 {
-  private LoginCredentials login;
 
   public Connection getConnectionToDB()
   {
     Connection connection = null;
     Statement statement = null;
+
     try
     {
-      return connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres?currentSchema=thirdsemesterexam", login.getUsername(), login.getPassword());
+      return connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres?currentSchema=thirdsemesterexam", LoginCredentials.username, LoginCredentials.password);
     }
-    catch (Exception e)
+    catch (SQLException e)
     {
       e.printStackTrace();
     }
+
     return null;
   }
 
