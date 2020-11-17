@@ -7,6 +7,7 @@ public enum EnumRequest
   CreateUser,
 
   // Getting from database
+  GetAllBookSales,
   GetBookSale,
   GetUser,
   GetCard,

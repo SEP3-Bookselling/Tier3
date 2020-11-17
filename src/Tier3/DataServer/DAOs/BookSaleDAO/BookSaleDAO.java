@@ -27,9 +27,43 @@ public class BookSaleDAO implements IBookSaleDAO
     return null;
   }
 
-  @Override public ArrayList<BookSale> getAllBookSales()
+  @Override public String getAllBookSales()
   {
-    return null;
+    Connection connection = getConnectionToDB();
+
+    ArrayList<String> bookSaleList = new ArrayList<>();
+    String list = "";
+    String result = "";
+    try
+    {
+      PreparedStatement statement = connection.prepareStatement("select * from BookSale");
+
+      ResultSet resultSet = statement.executeQuery();
+
+      while (resultSet.next())
+      {
+      list += "{"
+          + "\"title\":" + "\"" + resultSet.getString(1) + "\","
+          + "\"author\":" + "\"" + resultSet.getString(2) + "\","
+          + "\"edition\":" + "\"" + resultSet.getString(3) + "\","
+          + "\"condition\":" + "\"" + resultSet.getString(4) + "\","
+          + "\"subject\":" + "\"" + resultSet.getString(5) + "\","
+          + "\"image\":" + "\"" + resultSet.getString(6) + "\","
+          + "\"price\":" + "" + resultSet.getDouble(7) + ","
+          + "\"hardCopy\":" + "\"" + resultSet.getBoolean(8) + "\","
+          + "\"customerID\":" + resultSet.getInt(9) + ","
+          + "\"available\":" + "\"" + resultSet.getBoolean(10) + "\","
+          + "\"id\":" + "" + resultSet.getInt(11)
+          + "},";
+      }
+      result = list.replaceFirst(".$" , "");
+
+    }
+    catch (SQLException e)
+    {
+      e.printStackTrace();
+    }
+    return result;
   }
 
   @Override public BookSale getBookSale()

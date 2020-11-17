@@ -68,8 +68,22 @@ public class DataServerSocketHandler implements Runnable
               bookSaleDAO.createBookSale(bookSale);
               System.out.println(bookSale.toString());
               break;
-
             }
+
+          case GetAllBookSales:
+          {
+            String bookSales = bookSaleDAO.getAllBookSales();
+            System.out.println(bookSales);
+            byte[] array = bookSales.getBytes();
+            outputStream.write(array, 0, array.length);
+          }
+
+          case GetBookSale:
+          {
+
+          }
+
+          /*
           case sendProofOfConcept:
             {
               JsonReader reader = new JsonReader(new StringReader(request.getHelloWorld()));
@@ -78,6 +92,8 @@ public class DataServerSocketHandler implements Runnable
               testController.insertMessage(putMessage);
               break;
             }
+            */
+
         }
 
       }

@@ -47,7 +47,7 @@ create domain d_image varchar(100);
 create domain d_price numeric;
 create domain d_hardCopy boolean;
 create domain d_bookSaleID int;
-create domain d_sellerID int;
+create domain customerID int;
 create domain d_available boolean;
 
 create table BookSale(
@@ -59,14 +59,20 @@ create table BookSale(
 	image d_image,
 	price d_price,
 	hardCopy d_hardCopy,
-	sellerID d_sellerID references Customer(customerID),
-	bookSaleID d_bookSaleID,
+	customerID d_customerID references Customer(customerID),
 	available d_available,
+	bookSaleID d_bookSaleID,
 	PRIMARY KEY (bookSaleID)
 );
 select * from BookSale;
 drop table BookSale
 
 /*Hardcoded BookSale*/
-insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, sellerID, bookSaleID, available) values('TheLostPony','Anne Lindberg', '1st','New','ScienceFiction','INSERTIMAGEHERE',200.00,true,1,1, true);
+insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, customerID, available, bookSaleID) values('TheLostPony','Anne Lindberg', '1st','New','Fantasy','INSERTIMAGEHERE',200.00,true,1,true, 10);
+insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, customerID, available, bookSaleID) values('TheSmallMermaid','GustaveDoppelganger', '1st','New','Novel','INSERTIMAGEHERE',200.00,true,1,true, 11);
+
+/*Dont add, they have whitespace*/
+insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, customerID, available, bookSaleID) values('The triangle','Io', '2nd','Used','Math','INSERTIMAGEHERE',200.00,true,1,false, 12);
+insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, customerID, available, bookSaleID) values('Is math related to physics?','Stein sten', '3rd','Good','Physiscs','INSERTIMAGEHERE',200.00,true,1,true, 13);
+insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, customerID, available, bookSaleID) values('Some art stuff','Michael Angelo', '1st','Brand new','Idunno','INSERTIMAGEHERE',200.00,true,1,false, 14);
 
