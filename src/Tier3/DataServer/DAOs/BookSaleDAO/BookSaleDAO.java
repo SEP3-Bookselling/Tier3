@@ -49,15 +49,15 @@ public class BookSaleDAO implements IBookSaleDAO
           + "\"condition\":" + "\"" + resultSet.getString(4) + "\","
           + "\"subject\":" + "\"" + resultSet.getString(5) + "\","
           + "\"image\":" + "\"" + resultSet.getString(6) + "\","
-          + "\"price\":" + "" + resultSet.getDouble(7) + ","
-          + "\"hardCopy\":" + "\"" + resultSet.getBoolean(8) + "\","
+          + "\"price\":" + resultSet.getDouble(7) + ","
+          + "\"hardCopy\":"  + resultSet.getBoolean(8) + ","
           + "\"customerID\":" + resultSet.getInt(9) + ","
-          + "\"available\":" + "\"" + resultSet.getBoolean(10) + "\","
+          + "\"available\":" + resultSet.getBoolean(10) + ","
           + "\"id\":" + "" + resultSet.getInt(11)
           + "},";
       }
       result = list.replaceFirst(".$" , "");
-
+      result = "[" + result + "]";
     }
     catch (SQLException e)
     {

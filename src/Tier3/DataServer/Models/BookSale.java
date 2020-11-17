@@ -150,12 +150,13 @@ public class BookSale
         + "\"condition\":" + "\"" + condition + "\","
         + "\"subject\":" + "\"" + subject + "\","
         + "\"image\":" + "\"" + image + "\","
-        + "\"price\":" + "" + price + ","
-        + "\"hardCopy\":" + "\"" + hardCopy + "\","
+        + "\"price\":" + price + ","
+        + "\"hardCopy\":"  + hardCopy + ","
         + "\"customerID\":" + customerID + ","
-        + "\"available\":" + "\"" + available + "\","
+        + "\"available\":"  + available + ","
         + "\"id\":" + "" + id
         + "}";
+
 
   }
 

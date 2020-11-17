@@ -73,7 +73,7 @@ public class DataServerSocketHandler implements Runnable
           case GetAllBookSales:
           {
             String bookSales = bookSaleDAO.getAllBookSales();
-            System.out.println(bookSales);
+            //System.out.println(bookSales);
             byte[] array = bookSales.getBytes();
             outputStream.write(array, 0, array.length);
           }
