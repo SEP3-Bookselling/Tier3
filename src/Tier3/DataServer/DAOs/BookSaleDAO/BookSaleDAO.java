@@ -51,9 +51,8 @@ public class BookSaleDAO implements IBookSaleDAO
           + "\"image\":" + "\"" + resultSet.getString(6) + "\","
           + "\"price\":" + resultSet.getDouble(7) + ","
           + "\"hardCopy\":"  + resultSet.getBoolean(8) + ","
-          + "\"customerID\":" + resultSet.getInt(9) + ","
-          + "\"available\":" + resultSet.getBoolean(10) + ","
-          + "\"id\":" + "" + resultSet.getInt(11)
+          + "\"username\":" + resultSet.getString(9) + ","
+          + "\"bookId\":" + "" + resultSet.getInt(10)
           + "},";
       }
       result = list.replaceFirst(".$" , "");
@@ -77,7 +76,7 @@ public class BookSaleDAO implements IBookSaleDAO
 
     try
     {
-      PreparedStatement insertBookSaleData = connection.prepareStatement("insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, sellerID, bookSaleID, available) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+      PreparedStatement insertBookSaleData = connection.prepareStatement("insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, username, bookSaleID) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
 
       // Might be getString? Check up on that
       insertBookSaleData.setString(1, bookSale.getTitle());
