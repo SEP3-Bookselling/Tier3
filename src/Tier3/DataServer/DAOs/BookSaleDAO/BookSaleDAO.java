@@ -53,6 +53,7 @@ public class BookSaleDAO implements IBookSaleDAO
         bookSale.setBookSaleID(resultSet.getInt(10));
 
         bookSaleList.add(bookSale);
+
       }
     }
     catch (SQLException e)
