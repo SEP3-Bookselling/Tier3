@@ -27,6 +27,79 @@ public class BookSaleDAO implements IBookSaleDAO
     return null;
   }
 
+  @Override public ArrayList<BookSale> getAllBookSales()
+  {
+    Connection connection = getConnectionToDB();
+    ArrayList<BookSale> bookSaleList = new ArrayList<>();
+
+    try
+    {
+      PreparedStatement statement = connection.prepareStatement("select * from BookSale");
+
+      ResultSet resultSet = statement.executeQuery();
+
+      while (resultSet.next())
+      {
+        BookSale bookSale = new BookSale();
+        bookSale.setTitle(resultSet.getString(1));
+        bookSale.setAuthor(resultSet.getString(2));
+        bookSale.setEdition(resultSet.getString(3));
+        bookSale.setCondition(resultSet.getString(4));
+        bookSale.setSubject(resultSet.getString(5));
+        bookSale.setImage(resultSet.getString(6));
+        bookSale.setPrice(resultSet.getDouble(7));
+        bookSale.setHardCopy(resultSet.getBoolean(8));
+        bookSale.setUsername(resultSet.getString(9));
+        bookSale.setBookSaleID(resultSet.getInt(10));
+
+        bookSaleList.add(bookSale);
+      }
+    }
+    catch (SQLException e)
+    {
+      e.printStackTrace();
+    }
+
+    return bookSaleList;
+  }
+
+  @Override public BookSale getBookSale()
+  {
+    return null;
+  }
+
+  @Override public void createBookSale(BookSale bookSale)
+  {
+    Connection connection = getConnectionToDB();
+
+    try
+    {
+      PreparedStatement insertBookSaleData = connection.prepareStatement("insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, username, bookSaleID) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+
+      // Might be getString? Check up on that
+      insertBookSaleData.setString(1, bookSale.getTitle());
+      insertBookSaleData.setString(2, bookSale.getAuthor());
+      insertBookSaleData.setString(3, bookSale.getEdition());
+      insertBookSaleData.setString(4, bookSale.getCondition());
+      insertBookSaleData.setString(5, bookSale.getSubject());
+      insertBookSaleData.setString(6, bookSale.getImage());
+      insertBookSaleData.setDouble(7,bookSale.getPrice());
+      insertBookSaleData.setBoolean(8,bookSale.isHardCopy());
+      insertBookSaleData.setString(9,bookSale.getUsername());
+      insertBookSaleData.setInt(10,bookSale.getBookSaleID());
+
+      insertBookSaleData.executeUpdate();
+
+    }
+    catch (SQLException e)
+    {
+      e.printStackTrace();
+    }
+  }
+}
+
+
+/*
   @Override public String getAllBookSales()
   {
     Connection connection = getConnectionToDB();
@@ -52,7 +125,7 @@ public class BookSaleDAO implements IBookSaleDAO
           + "\"price\":" + resultSet.getDouble(7) + ","
           + "\"hardCopy\":"  + resultSet.getBoolean(8) + ","
           + "\"customerID\":" + resultSet.getInt(9) + ","
-          + "\"available\":" + resultSet.getBoolean(10) + ","
+          + "\"isAvailable\":" + resultSet.getBoolean(10) + ","
           + "\"id\":" + "" + resultSet.getInt(11)
           + "},";
       }
@@ -65,39 +138,23 @@ public class BookSaleDAO implements IBookSaleDAO
     }
     return result;
   }
+*/
 
-  @Override public BookSale getBookSale()
-  {
-    return null;
-  }
-
-  @Override public void createBookSale(BookSale bookSale)
-  {
-    Connection connection = getConnectionToDB();
-
-    try
-    {
-      PreparedStatement insertBookSaleData = connection.prepareStatement("insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, sellerID, bookSaleID, available) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-
-      // Might be getString? Check up on that
-      insertBookSaleData.setString(1, bookSale.getTitle());
-      insertBookSaleData.setString(2, bookSale.getAuthor());
-      insertBookSaleData.setString(3, bookSale.getEdition());
-      insertBookSaleData.setString(4, bookSale.getCondition());
-      insertBookSaleData.setString(5, bookSale.getSubject());
-      insertBookSaleData.setString(6, bookSale.getImage());
-      insertBookSaleData.setDouble(7,bookSale.getPrice());
-      insertBookSaleData.setBoolean(8,bookSale.isHardCopy());
-      insertBookSaleData.setInt(9,bookSale.getSellerID());
-      insertBookSaleData.setInt(10,bookSale.getId());
-      insertBookSaleData.setBoolean(11, bookSale.isAvailable());
-
-      insertBookSaleData.executeUpdate();
-
-    }
-    catch (SQLException e)
-    {
-      e.printStackTrace();
-    }
-  }
-}
+/*
+      list += "{"
+          + "\"title\":" + "\"" + resultSet.getString(1) + "\","
+          + "\"author\":" + "\"" + resultSet.getString(2) + "\","
+          + "\"edition\":" + "\"" + resultSet.getString(3) + "\","
+          + "\"condition\":" + "\"" + resultSet.getString(4) + "\","
+          + "\"subject\":" + "\"" + resultSet.getString(5) + "\","
+          + "\"image\":" + "\"" + resultSet.getString(6) + "\","
+          + "\"price\":" + resultSet.getDouble(7) + ","
+          + "\"hardCopy\":"  + resultSet.getBoolean(8) + ","
+          + "\"customerID\":" + resultSet.getInt(9) + ","
+          + "\"isAvailable\":" + resultSet.getBoolean(10) + ","
+          + "\"id\":" + "" + resultSet.getInt(11)
+          + "},";
+      }
+      result = list.replaceFirst(".$" , "");
+      result = "[" + result + "]";
+      */

@@ -10,6 +10,5 @@ public class RunDataServer
   {
     DataServerSocket dataServerSocket = new DataServerSocket();
     dataServerSocket.start();
-
   }
 }

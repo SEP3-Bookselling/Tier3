@@ -7,9 +7,9 @@ import java.util.ArrayList;
 
 public interface IBookSaleDAO
 {
-  //ArrayList<BookSale> getAllBookSales();
+  ArrayList<BookSale> getAllBookSales();
   //ArrayList<String> getAllBookSales();
-  String getAllBookSales();
+  //String getAllBookSales();
   BookSale getBookSale();
   void createBookSale(BookSale bookSale) throws SQLException;
 

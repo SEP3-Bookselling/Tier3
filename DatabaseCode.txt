@@ -1,78 +1,135 @@
 create schema "thirdsemesterexam";
 set search_path to "thirdsemesterexam"
 
-/*Testing ProofOfConcept*/
-create domain d_Test varchar(30);
-create table Test(
-	test d_Test,
-	day_time timestamp
-)
-drop table Test;
-select test from test;
+
+/* User */
+create domain d_username varchar(256);
+create domain d_password varchar(256);
+create domain d_role varchar(10);
+
+create table Users(
+	username d_username,
+	password d_password NOT NULL,
+	role d_role NOT NULL,
+	PRIMARY KEY (username)
+);
+
+select * from Users;
+drop table Users;
 
 /* Customer */
-create domain d_userName varchar(100);
-create domain d_password varchar(150);
-create domain d_customerID int;
-create domain d_location varchar(200);
-create domain d_firstName varchar(100);
-create domain d_lastName varchar(100);
-create domain d_email varchar(200);
-create domain d_phoneNumber int;
-create domain d_rating numeric;
+create domain d_address varchar(256);
+create domain d_postcode char(4);
+create domain d_firstName varchar(256);
+create domain d_lastName varchar(256);
+create domain d_email varchar(256);
+create domain d_phoneNumber varchar(15);
+create domain d_rating varchar(5);
 
 create table Customer(
-	username d_userName,
-	password d_password,
-	customerID d_customerID,
-	location d_location,
-	firstName d_firstName,
-	lastName d_lastName,
-	email d_email,
-	phoneNumber d_phoneNumber,
-	PRIMARY KEY (customerID)
+	username d_username,
+	address d_address NOT NULL,
+	postcode d_postcode NOT NULL,
+	firstName d_firstName NOT NULL,
+	lastName d_lastName NOT NULL,
+	email d_email NOT NULL,
+	phoneNumber d_phoneNumber NOT NULL,
+	rating d_rating,
+	PRIMARY KEY (username),
+	FOREIGN KEY (username) references Users(username)
 );
+
+select * from Customer
 drop table Customer
 
-/*Hardcoded Customer*/
-insert into Customer (userName, password, customerID, location, firstName, lastName, email, phoneNumber) values ('MagicalTermite','1234',1,'VIA','Markus','Lorensen','@fml.com',12345678);
+/* Moderator */
+create table Moderator(
+	username d_username,
+	primary key(username),
+	foreign key(username) references Users(username)
+);
+
+select * from Moderator
+drop table Moderator
+
+
+/*  Administrator */
+create table Administrator(
+	username d_username,
+	primary key(username),
+	foreign key(username) references Users(username)
+);
+
+select * from Administrator
+drop table Administrator
 
 /* BookSale */
-create domain d_title varchar(200);
-create domain d_author varchar(200);
-create domain d_edition varchar(20);
-create domain d_condition varchar(20);
-create domain d_subject varchar(40);
-create domain d_image varchar(100);
-create domain d_price numeric;
-create domain d_hardCopy boolean;
+create domain d_title varchar(256);
+create domain d_author varchar(256);
+create domain d_edition varchar(30);
+create domain d_condition varchar(10);
+create domain d_subject varchar(50);
+create domain d_image varchar(256);
+create domain d_price decimal(10, 2);
+create domain d_hardCopy varchar(5);
 create domain d_bookSaleID int;
-create domain customerID int;
-create domain d_available boolean;
+create domain d_saleId int;
 
 create table BookSale(
-	title d_title,
-	author d_author,
-	edition d_edition,
-	condition d_condition,
-	subject d_subject,
-	image d_image,
-	price d_price,
-	hardCopy d_hardCopy,
-	customerID d_customerID references Customer(customerID),
-	available d_available,
+	title d_title NOT NULL,
+	author d_author NOT NULL,
+	edition d_edition NOT NULL,
+	condition d_condition NOT NULL,
+	subject d_subject NOT NULL,
+	image d_image NOT NULL,
+	price d_price NOT NULL,
+	hardCopy d_hardCopy NOT NULL,
+	username d_username NOT NULL,
+	foreign key(username) references Users(username),
 	bookSaleID d_bookSaleID,
 	PRIMARY KEY (bookSaleID)
 );
+
 select * from BookSale;
 drop table BookSale
 
-/*Hardcoded BookSale*/
-insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, customerID, available, bookSaleID) values('TheLostPony','Anne Lindberg', '1st','New','Fantasy','INSERTIMAGEHERE',200.00,true,1,true, 10);
-insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, customerID, available, bookSaleID) values('TheSmallMermaid','GustaveDoppelganger', '1st','New','Novel','INSERTIMAGEHERE',200.00,true,1,true, 11);
+/*  Wishlist */
+create table Wishlist(
+	bookSaleId d_bookSaleId,
+	username d_username NOT NULL,
+	primary key (bookSaleId),
+	foreign key(bookSaleId) references BookSale(bookSaleId),
+	foreign key(username) references Users(username)
+);
 
-/*Dont add, they have whitespace*/
-insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, customerID, available, bookSaleID) values('The triangle','Io', '2nd','Used','Math','INSERTIMAGEHERE',200.00,true,1,false, 12);
-insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, customerID, available, bookSaleID) values('Is math related to physics?','Stein sten', '3rd','Good','Physiscs','INSERTIMAGEHERE',200.00,true,1,true, 13);
-insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, customerID, available, bookSaleID) values('Some art stuff','Michael Angelo', '1st','Brand new','Idunno','INSERTIMAGEHERE',200.00,true,1,false, 14);
+select * from Wishlist
+drop table Wishlist
+
+/* Hardcoded User */
+select * from Users
+insert into Users (username, password, role) values ('Magic Fish', '1234', 'Customer');
+insert into Users (username, password, role) values ('Magic Moderator', '4321', 'Moderator');
+insert into Users (username, password, role) values ('Magic Administrator', '3421', 'Admin');
+
+
+/* Hardcoded Customer */
+select * from Customer
+insert into Customer (userName, address, postcode, firstName, lastName, email, phoneNumber, rating) values ('Magic Fish', 'Fish Town 18', '8700', 'Fish', 'Man', 'Fish@Fishmail.com', 12345678, 5);
+
+/* Hardcoded Moderator */
+select * from Moderator
+insert into Moderator (userName) values ('Magic Moderator');
+
+/* Hardcoded Adminstrator */
+select * from Administrator
+insert into Administrator (userName) values ('Magic Administrator');
+
+
+/* Hardcoded BookSale */
+select * from BookSale
+insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, username, bookSaleId) values('Fish Book', 'Sonny Fish Man', 'First', 'Mint', 'Fish', 'Fish Path', 80000, 'True', 'Magic Fish', 0001);
+
+/* Hardcoded Wishlist */
+select * from Wishlist
+insert into Wishlist(booksaleId, username) values(0001, 'Magic Fish');
 

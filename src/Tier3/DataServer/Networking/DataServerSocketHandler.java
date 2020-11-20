@@ -11,6 +11,7 @@ import com.google.gson.stream.JsonReader;
 
 import java.io.*;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class DataServerSocketHandler implements Runnable
 {
@@ -51,6 +52,8 @@ public class DataServerSocketHandler implements Runnable
       {
         int arrLength = inputStream.read(inputFromTier2, 0, inputFromTier2.length);
         String arrString = new String(inputFromTier2, 0, arrLength);
+        //JsonReader enumReader = new JsonReader(new StringReader(arrString));
+        //enumReader.setLenient(true);
         Request request = gson.fromJson(arrString, Request.class);
 
         switch (request.getEnumRequest())
@@ -72,9 +75,12 @@ public class DataServerSocketHandler implements Runnable
 
           case GetAllBookSales:
           {
-            String bookSales = bookSaleDAO.getAllBookSales();
-            //System.out.println(bookSales);
-            byte[] array = bookSales.getBytes();
+            ArrayList<BookSale> bookSales = bookSaleDAO.getAllBookSales();
+            System.out.println("SocketHandler \t:" + bookSales);
+
+            String jsonString = new Gson().toJson(bookSales);
+
+            byte[] array = jsonString.getBytes();
             outputStream.write(array, 0, array.length);
           }
 

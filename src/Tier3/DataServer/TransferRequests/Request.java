@@ -1,6 +1,8 @@
 package Tier3.DataServer.TransferRequests;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+
 import Tier3.DataServer.Models.*;
 
 public class Request implements Serializable
@@ -8,6 +10,8 @@ public class Request implements Serializable
   private EnumRequest EnumRequest;
 
   private BookSale BookSale;
+  private ArrayList<BookSale> bookSales;
+
   private User User;
   private Card Card;
 
@@ -65,5 +69,14 @@ public class Request implements Serializable
     HelloWorld = helloWorld;
   }
 
+  public ArrayList<Tier3.DataServer.Models.BookSale> getBookSales()
+  {
+    return bookSales;
+  }
 
+  public void setBookSales(
+      ArrayList<Tier3.DataServer.Models.BookSale> bookSales)
+  {
+    this.bookSales = bookSales;
+  }
 }
