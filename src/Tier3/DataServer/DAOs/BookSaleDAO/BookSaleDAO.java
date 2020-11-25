@@ -67,6 +67,16 @@ public class BookSaleDAO implements IBookSaleDAO
   @Override public BookSale getBookSale()
   {
     return null;
+
+    /*
+    if(resultSet.next()){
+    * String strin1 = resultSet.GetString("columnLabel");
+    * int int1 = resultSet.getInt("customerID"); //getInt er navnet på kollonnen
+    * Booksale booksale = new BookSale(strin1,int1);
+    * return booksale
+    *}
+    */
+
   }
 
   @Override public void createBookSale(BookSale bookSale)
