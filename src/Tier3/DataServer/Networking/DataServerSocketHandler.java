@@ -4,7 +4,8 @@ import Tier3.DataServer.DAOs.BookSaleDAO.IBookSaleDAO;
 import Tier3.DataServer.DAOs.BookSaleDAO.BookSaleDAO;
 import Tier3.DataServer.DAOs.ProofOfConcept.IProofDAO;
 import Tier3.DataServer.DAOs.ProofOfConcept.ProofDAO;
-import Tier3.DataServer.Models.BookSale;
+import Tier3.DataServer.Models.Booksale.BookSale;
+import Tier3.DataServer.Models.Booksale.BookSaleNoID;
 import Tier3.DataServer.TransferRequests.Request;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
@@ -60,18 +61,17 @@ public class DataServerSocketHandler implements Runnable
 
         switch (request.getEnumRequest())
         {
-          case CreateBookSale:
+          case CreateBookSaleNoID:
             {
-              JsonReader reader = new JsonReader(new StringReader(request.getBookSale().toString()));
+              System.out.println(request.getBookSaleNoID().toString() + "<-- RIght here");
+              JsonReader reader = new JsonReader(new StringReader(request.getBookSaleNoID().toString()));
               reader.setLenient(true);
-              String message = request.getBookSale().toString();
-              System.out.println(message);
 
-              BookSale bookSale = request.getBookSale();
-              //BookSale bookSale = new Gson().fromJson(message, BookSale.class);
+              BookSaleNoID bookSaleNoID = gson.fromJson(reader, BookSale.class);
+             // BookSale bookSale = gson.fromJson(reader, String.class);
 
-              bookSaleDAO.createBookSale(bookSale);
-              System.out.println(bookSale.toString());
+              bookSaleDAO.createBookSale(bookSaleNoID);
+              System.out.println(bookSaleNoID.toString());
               break;
             }
 
