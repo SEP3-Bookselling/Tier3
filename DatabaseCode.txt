@@ -71,8 +71,8 @@ create domain d_condition varchar(10);
 create domain d_subject varchar(50);
 create domain d_image varchar(256);
 create domain d_price decimal(10, 2);
-create domain d_hardCopy varchar(5);
-create domain d_bookSaleID int;
+create domain d_hardCopy boolean;
+create domain d_description varchar(255);
 create domain d_saleId int;
 
 create table BookSale(
@@ -84,9 +84,10 @@ create table BookSale(
 	image d_image NOT NULL,
 	price d_price NOT NULL,
 	hardCopy d_hardCopy NOT NULL,
+	description d_description,
 	username d_username NOT NULL,
 	foreign key(username) references Users(username),
-	bookSaleID d_bookSaleID,
+	bookSaleID serial,
 	PRIMARY KEY (bookSaleID)
 );
 
@@ -127,7 +128,8 @@ insert into Administrator (userName) values ('Magic Administrator');
 
 /* Hardcoded BookSale */
 select * from BookSale
-insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, username, bookSaleId) values('Fish Book', 'Sonny Fish Man', 'First', 'Mint', 'Fish', 'Fish Path', 80000, 'True', 'Magic Fish', 0001);
+insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, description , username) values('Fish Book', 'Sonny Fish Man', 'First', 'Mint', 'Fish', 'Fish Path', 80000, true, 'insert long as description', 'Magic Fish');
+
 
 /* Hardcoded Wishlist */
 select * from Wishlist
