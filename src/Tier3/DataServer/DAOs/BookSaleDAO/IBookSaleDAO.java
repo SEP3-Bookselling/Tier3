@@ -12,5 +12,6 @@ public interface IBookSaleDAO
   //String getAllBookSales();
   BookSale getBookSale();
   void createBookSale(BookSale bookSale) throws SQLException;
+  void deleteBookSale(int id);
 
 }

@@ -14,6 +14,7 @@ public class Request implements Serializable
 
   private User User;
   private Card Card;
+  private int Id;
 
   public EnumRequest getEnumRequest()
   {
@@ -25,7 +26,7 @@ public class Request implements Serializable
     EnumRequest = enumRequest;
   }
 
-  public Tier3.DataServer.Models.BookSale getBookSale()
+  public BookSale getBookSale()
   {
     return BookSale;
   }
@@ -62,6 +63,10 @@ public class Request implements Serializable
   public String getHelloWorld()
   {
     return HelloWorld;
+  }
+
+  public int getId() {
+    return Id;
   }
 
   public void setHelloWorld(String helloWorld)

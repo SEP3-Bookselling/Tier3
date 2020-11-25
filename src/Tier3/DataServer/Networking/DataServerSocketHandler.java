@@ -91,6 +91,16 @@ public class DataServerSocketHandler implements Runnable
 
           }
 
+          case DeleteSale:
+          {
+            JsonReader reader = new JsonReader(new StringReader("" + request.getId()));
+            reader.setLenient(true);
+            int idToDelete = gson.fromJson(reader, Integer.class);
+            bookSaleDAO.deleteBookSale(idToDelete);
+
+            break;
+          }
+
           /*
           case sendProofOfConcept:
             {

@@ -107,7 +107,24 @@ public class BookSaleDAO implements IBookSaleDAO
       e.printStackTrace();
     }
   }
+
+  @Override public void deleteBookSale(int id) {
+    Connection connection = getConnectionToDB();
+
+    try {
+      PreparedStatement deleteBookSaleData = connection.prepareStatement("DELETE FROM BookSale WHERE bookSaleID =" + id);
+
+      deleteBookSaleData.executeUpdate();
+
+    }
+    catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
 }
+
+
 
 
 /*
