@@ -4,12 +4,26 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import Tier3.DataServer.Models.*;
+import Tier3.DataServer.Models.Booksale.BookSale;
+import Tier3.DataServer.Models.Booksale.BookSaleNoID;
 
 public class Request implements Serializable
 {
   private EnumRequest EnumRequest;
 
-  private BookSale BookSale;
+  private BookSale bookSale;
+
+  public BookSaleNoID getBookSaleNoID()
+  {
+    return bookSaleNoID;
+  }
+
+  public void setBookSaleNoID(BookSaleNoID bookSaleNoID)
+  {
+    this.bookSaleNoID = bookSaleNoID;
+  }
+
+  private BookSaleNoID bookSaleNoID;
   private ArrayList<BookSale> bookSales;
 
   private User User;
@@ -26,14 +40,14 @@ public class Request implements Serializable
     EnumRequest = enumRequest;
   }
 
-  public BookSale getBookSale()
+  public Tier3.DataServer.Models.Booksale.BookSale getBookSale()
   {
-    return BookSale;
+    return bookSale;
   }
 
-  public void setBookSale(Tier3.DataServer.Models.BookSale bookSale)
+  public void setBookSale(Tier3.DataServer.Models.Booksale.BookSale bookSale)
   {
-    BookSale = bookSale;
+    this.bookSale = bookSale;
   }
 
   public Tier3.DataServer.Models.User getUser()
@@ -74,13 +88,13 @@ public class Request implements Serializable
     HelloWorld = helloWorld;
   }
 
-  public ArrayList<Tier3.DataServer.Models.BookSale> getBookSales()
+  public ArrayList<Tier3.DataServer.Models.Booksale.BookSale> getBookSales()
   {
     return bookSales;
   }
 
   public void setBookSales(
-      ArrayList<Tier3.DataServer.Models.BookSale> bookSales)
+      ArrayList<Tier3.DataServer.Models.Booksale.BookSale> bookSales)
   {
     this.bookSales = bookSales;
   }

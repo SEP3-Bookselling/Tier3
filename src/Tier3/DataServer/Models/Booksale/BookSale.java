@@ -1,4 +1,4 @@
-package Tier3.DataServer.Models;
+package Tier3.DataServer.Models.Booksale;
 
 public class BookSale
 {
@@ -82,6 +82,16 @@ public class BookSale
     this.hardCopy = hardCopy;
   }
 
+  public String getDescription()
+  {
+    return description;
+  }
+
+  public void setDescription(String description)
+  {
+    this.description = description;
+  }
+
   public String getUsername()
   {
     return username;
@@ -110,8 +120,9 @@ public class BookSale
   private String image;
   private double price;
   private boolean hardCopy;
+  private String description;
   private String username;
-  private int bookSaleID;
+  private Integer bookSaleID = null;
 
   @Override public String toString()
   {
@@ -132,16 +143,17 @@ public class BookSale
 
 
     return "{"
-        + "\"title\":" + "\"" + title + "\","
-        + "\"author\":" + "\"" + author + "\","
-        + "\"edition\":" + "\"" + edition + "\","
-        + "\"condition\":" + "\"" + condition + "\","
-        + "\"subject\":" + "\"" + subject + "\","
-        + "\"image\":" + "\"" + image + "\","
-        + "\"price\":" + price + ","
-        + "\"hardCopy\":"  + hardCopy + ","
-        + "\"usernmane\":" + "\"" + username + "\"" + ","
-        + "\"bookSaleID\":" + "" + bookSaleID
+        + "\"title\":" + "\"" + getTitle() + "\","
+        + "\"author\":" + "\"" + getAuthor() + "\","
+        + "\"edition\":" + "\"" + getEdition() + "\","
+        + "\"condition\":" + "\"" + getCondition() + "\","
+        + "\"subject\":" + "\"" + getSubject() + "\","
+        + "\"image\":" + "\"" + getImage() + "\","
+        + "\"price\":" + getPrice() + ","
+        + "\"hardCopy\":"  + isHardCopy() + ","
+        + "\"description\":" + "\"" + getDescription() + "\"" + ","
+        + "\"usernmane\":" + "\"" + getUsername() + "\"" + ","
+        + "\"bookSaleID\":" + "" + getBookSaleID()
         + "}";
 
 
