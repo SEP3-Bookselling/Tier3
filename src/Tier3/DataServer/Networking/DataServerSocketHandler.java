@@ -2,9 +2,13 @@ package Tier3.DataServer.Networking;
 
 import Tier3.DataServer.DAOs.BookSaleDAO.IBookSaleDAO;
 import Tier3.DataServer.DAOs.BookSaleDAO.BookSaleDAO;
+import Tier3.DataServer.DAOs.BookSaleDAO.IUserDAO;
+import Tier3.DataServer.DAOs.BookSaleDAO.UserDAO;
 import Tier3.DataServer.DAOs.ProofOfConcept.IProofDAO;
 import Tier3.DataServer.DAOs.ProofOfConcept.ProofDAO;
 import Tier3.DataServer.Models.BookSale;
+import Tier3.DataServer.Models.Customer;
+import Tier3.DataServer.Models.User;
 import Tier3.DataServer.TransferRequests.Request;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
@@ -22,6 +26,7 @@ public class DataServerSocketHandler implements Runnable
   private IProofDAO testController; //TODO: May or may not work depending on the Interface injection stuff
   private Gson gson;
   private IBookSaleDAO bookSaleDAO;
+  private IUserDAO userDAO;
 
 
   public DataServerSocketHandler(Socket socket)
@@ -30,6 +35,7 @@ public class DataServerSocketHandler implements Runnable
     gson = new Gson();
     //controller = new ProofDAO();
     bookSaleDAO = new BookSaleDAO();
+    userDAO = new UserDAO();
     testController = new ProofDAO();
 
     try
@@ -88,6 +94,57 @@ public class DataServerSocketHandler implements Runnable
           {
 
           }
+
+          case CreateUser:
+          {
+            JsonReader reader = new JsonReader(new StringReader(request.getUser().toString()));
+            reader.setLenient(true);
+            String message = request.getUser().toString();
+            System.out.println(message);
+
+            User user = request.getUser();
+
+            userDAO.createUser(user);
+            System.out.println(user.toString());
+            break;
+          }
+
+          case CreateCustomer:
+          {
+            JsonReader reader = new JsonReader(new StringReader(request.getCustomer().toString()));
+            reader.setLenient(true);
+            String message = request.getCustomer().toString();
+            System.out.println(message);
+
+            Customer customer = request.getCustomer();
+
+            userDAO.createCustomer(customer);
+            System.out.println(customer.toString());
+          }
+
+
+          case GetUser:
+          {
+            ArrayList<User> users = userDAO.getAllUsers();
+            System.out.println("SocketHandler \t:" + users);
+
+            String jsonString = new Gson().toJson(users);
+
+            byte[] array = jsonString.getBytes();
+            outputStream.write(array, 0, array.length);
+          }
+
+          case GetCustomer:
+          {
+            ArrayList<Customer> customers = userDAO.getAllCustomers();
+            System.out.println("SocketHandler \t:" + customers);
+
+            String jsonString = new Gson().toJson(customers);
+
+            byte[] array = jsonString.getBytes();
+            outputStream.write(array,0,array.length);
+          }
+
 
           /*
           case sendProofOfConcept:

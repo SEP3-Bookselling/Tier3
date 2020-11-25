@@ -2,14 +2,30 @@ package Tier3.DataServer.Models;
 
 public class Customer extends User
 {
-  public String getLocation()
+  private String postcode;
+  private String firstName;
+  private String lastName;
+  private String email;
+  private int phoneNumber;
+  private double rating;
+  private String address;
+
+  public String getPostcode()
   {
-    return location;
+    return postcode;
   }
 
-  public void setLocation(String location)
+  public void setPostcode(String postcode)
   {
-    this.location = location;
+    this.postcode = postcode;
+  }
+
+  public String getAddress() {
+    return address;
+  }
+
+  public void setAddress(String address) {
+    this.address = address;
   }
 
   public String getFirstName()
@@ -61,11 +77,4 @@ public class Customer extends User
   {
     this.rating = rating;
   }
-
-  private String location;
-  private String firstName;
-  private String lastName;
-  private String email;
-  private int phoneNumber;
-  private double rating;
 }

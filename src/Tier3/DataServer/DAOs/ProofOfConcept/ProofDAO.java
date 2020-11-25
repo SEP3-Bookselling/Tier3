@@ -1,9 +1,5 @@
 package Tier3.DataServer.DAOs.ProofOfConcept;
-
-
-
 import Tier3.DataServer.DAOs.PersonalLogin.LoginCredentials;
-
 import java.sql.*;
 import java.util.ArrayList;
 

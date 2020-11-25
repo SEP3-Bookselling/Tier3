@@ -13,6 +13,7 @@ public class Request implements Serializable
   private ArrayList<BookSale> bookSales;
 
   private User User;
+  private Customer customer;
   private Card Card;
 
   public EnumRequest getEnumRequest()
@@ -40,6 +41,9 @@ public class Request implements Serializable
     return User;
   }
 
+  public Customer getCustomer(){
+    return customer;
+  }
   public void setUser(Tier3.DataServer.Models.User user)
   {
     User = user;

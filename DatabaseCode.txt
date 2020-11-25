@@ -42,26 +42,9 @@ create table Customer(
 select * from Customer
 drop table Customer
 
-/* Moderator */
-create table Moderator(
-	username d_username,
-	primary key(username),
-	foreign key(username) references Users(username)
-);
-
-select * from Moderator
-drop table Moderator
 
 
-/*  Administrator */
-create table Administrator(
-	username d_username,
-	primary key(username),
-	foreign key(username) references Users(username)
-);
 
-select * from Administrator
-drop table Administrator
 
 /* BookSale */
 create domain d_title varchar(256);
@@ -115,14 +98,6 @@ insert into Users (username, password, role) values ('Magic Administrator', '342
 /* Hardcoded Customer */
 select * from Customer
 insert into Customer (userName, address, postcode, firstName, lastName, email, phoneNumber, rating) values ('Magic Fish', 'Fish Town 18', '8700', 'Fish', 'Man', 'Fish@Fishmail.com', 12345678, 5);
-
-/* Hardcoded Moderator */
-select * from Moderator
-insert into Moderator (userName) values ('Magic Moderator');
-
-/* Hardcoded Adminstrator */
-select * from Administrator
-insert into Administrator (userName) values ('Magic Administrator');
 
 
 /* Hardcoded BookSale */
