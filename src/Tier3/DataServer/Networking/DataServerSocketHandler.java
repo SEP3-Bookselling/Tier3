@@ -63,11 +63,10 @@ public class DataServerSocketHandler implements Runnable
         {
           case CreateBookSaleNoID:
             {
-              System.out.println(request.getBookSaleNoID().toString() + "<-- RIght here");
-              JsonReader reader = new JsonReader(new StringReader(request.getBookSaleNoID().toString()));
+              JsonReader reader = new JsonReader(new StringReader(request.getBookSaleNoId().toString()));
               reader.setLenient(true);
 
-              BookSaleNoID bookSaleNoID = gson.fromJson(reader, BookSale.class);
+              BookSaleNoID bookSaleNoID = gson.fromJson(reader, BookSaleNoID.class);
              // BookSale bookSale = gson.fromJson(reader, String.class);
 
               bookSaleDAO.createBookSale(bookSaleNoID);

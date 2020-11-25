@@ -11,24 +11,27 @@ public class Request implements Serializable
 {
   private EnumRequest EnumRequest;
 
-  private BookSale bookSale;
-
-  public BookSaleNoID getBookSaleNoID()
-  {
-    return bookSaleNoID;
-  }
-
-  public void setBookSaleNoID(BookSaleNoID bookSaleNoID)
-  {
-    this.bookSaleNoID = bookSaleNoID;
-  }
-
-  private BookSaleNoID bookSaleNoID;
+  private BookSaleNoID BookSaleNoId;
+  private BookSale BookSale;
   private ArrayList<BookSale> bookSales;
-
   private User User;
   private Card Card;
   private int Id;
+
+
+
+
+  public BookSaleNoID getBookSaleNoId()
+  {
+    return BookSaleNoId;
+  }
+
+  public void setBookSaleNoId(BookSaleNoID bookSaleNoId)
+  {
+    this.BookSaleNoId = bookSaleNoId;
+  }
+
+
 
   public EnumRequest getEnumRequest()
   {
@@ -42,12 +45,12 @@ public class Request implements Serializable
 
   public Tier3.DataServer.Models.Booksale.BookSale getBookSale()
   {
-    return bookSale;
+    return BookSale;
   }
 
   public void setBookSale(Tier3.DataServer.Models.Booksale.BookSale bookSale)
   {
-    this.bookSale = bookSale;
+    this.BookSale = bookSale;
   }
 
   public Tier3.DataServer.Models.User getUser()
