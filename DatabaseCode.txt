@@ -36,32 +36,12 @@ create table Customer(
 	phoneNumber d_phoneNumber NOT NULL,
 	rating d_rating,
 	PRIMARY KEY (username),
-	FOREIGN KEY (username) references Users(username)
+	FOREIGN KEY (username) references Users(username) on delete cascade
 );
 
 select * from Customer
 drop table Customer
 
-/* Moderator */
-create table Moderator(
-	username d_username,
-	primary key(username),
-	foreign key(username) references Users(username)
-);
-
-select * from Moderator
-drop table Moderator
-
-
-/*  Administrator */
-create table Administrator(
-	username d_username,
-	primary key(username),
-	foreign key(username) references Users(username)
-);
-
-select * from Administrator
-drop table Administrator
 
 /* BookSale */
 create domain d_title varchar(256);
@@ -86,8 +66,8 @@ create table BookSale(
 	hardCopy d_hardCopy NOT NULL,
 	description d_description,
 	username d_username NOT NULL,
-	foreign key(username) references Users(username),
-	bookSaleID serial on delete cascade,
+	foreign key(username) references Users(username) on delete cascade,
+	bookSaleID serial,
 	PRIMARY KEY (bookSaleID)
 );
 
@@ -96,10 +76,10 @@ drop table BookSale
 
 /*  Wishlist */
 create table Wishlist(
-	bookSaleId d_bookSaleId,
+	bookSaleId serial,
 	username d_username NOT NULL,
 	primary key (bookSaleId),
-	foreign key(bookSaleId) references BookSale(bookSaleId),
+	foreign key(bookSaleId) references BookSale(bookSaleId) on delete cascade,
 	foreign key(username) references Users(username) on delete cascade
 );
 

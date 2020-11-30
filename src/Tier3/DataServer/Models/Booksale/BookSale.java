@@ -152,7 +152,7 @@ public class BookSale
         + "\"price\":" + getPrice() + ","
         + "\"hardCopy\":"  + isHardCopy() + ","
         + "\"description\":" + "\"" + getDescription() + "\"" + ","
-        + "\"usernmane\":" + "\"" + getUsername() + "\"" + ","
+        + "\"username\":" + "\"" + getUsername() + "\"" + ","
         + "\"bookSaleID\":" + "" + getBookSaleID()
         + "}";
 

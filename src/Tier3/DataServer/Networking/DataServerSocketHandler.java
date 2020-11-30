@@ -5,7 +5,6 @@ import Tier3.DataServer.DAOs.BookSaleDAO.BookSaleDAO;
 import Tier3.DataServer.DAOs.ProofOfConcept.IProofDAO;
 import Tier3.DataServer.DAOs.ProofOfConcept.ProofDAO;
 import Tier3.DataServer.Models.Booksale.BookSale;
-import Tier3.DataServer.Models.Booksale.BookSaleNoID;
 import Tier3.DataServer.TransferRequests.Request;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
@@ -63,14 +62,14 @@ public class DataServerSocketHandler implements Runnable
         {
           case CreateBookSaleNoID:
             {
-              JsonReader reader = new JsonReader(new StringReader(request.getBookSaleNoId().toString()));
+              JsonReader reader = new JsonReader(new StringReader(request.getBookSale().toString()));
               reader.setLenient(true);
 
-              BookSaleNoID bookSaleNoID = gson.fromJson(reader, BookSaleNoID.class);
+              BookSale bookSale = gson.fromJson(reader, BookSale.class);
              // BookSale bookSale = gson.fromJson(reader, String.class);
 
-              bookSaleDAO.createBookSale(bookSaleNoID);
-              System.out.println(bookSaleNoID.toString());
+              bookSaleDAO.createBookSale(bookSale);
+              System.out.println(bookSale.toString());
               break;
             }
 

@@ -3,7 +3,6 @@ package Tier3.DataServer.DAOs.BookSaleDAO;
 
 import Tier3.DataServer.DAOs.PersonalLogin.LoginCredentials;
 import Tier3.DataServer.Models.Booksale.BookSale;
-import Tier3.DataServer.Models.Booksale.BookSaleNoID;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -42,6 +41,7 @@ public class BookSaleDAO implements IBookSaleDAO
       while (resultSet.next())
       {
         BookSale bookSale = new BookSale();
+
         bookSale.setTitle(resultSet.getString(1));
         bookSale.setAuthor(resultSet.getString(2));
         bookSale.setEdition(resultSet.getString(3));
@@ -52,7 +52,7 @@ public class BookSaleDAO implements IBookSaleDAO
         bookSale.setHardCopy(resultSet.getBoolean(8));
         bookSale.setDescription(resultSet.getString(9));
         bookSale.setUsername(resultSet.getString(10));
-        bookSale.setBookSaleID(resultSet.getInt(11));
+        //bookSale.setBookSaleID(resultSet.getInt(11));
 
         bookSaleList.add(bookSale);
 
@@ -81,7 +81,7 @@ public class BookSaleDAO implements IBookSaleDAO
 
   }
 
-  @Override public void createBookSale(BookSaleNoID bookSaleNoID)
+  @Override public void createBookSale(BookSale bookSale)
   {
     Connection connection = getConnectionToDB();
 
@@ -90,16 +90,16 @@ public class BookSaleDAO implements IBookSaleDAO
       PreparedStatement insertBookSaleData = connection.prepareStatement("insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, description , username) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
 
       // Might be getString? Check up on that
-      insertBookSaleData.setString(1, bookSaleNoID.getTitle());
-      insertBookSaleData.setString(2, bookSaleNoID.getAuthor());
-      insertBookSaleData.setString(3, bookSaleNoID.getEdition());
-      insertBookSaleData.setString(4, bookSaleNoID.getCondition());
-      insertBookSaleData.setString(5, bookSaleNoID.getSubject());
-      insertBookSaleData.setString(6, bookSaleNoID.getImage());
-      insertBookSaleData.setDouble(7,bookSaleNoID.getPrice());
-      insertBookSaleData.setBoolean(8,bookSaleNoID.isHardCopy());
-      insertBookSaleData.setString(9,bookSaleNoID.getDescription());
-      insertBookSaleData.setString(10,bookSaleNoID.getUsername());
+      insertBookSaleData.setString(1, bookSale.getTitle());
+      insertBookSaleData.setString(2, bookSale.getAuthor());
+      insertBookSaleData.setString(3, bookSale.getEdition());
+      insertBookSaleData.setString(4, bookSale.getCondition());
+      insertBookSaleData.setString(5, bookSale.getSubject());
+      insertBookSaleData.setString(6, bookSale.getImage());
+      insertBookSaleData.setDouble(7,bookSale.getPrice());
+      insertBookSaleData.setBoolean(8,bookSale.isHardCopy());
+      insertBookSaleData.setString(9,bookSale.getDescription());
+      insertBookSaleData.setString(10,bookSale.getUsername());
 
       insertBookSaleData.executeUpdate();
 
