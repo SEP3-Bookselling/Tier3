@@ -87,23 +87,27 @@ select * from Wishlist
 drop table Wishlist
 
 /* Hardcoded User */
-select * from Users
-insert into Users (username, password, role) values ('Magic Fish', '1234', 'Customer');
-insert into Users (username, password, role) values ('Magic Moderator', '4321', 'Moderator');
-insert into Users (username, password, role) values ('Magic Administrator', '3421', 'Admin');
+select * from Usersinsert into Users (username, password, role) values ('SonSon', '1234', 'Customer');
+insert into Users (username, password, role) values ('Crisiluluman', '1234', 'Customer');
+insert into Users (username, password, role) values ('AnneLindberg', '1234', 'Moderator');
+insert into Users (username, password, role) values ('MagicalTermite', '1234', 'Admin');
 
 
 /* Hardcoded Customer */
 select * from Customer
-insert into Customer (userName, address, postcode, firstName, lastName, email, phoneNumber, rating) values ('Magic Fish', 'Fish Town 18', '8700', 'Fish', 'Man', 'Fish@Fishmail.com', 12345678, 5);
+insert into Customer (userName, address, postcode, firstName, lastName, email, phoneNumber, rating) values ('SonSon', 'Normandshaven', '8700', 'Sonny', 'Haack', 'stuff@gmail.com', 12345678, 5);
+insert into Customer (userName, address, postcode, firstName, lastName, email, phoneNumber, rating) values ('Crisiluluman', 'Sankt Helenevej', '8700', 'Christoper', 'Larsen', 'christopher-larsen@hotmail.com', 12345678, 4);
 
 
 /* Hardcoded BookSale */
 select * from BookSale
-insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, description , username) values('Fish Book', 'Sonny Fish Man', 'First', 'Mint', 'Fish', 'Fish Path', 80000, true, 'insert long as description', 'Magic Fish');
-
+insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, description , username) values('Is math, related to science?', 'Wolfgang von Idunno', 'First', 'Mint', 'Math', 'Path', 2000, true, 'insert long as description', 'SonSon');
+insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, description , username) values('How to build a bomb in 3 easy steps', 'Andreas Køskov', '2nd', 'Used', 'Chemistry', 'Path', 400, false, 'insert long as description', 'SonSon');
+insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, description , username) values('Will it blend? That is the question', 'Max William', '5th', 'Good', 'Cooking', 'Path', 100, true, 'insert long as description', 'SonSon');
+insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, description , username) values('Can sharks swim backwards?', 'Dorthe Larsen', '3rd', 'Bad', 'Biology', 'Path', 50, false, 'insert long as description', 'Crisiluluman');
+insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, description , username) values('Engrish for biginers', 'Julie Langholm', 'First', 'Mint', 'English', 'Path', 5000, true, 'insert long as description', 'Crisiluluman');
 
 /* Hardcoded Wishlist */
 select * from Wishlist
-insert into Wishlist(booksaleId, username) values(0001, 'Magic Fish');
+insert into Wishlist(booksaleId, username) values(0001, 'Crisiluluman');
 

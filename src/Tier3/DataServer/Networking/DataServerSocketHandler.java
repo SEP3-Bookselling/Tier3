@@ -94,7 +94,7 @@ public class DataServerSocketHandler implements Runnable
           {
 
           }
-
+/*
           case CreateUser:
           {
             JsonReader reader = new JsonReader(new StringReader(request.getUser().toString()));
@@ -144,7 +144,7 @@ public class DataServerSocketHandler implements Runnable
             byte[] array = jsonString.getBytes();
             outputStream.write(array,0,array.length);
           }
-
+*/
 
           case DeleteSale:
           {
