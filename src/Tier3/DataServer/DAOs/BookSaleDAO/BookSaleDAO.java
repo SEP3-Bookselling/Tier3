@@ -2,7 +2,7 @@ package Tier3.DataServer.DAOs.BookSaleDAO;
 
 
 import Tier3.DataServer.DAOs.PersonalLogin.LoginCredentials;
-import Tier3.DataServer.Models.BookSale;
+import Tier3.DataServer.Models.Booksale.BookSale;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -41,6 +41,7 @@ public class BookSaleDAO implements IBookSaleDAO
       while (resultSet.next())
       {
         BookSale bookSale = new BookSale();
+
         bookSale.setTitle(resultSet.getString(1));
         bookSale.setAuthor(resultSet.getString(2));
         bookSale.setEdition(resultSet.getString(3));
@@ -49,8 +50,9 @@ public class BookSaleDAO implements IBookSaleDAO
         bookSale.setImage(resultSet.getString(6));
         bookSale.setPrice(resultSet.getDouble(7));
         bookSale.setHardCopy(resultSet.getBoolean(8));
-        bookSale.setUsername(resultSet.getString(9));
-        bookSale.setBookSaleID(resultSet.getInt(10));
+        bookSale.setDescription(resultSet.getString(9));
+        bookSale.setUsername(resultSet.getString(10));
+        //bookSale.setBookSaleID(resultSet.getInt(11));
 
         bookSaleList.add(bookSale);
 
@@ -67,6 +69,16 @@ public class BookSaleDAO implements IBookSaleDAO
   @Override public BookSale getBookSale()
   {
     return null;
+
+    /*
+    if(resultSet.next()){
+    * String strin1 = resultSet.GetString("columnLabel");
+    * int int1 = resultSet.getInt("customerID"); //getInt er navnet på kollonnen
+    * Booksale booksale = new BookSale(strin1,int1);
+    * return booksale
+    *}
+    */
+
   }
 
   @Override public void createBookSale(BookSale bookSale)
@@ -75,7 +87,7 @@ public class BookSaleDAO implements IBookSaleDAO
 
     try
     {
-      PreparedStatement insertBookSaleData = connection.prepareStatement("insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, username, bookSaleID) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+      PreparedStatement insertBookSaleData = connection.prepareStatement("insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, description , username) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);");
 
       // Might be getString? Check up on that
       insertBookSaleData.setString(1, bookSale.getTitle());
@@ -86,8 +98,8 @@ public class BookSaleDAO implements IBookSaleDAO
       insertBookSaleData.setString(6, bookSale.getImage());
       insertBookSaleData.setDouble(7,bookSale.getPrice());
       insertBookSaleData.setBoolean(8,bookSale.isHardCopy());
-      insertBookSaleData.setString(9,bookSale.getUsername());
-      insertBookSaleData.setInt(10,bookSale.getBookSaleID());
+      insertBookSaleData.setString(9,bookSale.getDescription());
+      insertBookSaleData.setString(10,bookSale.getUsername());
 
       insertBookSaleData.executeUpdate();
 
@@ -97,7 +109,24 @@ public class BookSaleDAO implements IBookSaleDAO
       e.printStackTrace();
     }
   }
+
+  @Override public void deleteBookSale(int id) {
+    Connection connection = getConnectionToDB();
+
+    try {
+      PreparedStatement deleteBookSaleData = connection.prepareStatement("DELETE FROM BookSale WHERE bookSaleID =" + id);
+
+      deleteBookSaleData.executeUpdate();
+
+    }
+    catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
 }
+
+
 
 
 /*

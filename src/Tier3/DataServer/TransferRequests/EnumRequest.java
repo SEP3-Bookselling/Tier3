@@ -3,7 +3,7 @@ package Tier3.DataServer.TransferRequests;
 public enum EnumRequest
 {
   // Creating new objects in database
-  CreateBookSale,
+  CreateBookSaleNoID,
   CreateUser,
   CreateCustomer,
 

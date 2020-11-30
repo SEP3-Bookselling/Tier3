@@ -6,9 +6,7 @@ import Tier3.DataServer.DAOs.BookSaleDAO.IUserDAO;
 import Tier3.DataServer.DAOs.BookSaleDAO.UserDAO;
 import Tier3.DataServer.DAOs.ProofOfConcept.IProofDAO;
 import Tier3.DataServer.DAOs.ProofOfConcept.ProofDAO;
-import Tier3.DataServer.Models.BookSale;
-import Tier3.DataServer.Models.Customer;
-import Tier3.DataServer.Models.User;
+import Tier3.DataServer.Models.Booksale.BookSale;
 import Tier3.DataServer.TransferRequests.Request;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
@@ -19,6 +17,8 @@ import java.util.ArrayList;
 
 public class DataServerSocketHandler implements Runnable
 {
+  // Initial branch creation
+  // Branch work please?
   private Socket socket;
 
   private InputStream inputStream;
@@ -64,15 +64,13 @@ public class DataServerSocketHandler implements Runnable
 
         switch (request.getEnumRequest())
         {
-          case CreateBookSale:
+          case CreateBookSaleNoID:
             {
               JsonReader reader = new JsonReader(new StringReader(request.getBookSale().toString()));
               reader.setLenient(true);
-              String message = request.getBookSale().toString();
-              System.out.println(message);
 
-              BookSale bookSale = request.getBookSale();
-              //BookSale bookSale = new Gson().fromJson(message, BookSale.class);
+              BookSale bookSale = gson.fromJson(reader, BookSale.class);
+             // BookSale bookSale = gson.fromJson(reader, String.class);
 
               bookSaleDAO.createBookSale(bookSale);
               System.out.println(bookSale.toString());
@@ -145,6 +143,16 @@ public class DataServerSocketHandler implements Runnable
             outputStream.write(array,0,array.length);
           }
 
+
+          case DeleteSale:
+          {
+            JsonReader reader = new JsonReader(new StringReader("" + request.getId()));
+            reader.setLenient(true);
+            int idToDelete = gson.fromJson(reader, Integer.class);
+            bookSaleDAO.deleteBookSale(idToDelete);
+
+            break;
+          }
 
           /*
           case sendProofOfConcept:
