@@ -1,4 +1,4 @@
-package Tier3.DataServer.DAOs.BookSaleDAO;
+package Tier3.DataServer.DAOs.UserDAO;
 
 import Tier3.DataServer.Models.Customer;
 import Tier3.DataServer.Models.User;

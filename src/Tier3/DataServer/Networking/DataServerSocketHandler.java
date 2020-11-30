@@ -2,11 +2,13 @@ package Tier3.DataServer.Networking;
 
 import Tier3.DataServer.DAOs.BookSaleDAO.IBookSaleDAO;
 import Tier3.DataServer.DAOs.BookSaleDAO.BookSaleDAO;
-import Tier3.DataServer.DAOs.BookSaleDAO.IUserDAO;
-import Tier3.DataServer.DAOs.BookSaleDAO.UserDAO;
+import Tier3.DataServer.DAOs.UserDAO.IUserDAO;
+import Tier3.DataServer.DAOs.UserDAO.UserDAO;
 import Tier3.DataServer.DAOs.ProofOfConcept.IProofDAO;
 import Tier3.DataServer.DAOs.ProofOfConcept.ProofDAO;
 import Tier3.DataServer.Models.Booksale.BookSale;
+import Tier3.DataServer.Models.Customer;
+import Tier3.DataServer.Models.User;
 import Tier3.DataServer.TransferRequests.Request;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
@@ -64,7 +66,7 @@ public class DataServerSocketHandler implements Runnable
 
         switch (request.getEnumRequest())
         {
-          case CreateBookSaleNoID:
+          case CreateBookSale:
             {
               JsonReader reader = new JsonReader(new StringReader(request.getBookSale().toString()));
               reader.setLenient(true);
