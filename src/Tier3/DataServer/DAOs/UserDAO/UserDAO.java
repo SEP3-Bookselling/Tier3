@@ -53,23 +53,25 @@ public class UserDAO implements IUserDAO {
     }
 
     @Override
-    public User getUser(User user) {
+    public User getSpecificUser(User user) {
         Connection connection = getConnectionToDB();
         try {
             PreparedStatement statement = connection.prepareStatement("select * from Users where username =" + "'" + user.getUsername() + "'");
             ResultSet resultSet = statement.executeQuery();
 
-            while (resultSet.next())
+            if (resultSet.next())
             {
                 User user1 = new User();
                 user1.setUsername(resultSet.getString(1));
                 user1.setPassword(resultSet.getString(2));
                 user1.setRole(resultSet.getString(3));
+                return user1;
             }
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+        System.out.println("No users were found");
         return null;
     }
 

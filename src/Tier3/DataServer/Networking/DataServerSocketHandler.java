@@ -91,7 +91,7 @@ public class DataServerSocketHandler implements Runnable
             break;
           }
 
-          case GetBookSale:
+          case GetBookSpecificBookSale:
           {
 
           }
@@ -125,7 +125,7 @@ public class DataServerSocketHandler implements Runnable
           }
 
 
-          case GetUser:
+          case GetAllUsers:
           {
             ArrayList<User> users = userDAO.getAllUsers();
             System.out.println("SocketHandler \t:" + users);
@@ -134,6 +134,29 @@ public class DataServerSocketHandler implements Runnable
 
             byte[] array = jsonString.getBytes();
             outputStream.write(array, 0, array.length);
+            break;
+          }
+
+          case GetSpecificUser:
+          {
+            //Deserializes User from Request
+            JsonReader reader = new JsonReader(new StringReader(request.getUser().toString()));
+            reader.setLenient(true);
+
+            User user = gson.fromJson(reader, User.class);
+
+            userDAO.getSpecificUser(user);
+            System.out.println(user.toString());
+
+            //Serializes from the method
+            User userToBeReturned = userDAO.getSpecificUser(user);
+
+            String jsonString = new Gson().toJson(userToBeReturned);
+            System.out.println(jsonString);
+
+            byte[] array = jsonString.getBytes();
+            outputStream.write(array, 0, array.length);
+
             break;
           }
 
@@ -150,10 +173,11 @@ public class DataServerSocketHandler implements Runnable
           }
 
 
-          case DeleteSale:
+          case DeleteBookSale:
           {
             JsonReader reader = new JsonReader(new StringReader("" + request.getId()));
             reader.setLenient(true);
+
             int idToDelete = gson.fromJson(reader, Integer.class);
             bookSaleDAO.deleteBookSale(idToDelete);
 

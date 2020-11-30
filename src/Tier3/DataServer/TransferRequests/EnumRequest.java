@@ -2,28 +2,27 @@ package Tier3.DataServer.TransferRequests;
 
 public enum EnumRequest
 {
-  // Creating new objects in database
+
+  //BookSale
   CreateBookSale,
-  CreateUser,
-  CreateCustomer,
-
-  // Getting from database
+  GetBookSpecificBookSale,
   GetAllBookSales,
-  GetBookSale,
-  GetUser,
-  GetCustomer,
-  GetCard,
+  UpdateBookSale,
+  DeleteBookSale,
 
-  // Selling Book
-  SellBook,
-
-  // Deleting objects from database
-  DeleteSale,
+  //Users
+  CreateUser,
+  GetSpecificUser,
+  GetAllUsers,
+  UpdateUser,
   DeleteUser,
-  DeleteCard,
-
-  // Rate user
   RateUser,
+
+  //Customers
+  CreateCustomer,
+  GetCustomer,
+  UpdateCustomer,
+  DeleteCustomer,
 
   // Prototype
   recieveProofOfConcept,
