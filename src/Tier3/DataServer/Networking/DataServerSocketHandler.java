@@ -88,6 +88,7 @@ public class DataServerSocketHandler implements Runnable
 
             byte[] array = jsonString.getBytes();
             outputStream.write(array, 0, array.length);
+            break;
           }
 
           case GetBookSale:
@@ -120,6 +121,7 @@ public class DataServerSocketHandler implements Runnable
 
             userDAO.createCustomer(customer);
             System.out.println(customer.toString());
+            break;
           }
 
 
@@ -132,6 +134,7 @@ public class DataServerSocketHandler implements Runnable
 
             byte[] array = jsonString.getBytes();
             outputStream.write(array, 0, array.length);
+            break;
           }
 
           case GetCustomer:
@@ -143,6 +146,7 @@ public class DataServerSocketHandler implements Runnable
 
             byte[] array = jsonString.getBytes();
             outputStream.write(array,0,array.length);
+            break;
           }
 
 

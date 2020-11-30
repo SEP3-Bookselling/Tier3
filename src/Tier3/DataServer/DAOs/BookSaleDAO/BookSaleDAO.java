@@ -52,7 +52,7 @@ public class BookSaleDAO implements IBookSaleDAO
         bookSale.setHardCopy(resultSet.getBoolean(8));
         bookSale.setDescription(resultSet.getString(9));
         bookSale.setUsername(resultSet.getString(10));
-        //bookSale.setBookSaleID(resultSet.getInt(11));
+        bookSale.setBookSaleID(resultSet.getInt(11));
 
         bookSaleList.add(bookSale);
 
