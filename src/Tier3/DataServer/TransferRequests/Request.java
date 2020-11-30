@@ -42,6 +42,7 @@ public class Request implements Serializable
 
   public User getUser()
   {
+    System.out.println(User);
     return User;
   }
 

@@ -104,6 +104,7 @@ public class BookSale
 
   public int getBookSaleID()
   {
+    System.out.println(bookSaleID);
     return bookSaleID;
   }
 
