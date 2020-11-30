@@ -7,8 +7,11 @@ import java.util.ArrayList;
 
 public interface IUserDAO {
     ArrayList<User> getAllUsers();
+    User getUser(User user);
     ArrayList<Customer> getAllCustomers();
+    Customer getCustomer();
     void createUser(User user);
     void createCustomer(Customer customer);
+
 }
 

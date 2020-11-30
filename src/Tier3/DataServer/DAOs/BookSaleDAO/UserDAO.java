@@ -6,6 +6,7 @@ import Tier3.DataServer.Models.User;
 import java.sql.*;
 import java.util.ArrayList;
 
+
 public class UserDAO implements IUserDAO {
 
     public Connection getConnectionToDB(){
@@ -52,6 +53,27 @@ public class UserDAO implements IUserDAO {
     }
 
     @Override
+    public User getUser(User user) {
+        Connection connection = getConnectionToDB();
+        try {
+            PreparedStatement statement = connection.prepareStatement("select * from Users where username =" + "'" + user.getUsername() + "'");
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next())
+            {
+                User user1 = new User();
+                user1.setUsername(resultSet.getString(1));
+                user1.setPassword(resultSet.getString(2));
+                user1.setRole(resultSet.getString(3));
+            }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
+        @Override
     public ArrayList<Customer> getAllCustomers() {
         getAllUsers();
 
@@ -82,6 +104,11 @@ public class UserDAO implements IUserDAO {
         }
         return customerList;
 
+    }
+
+    @Override
+    public Customer getCustomer() {
+        return null;
     }
 
     @Override
