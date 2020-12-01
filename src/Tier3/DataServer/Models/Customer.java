@@ -77,4 +77,19 @@ public class Customer extends User
   {
     this.rating = rating;
   }
+
+  @Override
+  public String getPassword() {
+    return super.getPassword();
+  }
+
+  @Override
+  public String getRole() {
+    return super.getRole();
+  }
+
+  @Override
+  public String getUsername() {
+    return super.getUsername();
+  }
 }

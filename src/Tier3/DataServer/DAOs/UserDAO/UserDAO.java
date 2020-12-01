@@ -114,18 +114,18 @@ public class UserDAO implements IUserDAO {
     }
 
     @Override
-    public void createUser(User user)
+    public void createUser(Customer customer)
     {
-
+        System.out.println("Virker: " + customer.getFirstName());
         Connection connection = getConnectionToDB();
 
         try
         {
-            PreparedStatement insertUser = connection.prepareStatement("insert into  (username, password, role) values(?, ?, ?)");
+            PreparedStatement insertUser = connection.prepareStatement("insert into Users (username, password, role) values(?, ?, ?)");
 
-            insertUser.setString(1, user.getUsername());
-            insertUser.setString(2, user.getPassword());
-            insertUser.setString(3,user.getRole());
+            insertUser.setString(1, customer.getUsername());
+            insertUser.setString(2, customer.getPassword());
+            insertUser.setString(3, customer.getRole());
 
 
             insertUser.executeUpdate();
@@ -145,7 +145,7 @@ public class UserDAO implements IUserDAO {
 
         try
         {
-            PreparedStatement insertCustomer = connection.prepareStatement("insert into  (username, address, postcode, firstname,lastname, email, phonenumber, rating) values(?, ?, ?, ?, ?, ?, ?, ?)");
+            PreparedStatement insertCustomer = connection.prepareStatement("insert into Customer (username, address, postcode, firstname,lastname, email, phonenumber, rating) values(?, ?, ?, ?, ?, ?, ?, ?)");
             insertCustomer.setString(1, customer.getUsername());
             insertCustomer.setString(2, customer.getAddress());
             insertCustomer.setString(3, customer.getPostcode());

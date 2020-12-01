@@ -10,8 +10,9 @@ public interface IUserDAO {
     User getSpecificUser(User user);
     ArrayList<Customer> getAllCustomers();
     Customer getCustomer();
-    void createUser(User user);
+    void createUser(Customer customer);
     void createCustomer(Customer customer);
+
 
 }
 
