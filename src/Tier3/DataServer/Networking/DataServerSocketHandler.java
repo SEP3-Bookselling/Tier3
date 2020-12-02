@@ -92,9 +92,7 @@ public class DataServerSocketHandler implements Runnable
           }
 
           case GetBookSpecificBookSale:
-          {
-
-          }
+          {}
 
           case UpdateBookSale:
           {
@@ -110,15 +108,15 @@ public class DataServerSocketHandler implements Runnable
 
           case CreateUser:
           {
-            JsonReader reader = new JsonReader(new StringReader(request.getUser().toString()));
+            JsonReader reader = new JsonReader(new StringReader(request.getCustomer().toString()));
             reader.setLenient(true);
             String message = request.getUser().toString();
             System.out.println(message);
 
-            User user = request.getUser();
+            Customer customer = request.getCustomer();
 
-            userDAO.createUser(user);
-            System.out.println(user.toString());
+            userDAO.createUser(customer);
+            System.out.println(customer.toString());
             break;
           }
 
@@ -130,7 +128,7 @@ public class DataServerSocketHandler implements Runnable
             System.out.println(message);
 
             Customer customer = request.getCustomer();
-
+            userDAO.createUser(customer);
             userDAO.createCustomer(customer);
             System.out.println(customer.toString());
             break;
