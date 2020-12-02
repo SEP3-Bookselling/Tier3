@@ -110,11 +110,37 @@ public class BookSaleDAO implements IBookSaleDAO
     }
   }
 
+  @Override public void updateBookSale(BookSale sale) {
+    Connection connection = getConnectionToDB();
+
+    try {
+      PreparedStatement updateBookData = connection.prepareStatement("update BookSale set title = ?, author = ?, edition = ?, condition = ?, subject = ?, image = ?, price = ?, hardCopy = ?, description = ?");
+
+      updateBookData.setString(1, sale.getTitle());
+      updateBookData.setString(2, sale.getAuthor());
+      updateBookData.setString(3, sale.getEdition());
+      updateBookData.setString(4, sale.getCondition());
+      updateBookData.setString(5, sale.getSubject());
+      updateBookData.setString(6, sale.getImage());
+      updateBookData.setDouble(7, sale.getPrice());
+      updateBookData.setBoolean(8, sale.isHardCopy());
+      updateBookData.setString(9, sale.getDescription());
+
+      updateBookData.executeUpdate();
+
+    }
+    catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
   @Override public void deleteBookSale(int id) {
     Connection connection = getConnectionToDB();
 
     try {
       PreparedStatement deleteBookSaleData = connection.prepareStatement("DELETE FROM BookSale WHERE bookSaleID =" + id);
+
+
 
       deleteBookSaleData.executeUpdate();
 

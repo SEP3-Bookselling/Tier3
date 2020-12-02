@@ -96,6 +96,18 @@ public class DataServerSocketHandler implements Runnable
 
           }
 
+          case UpdateBookSale:
+          {
+            JsonReader reader = new JsonReader(new StringReader(request.getBookSale().toString()));
+            reader.setLenient(true);
+
+            BookSale sale = gson.fromJson(reader, BookSale.class);
+
+            bookSaleDAO.updateBookSale(sale);
+            System.out.println(sale);
+            break;
+          }
+
           case CreateUser:
           {
             JsonReader reader = new JsonReader(new StringReader(request.getUser().toString()));
@@ -171,7 +183,6 @@ public class DataServerSocketHandler implements Runnable
             outputStream.write(array,0,array.length);
             break;
           }
-
 
           case DeleteBookSale:
           {
