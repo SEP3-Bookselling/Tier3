@@ -137,18 +137,7 @@ public class DataServerSocketHandler implements Runnable
 
           case GetSpecificUser:
           {
-            //Deserializes User from Request
-            JsonReader reader = new JsonReader(new StringReader(request.getUser().toString()));
-            reader.setLenient(true);
-
-            User user = gson.fromJson(reader, User.class);
-
-            userDAO.getSpecificUser(user);
-            System.out.println(user.toString());
-
-            //Serializes from the method
-            User userToBeReturned = userDAO.getSpecificUser(user);
-
+            User userToBeReturned = userDAO.getSpecificUser(request.getUsername(), request.getPassword());
             String jsonString = new Gson().toJson(userToBeReturned);
             System.out.println(jsonString);
 

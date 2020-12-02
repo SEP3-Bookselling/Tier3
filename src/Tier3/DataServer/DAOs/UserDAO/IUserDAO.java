@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public interface IUserDAO {
     ArrayList<User> getAllUsers();
-    User getSpecificUser(User user);
+    User getSpecificUser(String username, String password);
     ArrayList<Customer> getAllCustomers();
     Customer getCustomer();
     void createUser(Customer customer);

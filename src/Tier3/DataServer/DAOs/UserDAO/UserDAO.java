@@ -31,15 +31,15 @@ public class UserDAO implements IUserDAO {
         ArrayList<User> userList = new ArrayList<>();
 
         try {
-            PreparedStatement statement = connection.prepareStatement("select * from User");
+            PreparedStatement statement = connection.prepareStatement("select * from Users");
 
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()){
                 User user = new User();
                 user.setUsername(resultSet.getString(1));
-                user.setPassword(resultSet.getString(2));
-                user.setRole(resultSet.getString(3));
+               // user.setPassword(resultSet.getString(2));
+                //user.setRole(resultSet.getString(3));
 
                 userList.add(user);
             }
@@ -53,19 +53,22 @@ public class UserDAO implements IUserDAO {
     }
 
     @Override
-    public User getSpecificUser(User user) {
+    public User getSpecificUser(String username, String password) {
         Connection connection = getConnectionToDB();
+        User user = new User();
         try {
-            PreparedStatement statement = connection.prepareStatement("select * from Users where username =" + "'" + user.getUsername() + "'");
+            PreparedStatement statement = connection.prepareStatement("select * from Users where username = ? and password = ?;");
+            statement.setString(1,username);
+            statement.setString(2,password);
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next())
             {
-                User user1 = new User();
-                user1.setUsername(resultSet.getString(1));
-                user1.setPassword(resultSet.getString(2));
-                user1.setRole(resultSet.getString(3));
-                return user1;
+                user.setUsername(resultSet.getString(1));
+                user.setPassword(resultSet.getString(2));
+                user.setRole(resultSet.getString(3));
+                System.out.println("\t\t\t WORK PLEASE: " + user.getUsername() + " " + user.getPassword() + " " + user.getRole() + " ");
+                return user;
             }
 
         } catch (SQLException throwables) {
@@ -82,7 +85,7 @@ public class UserDAO implements IUserDAO {
         Connection connection = getConnectionToDB();
         ArrayList<Customer> customerList = new ArrayList<>();
         try {
-            PreparedStatement statement = connection.prepareStatement("select * from customer");
+            PreparedStatement statement = connection.prepareStatement("select * from Customer");
 
             ResultSet resultSet = statement.executeQuery();
 

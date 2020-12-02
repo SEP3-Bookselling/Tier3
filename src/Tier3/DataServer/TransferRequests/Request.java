@@ -17,6 +17,9 @@ public class Request implements Serializable
   private Card Card;
   private int Id;
 
+  private  String username;
+  private String password;
+
 
 
 
@@ -91,5 +94,25 @@ public class Request implements Serializable
       ArrayList<BookSale> bookSales)
   {
     this.bookSales = bookSales;
+  }
+
+  public String getUsername()
+  {
+    return username;
+  }
+
+  public void setUsername(String username)
+  {
+    this.username = username;
+  }
+
+  public String getPassword()
+  {
+    return password;
+  }
+
+  public void setPassword(String password)
+  {
+    this.password = password;
   }
 }
