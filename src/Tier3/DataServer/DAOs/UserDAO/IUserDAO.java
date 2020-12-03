@@ -13,6 +13,5 @@ public interface IUserDAO {
     void createUser(Customer customer);
     void createCustomer(Customer customer);
 
-
 }
 
