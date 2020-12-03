@@ -2,6 +2,8 @@ package Tier3.DataServer.Networking;
 
 import Tier3.DataServer.DAOs.BookSaleDAO.IBookSaleDAO;
 import Tier3.DataServer.DAOs.BookSaleDAO.BookSaleDAO;
+import Tier3.DataServer.DAOs.CustomerDao.CustomerDAO;
+import Tier3.DataServer.DAOs.CustomerDao.ICustomerDAO;
 import Tier3.DataServer.DAOs.UserDAO.IUserDAO;
 import Tier3.DataServer.DAOs.UserDAO.UserDAO;
 import Tier3.DataServer.DAOs.ProofOfConcept.IProofDAO;
@@ -29,6 +31,7 @@ public class DataServerSocketHandler implements Runnable
   private Gson gson;
   private IBookSaleDAO bookSaleDAO;
   private IUserDAO userDAO;
+  private ICustomerDAO customerDAO;
 
 
   public DataServerSocketHandler(Socket socket)
@@ -103,7 +106,7 @@ public class DataServerSocketHandler implements Runnable
 
             Customer customer = request.getCustomer();
 
-            userDAO.createUser(customer);
+            //userDAO.createUser(user); Todo create proper method
             System.out.println(customer.toString());
             break;
           }
@@ -116,8 +119,7 @@ public class DataServerSocketHandler implements Runnable
             System.out.println(message);
 
             Customer customer = request.getCustomer();
-            userDAO.createUser(customer);
-            userDAO.createCustomer(customer);
+            customerDAO.createCustomer(customer);
             System.out.println(customer.toString());
             break;
           }
@@ -149,10 +151,10 @@ public class DataServerSocketHandler implements Runnable
 
           case GetCustomer:
           {
-            ArrayList<Customer> customers = userDAO.getAllCustomers();
-            System.out.println("SocketHandler \t:" + customers);
+            Customer customer = customerDAO.getSpecificCustomer(request.getCustomer().getUsername());
+            System.out.println("SocketHandler \t:" + customer);
 
-            String jsonString = new Gson().toJson(customers);
+            String jsonString = new Gson().toJson(customer);
 
             byte[] array = jsonString.getBytes();
             outputStream.write(array,0,array.length);
