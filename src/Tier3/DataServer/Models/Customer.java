@@ -92,4 +92,11 @@ public class Customer extends User
   public String getUsername() {
     return super.getUsername();
   }
+
+  @Override public String toString() {
+    return "Customer{" + "postcode='" + postcode + '\'' + ", firstName='"
+        + firstName + '\'' + ", lastName='" + lastName + '\'' + ", email='"
+        + email + '\'' + ", phoneNumber=" + phoneNumber + ", rating=" + rating
+        + ", address='" + address + '\'' + '}';
+  }
 }

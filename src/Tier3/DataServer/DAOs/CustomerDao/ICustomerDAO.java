@@ -8,7 +8,7 @@ import java.util.List;
 public interface ICustomerDAO
 {
     void createCustomer(Customer customer);
-    Customer getSpecificCustomer(String username);
+    ArrayList<Customer> getCustomer(String username);
     ArrayList<Customer> getAllCustomers();
     void updateCustomer(Customer customer);
     void deleteCustomer(String username);
