@@ -38,8 +38,8 @@ public class UserDAO implements IUserDAO {
             while (resultSet.next()){
                 User user = new User();
                 user.setUsername(resultSet.getString(1));
-               // user.setPassword(resultSet.getString(2));
-                //user.setRole(resultSet.getString(3));
+                user.setPassword(resultSet.getString(2));
+                user.setRole(resultSet.getString(3));
 
                 userList.add(user);
             }
@@ -53,13 +53,12 @@ public class UserDAO implements IUserDAO {
     }
 
     @Override
-    public User getSpecificUser(String username, String password) {
+    public User getSpecificUser(String username) {
         Connection connection = getConnectionToDB();
         User user = new User();
         try {
-            PreparedStatement statement = connection.prepareStatement("select * from Users where username = ? and password = ?;");
+            PreparedStatement statement = connection.prepareStatement("select * from Users where username = ?;");
             statement.setString(1,username);
-            statement.setString(2,password);
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next())

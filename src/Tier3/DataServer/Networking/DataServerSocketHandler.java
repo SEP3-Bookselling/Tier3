@@ -126,9 +126,9 @@ public class DataServerSocketHandler implements Runnable
           case GetAllUsers:
           {
             ArrayList<User> users = userDAO.getAllUsers();
-            System.out.println("SocketHandler \t:" + users);
-
             String jsonString = new Gson().toJson(users);
+
+            System.out.println("SocketHandler \t:" + jsonString);
 
             byte[] array = jsonString.getBytes();
             outputStream.write(array, 0, array.length);
@@ -137,7 +137,7 @@ public class DataServerSocketHandler implements Runnable
 
           case GetSpecificUser:
           {
-            User userToBeReturned = userDAO.getSpecificUser(request.getUsername(), request.getPassword());
+            User userToBeReturned = userDAO.getSpecificUser(request.getUsername());
             String jsonString = new Gson().toJson(userToBeReturned);
             System.out.println(jsonString);
 
