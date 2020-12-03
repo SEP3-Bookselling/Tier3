@@ -8,10 +8,7 @@ import java.util.ArrayList;
 public interface IUserDAO {
     ArrayList<User> getAllUsers();
     User getSpecificUser(String username);
-    ArrayList<Customer> getAllCustomers();
-    Customer getCustomer();
     void createUser(Customer customer);
-    void createCustomer(Customer customer);
 
 }
 
