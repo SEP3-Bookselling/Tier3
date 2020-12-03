@@ -42,6 +42,7 @@ public class DataServerSocketHandler implements Runnable
     bookSaleDAO = new BookSaleDAO();
     userDAO = new UserDAO();
     testController = new ProofDAO();
+    customerDAO = new CustomerDAO();
 
     try
     {
