@@ -6,9 +6,9 @@ import Tier3.DataServer.Models.User;
 import java.util.ArrayList;
 
 public interface IUserDAO {
-    ArrayList<User> getAllUsers();
-    User getSpecificUser(String username);
+
     void createUser(Customer customer);
+    ArrayList<User> getUserList(String username);
 
 }
 

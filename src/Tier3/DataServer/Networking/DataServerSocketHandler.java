@@ -2,6 +2,7 @@ package Tier3.DataServer.Networking;
 
 import Tier3.DataServer.DAOs.BookSaleDAO.IBookSaleDAO;
 import Tier3.DataServer.DAOs.BookSaleDAO.BookSaleDAO;
+import Tier3.DataServer.DAOs.CustomerDAO.CustomerDAO;
 import Tier3.DataServer.DAOs.CustomerDAO.ICustomerDAO;
 import Tier3.DataServer.DAOs.UserDAO.IUserDAO;
 import Tier3.DataServer.DAOs.UserDAO.UserDAO;
@@ -124,7 +125,17 @@ public class DataServerSocketHandler implements Runnable
             break;
           }
 
+          case GetUserList:
+          {
+            ArrayList<User> users = userDAO.getUserList(request.getUsername());
+            String jsonString = new Gson().toJson(users);
+            System.out.println("SocketHandler GETUSERLIST \t:" + jsonString);
 
+            byte[] array = jsonString.getBytes();
+            outputStream.write(array, 0, array.length);
+            break;
+          }
+/*
           case GetAllUsers:
           {
             ArrayList<User> users = userDAO.getAllUsers();
@@ -148,7 +159,7 @@ public class DataServerSocketHandler implements Runnable
 
             break;
           }
-
+*/
           case GetSpecificCustomer:
           {
             ArrayList<Customer> customers = customerDAO.getCustomer(request.getUsername());
@@ -159,6 +170,16 @@ public class DataServerSocketHandler implements Runnable
             byte[] array = jsonString.getBytes();
             outputStream.write(array,0,array.length);
             System.out.println(customers.toString());
+            break;
+          }
+
+          case DeleteCustomer:
+          {
+            JsonReader reader = new JsonReader(new StringReader(request.getUsername()));
+            reader.setLenient(true);
+
+            String userToBeDeleted = gson.fromJson(reader, String.class);
+            customerDAO.deleteCustomer(userToBeDeleted);
             break;
           }
 
