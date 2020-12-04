@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public interface IUserDAO {
 
-    void createUser(Customer customer);
+    void createUser(User user);
     ArrayList<User> getUserList(String username);
 
 }

@@ -27,8 +27,25 @@ public class UserDAO implements IUserDAO {
 
 
 
-    @Override public void createUser(Customer customer) {
+    @Override public void createUser(User user)
+    {
+        Connection connection = getConnectionToDB();
 
+        try
+        {
+            PreparedStatement statement = connection.prepareStatement("Insert into Users (username, password, role) values (?,?,?)");
+            statement.setString(1,user.getUsername());
+            statement.setString(2,user.getPassword());
+            statement.setString(3,user.getRole());
+
+            statement.executeQuery();
+
+            System.out.println("It workd");
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     @Override public ArrayList<User> getUserList(String username)

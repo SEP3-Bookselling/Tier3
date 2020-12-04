@@ -1,4 +1,4 @@
-package Tier3.DataServer.DAOs.CustomerDao;
+package Tier3.DataServer.DAOs.CustomerDAO;
 
 import Tier3.DataServer.DAOs.PersonalLogin.LoginCredentials;
 import Tier3.DataServer.Models.Customer;
@@ -140,7 +140,6 @@ public class CustomerDAO implements ICustomerDAO{
                 throwables.printStackTrace();
             }
         }
-        System.out.println("No users were found");
         return customerList;
     }
 
@@ -156,6 +155,14 @@ public class CustomerDAO implements ICustomerDAO{
 
     @Override
     public void deleteCustomer(String username) {
+        Connection connection = getConnectionToDB();
 
-    }
+        try {
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM Customer WHERE username = ?");
+            statement.setString(1,username);
+            statement.executeUpdate();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }    }
 }

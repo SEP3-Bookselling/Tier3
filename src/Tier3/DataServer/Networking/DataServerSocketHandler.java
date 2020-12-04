@@ -100,15 +100,15 @@ public class DataServerSocketHandler implements Runnable
 
           case CreateUser:
           {
-            JsonReader reader = new JsonReader(new StringReader(request.getCustomer().toString()));
+            JsonReader reader = new JsonReader(new StringReader(request.getUser().toString()));
             reader.setLenient(true);
             String message = request.getUser().toString();
             System.out.println(message);
 
-            Customer customer = request.getCustomer();
+            User user = request.getUser();
 
-            //userDAO.createUser(user); Todo create proper method
-            System.out.println(customer.toString());
+            userDAO.createUser(user);
+            System.out.println(user.toString());
             break;
           }
 
