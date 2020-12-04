@@ -2,8 +2,7 @@ package Tier3.DataServer.Networking;
 
 import Tier3.DataServer.DAOs.BookSaleDAO.IBookSaleDAO;
 import Tier3.DataServer.DAOs.BookSaleDAO.BookSaleDAO;
-import Tier3.DataServer.DAOs.CustomerDao.CustomerDAO;
-import Tier3.DataServer.DAOs.CustomerDao.ICustomerDAO;
+import Tier3.DataServer.DAOs.CustomerDAO.ICustomerDAO;
 import Tier3.DataServer.DAOs.UserDAO.IUserDAO;
 import Tier3.DataServer.DAOs.UserDAO.UserDAO;
 import Tier3.DataServer.DAOs.ProofOfConcept.IProofDAO;

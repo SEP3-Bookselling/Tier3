@@ -1,9 +1,8 @@
-package Tier3.DataServer.DAOs.CustomerDao;
+package Tier3.DataServer.DAOs.CustomerDAO;
 
 import Tier3.DataServer.Models.Customer;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public interface ICustomerDAO
 {
