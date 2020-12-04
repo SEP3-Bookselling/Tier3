@@ -86,7 +86,7 @@ public class DataServerSocketHandler implements Runnable
 
           case GetAllBookSales:
           {
-            ArrayList<BookSale> bookSales = bookSaleDAO.getAllBookSales();
+            ArrayList<BookSale> bookSales = bookSaleDAO.getAllBookSales(request.getUsername());
             System.out.println("SocketHandler \t:" + bookSales);
 
             String jsonString = new Gson().toJson(bookSales);

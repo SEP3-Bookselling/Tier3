@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public interface IBookSaleDAO
 {
-  ArrayList<BookSale> getAllBookSales();
+  ArrayList<BookSale> getAllBookSales(String username);
   //ArrayList<String> getAllBookSales();
   //String getAllBookSales();
   BookSale getBookSale();
