@@ -41,6 +41,7 @@ public class DataServerSocketHandler implements Runnable
     bookSaleDAO = new BookSaleDAO();
     userDAO = new UserDAO();
     testController = new ProofDAO();
+    customerDAO = new CustomerDAO();
 
     try
     {
@@ -148,15 +149,16 @@ public class DataServerSocketHandler implements Runnable
             break;
           }
 
-          case GetCustomer:
+          case GetSpecificCustomer:
           {
-            Customer customer = customerDAO.getSpecificCustomer(request.getCustomer().getUsername());
-            System.out.println("SocketHandler \t:" + customer);
+            ArrayList<Customer> customers = customerDAO.getCustomer(request.getUsername());
+            System.out.println("SocketHandler \t:" + customers);
 
-            String jsonString = new Gson().toJson(customer);
+            String jsonString = new Gson().toJson(customers);
 
             byte[] array = jsonString.getBytes();
             outputStream.write(array,0,array.length);
+            System.out.println(customers.toString());
             break;
           }
 

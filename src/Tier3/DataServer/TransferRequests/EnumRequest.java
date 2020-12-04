@@ -20,7 +20,7 @@ public enum EnumRequest
 
   //Customers
   CreateCustomer,
-  GetCustomer,
+  GetSpecificCustomer,
   UpdateCustomer,
   DeleteCustomer,
 

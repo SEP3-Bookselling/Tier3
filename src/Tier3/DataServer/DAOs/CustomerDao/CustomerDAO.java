@@ -61,51 +61,87 @@ public class CustomerDAO implements ICustomerDAO{
     }
 
     @Override
-    public Customer getSpecificCustomer(String username) {
+    public ArrayList<Customer> getCustomer(String username) {
 
         Connection connection = getConnectionToDB();
-        Customer customer = new Customer();
-        try {
+        ArrayList<Customer> customerList = new ArrayList<>();
+        System.out.println("Get Reached");
 
-            String sql = "select distinct" +
-                    "c.username as Username," +
-                    "u.password," +
-                    "c.address," +
-                    "c.postcode," +
-                    "c.firstname," +
-                    "c.lastname," +
-                    "c.email," +
-                    "c.phonenumber," +
-                    "c.rating," +
-                    "u.role" +
-                    "from customer c inner join users u on c.username = u.username where c.username = ?";
+        if (username == null) {
+            try {
 
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1,username);
+                String sql = "select distinct c.username as Username, u.password, c.address, c.postcode, c.firstname, c.lastname, c.email, c.phonenumber, c.rating, u.role from customer c inner join users u on c.username = u.username";
 
-            ResultSet resultSet = statement.executeQuery();
+                System.out.println("Get specific passed");
+                PreparedStatement statement = connection.prepareStatement(sql);
+                //statement.setString(1,username);
 
-            if (resultSet.next())
-            {
-                customer.setUsername(resultSet.getString(1));
-                customer.setPassword(resultSet.getString(2));
-                customer.setAddress(resultSet.getString(3));
-                customer.setPostcode(resultSet.getString(4));
-                customer.setFirstName(resultSet.getString(5));
-                customer.setLastName(resultSet.getString(6));
-                customer.setEmail(resultSet.getString(7));
-                customer.setPhoneNumber(resultSet.getInt(8));
-                customer.setRating(resultSet.getDouble(9));
-                customer.setRole(resultSet.getString(10));
-                System.out.println("\t\t\t WORK PLEASE: " + customer.getUsername() + " " + customer.getPassword() + " " + customer.getRole() + " ");
-                return customer;
+                ResultSet resultSet = statement.executeQuery();
+                System.out.println("query executed");
+
+                while (resultSet.next()) {
+                    Customer customer = new Customer();
+                    customer.setUsername(resultSet.getString(1));
+                    customer.setPassword(resultSet.getString(2));
+                    customer.setAddress(resultSet.getString(3));
+                    customer.setPostcode(resultSet.getString(4));
+                    customer.setFirstName(resultSet.getString(5));
+                    customer.setLastName(resultSet.getString(6));
+                    customer.setEmail(resultSet.getString(7));
+                    customer.setPhoneNumber(resultSet.getInt(8));
+                    customer.setRating(resultSet.getDouble(9));
+                    customer.setRole(resultSet.getString(10));
+                    System.out.println(
+                        "\t\t\t WORK PLEASE: " + customer.getUsername() + " " + customer.getPassword() + " " + customer.getRole()
+                            + " ");
+
+                    customerList.add(customer);
+                }
+            }
+            catch (SQLException e) {
+                e.printStackTrace();
             }
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } else {
+            try {
+
+                String sql =
+                    "select distinct c.username as Username, u.password, c.address, c.postcode, c.firstname, c.lastname, c.email, c.phonenumber, c.rating, u.role from customer c inner join users u on c.username = u.username where c.username = '"
+                        + username + "'";
+
+                System.out.println("Get specific passed");
+                PreparedStatement statement = connection.prepareStatement(sql);
+                //statement.setString(1,username);
+
+                ResultSet resultSet = statement.executeQuery();
+                System.out.println("query executed");
+
+                if (resultSet.next()) {
+                    Customer customer = new Customer();
+                    customer.setUsername(resultSet.getString(1));
+                    customer.setPassword(resultSet.getString(2));
+                    customer.setAddress(resultSet.getString(3));
+                    customer.setPostcode(resultSet.getString(4));
+                    customer.setFirstName(resultSet.getString(5));
+                    customer.setLastName(resultSet.getString(6));
+                    customer.setEmail(resultSet.getString(7));
+                    customer.setPhoneNumber(resultSet.getInt(8));
+                    customer.setRating(resultSet.getDouble(9));
+                    customer.setRole(resultSet.getString(10));
+                    System.out.println(
+                        "\t\t\t WORK PLEASE: " + customer.getUsername() + " " + customer.getPassword() + " " + customer.getRole()
+                            + " ");
+
+                    customerList.add(customer);
+                }
+
+            }
+            catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
         }
         System.out.println("No users were found");
-        return null;
+        return customerList;
     }
 
     @Override
