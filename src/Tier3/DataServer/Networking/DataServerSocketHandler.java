@@ -190,6 +190,18 @@ public class DataServerSocketHandler implements Runnable
             break;
           }
 
+          case UpdateCustomer:
+          {
+            JsonReader reader = new JsonReader(new StringReader(request.getCustomer().toString()));
+            reader.setLenient(true);
+
+            Customer customer = gson.fromJson(reader,Customer.class);
+
+            customerDAO.updateCustomer(customer);
+            System.out.println(customer);
+            break;
+          }
+
           /*
           case sendProofOfConcept:
             {

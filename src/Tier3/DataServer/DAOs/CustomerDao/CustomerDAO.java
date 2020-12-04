@@ -1,6 +1,7 @@
 package Tier3.DataServer.DAOs.CustomerDao;
 
 import Tier3.DataServer.DAOs.PersonalLogin.LoginCredentials;
+import Tier3.DataServer.Models.Booksale.BookSale;
 import Tier3.DataServer.Models.Customer;
 import Tier3.DataServer.Models.User;
 
@@ -149,12 +150,35 @@ public class CustomerDAO implements ICustomerDAO{
         return null;
     }
 
+
     @Override
     public void updateCustomer(Customer customer) {
 
-    }
+        Connection connection = getConnectionToDB();
 
-    @Override
+        try {
+            PreparedStatement updateCustomerData = connection.prepareStatement("update Customer set address = ?, postcode = ?, firstname = ?, lastname = ?, email = ?, phonenumber = ?, rating = ? where username = " + customer.getUsername());
+            //customer
+            updateCustomerData.setString(1, customer.getAddress());
+            updateCustomerData.setString(2, customer.getPostcode());
+            updateCustomerData.setString(3, customer.getFirstName());
+            updateCustomerData.setString(4, customer.getLastName());
+            updateCustomerData.setString(5, customer.getEmail());
+            updateCustomerData.setInt(6, customer.getPhoneNumber());
+            updateCustomerData.setDouble(7, customer.getRating());
+            updateCustomerData.executeUpdate();
+
+            //user
+            PreparedStatement updateUserData = connection.prepareStatement("update Users set password = ? Where username = " + customer.getUsername());
+            updateUserData.setString(1, customer.getPassword());
+            updateUserData.executeUpdate();
+
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+        @Override
     public void deleteCustomer(String username) {
 
     }
