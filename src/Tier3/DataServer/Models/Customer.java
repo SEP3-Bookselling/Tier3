@@ -94,9 +94,17 @@ public class Customer extends User
   }
 
   @Override public String toString() {
-    return "Customer{" + "postcode='" + postcode + '\'' + ", firstName='"
-        + firstName + '\'' + ", lastName='" + lastName + '\'' + ", email='"
-        + email + '\'' + ", phoneNumber=" + phoneNumber + ", rating=" + rating
-        + ", address='" + address + '\'' + '}';
+    return "{"
+        + "\"username\":" + "\"" + getUsername() + "\","
+        + "\"address\":" + "\"" + getAddress() + "\","
+        + "\"postCode\":" + "\"" + getPostcode() + "\","
+        + "\"firstName\":" + "\"" + getFirstName() + "\","
+        + "\"lastName\":" + "\"" + getLastName() + "\","
+        + "\"email\":" + "\"" + getEmail() + "\","
+        + "\"phoneNumber\":" + getPhoneNumber() + ","
+        + "\"rating\":" + getRating() + ","
+        + "\"password\":" + "\"" + getPassword() + "\","
+        + "\"role\":" + "\"" + getRole() + "\","
+        + "}";
   }
 }

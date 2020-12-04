@@ -67,6 +67,7 @@ public class DataServerSocketHandler implements Runnable
         //JsonReader enumReader = new JsonReader(new StringReader(arrString));
         //enumReader.setLenient(true);
         Request request = gson.fromJson(arrString, Request.class);
+        System.out.println(request.getCustomer());
 
         switch (request.getEnumRequest())
         {
@@ -102,10 +103,12 @@ public class DataServerSocketHandler implements Runnable
           {
             JsonReader reader = new JsonReader(new StringReader(request.getCustomer().toString()));
             reader.setLenient(true);
-            String message = request.getUser().toString();
-            System.out.println(message);
 
-            Customer customer = request.getCustomer();
+            Customer customer = gson.fromJson(reader, Customer.class);
+
+            customerDAO.createCustomer(customer);
+            System.out.println(customer.toString());
+
 
             //userDAO.createUser(user); Todo create proper method
             System.out.println(customer.toString());
