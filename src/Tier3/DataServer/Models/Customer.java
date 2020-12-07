@@ -2,7 +2,7 @@ package Tier3.DataServer.Models;
 
 public class Customer extends User
 {
-  private String postcode;
+  private String postCode;
   private String firstName;
   private String lastName;
   private String email;
@@ -12,12 +12,12 @@ public class Customer extends User
 
   public String getPostcode()
   {
-    return postcode;
+    return postCode;
   }
 
   public void setPostcode(String postcode)
   {
-    this.postcode = postcode;
+    this.postCode = postcode;
   }
 
   public String getAddress() {
@@ -91,5 +91,20 @@ public class Customer extends User
   @Override
   public String getUsername() {
     return super.getUsername();
+  }
+
+  @Override public String toString() {
+    return "{"
+        + "\"username\":" + "\"" + getUsername() + "\","
+        + "\"address\":" + "\"" + getAddress() + "\","
+        + "\"postCode\":" + "\"" + getPostcode() + "\","
+        + "\"firstName\":" + "\"" + getFirstName() + "\","
+        + "\"lastName\":" + "\"" + getLastName() + "\","
+        + "\"email\":" + "\"" + getEmail() + "\","
+        + "\"phoneNumber\":" + getPhoneNumber() + ","
+        + "\"rating\":" + getRating() + ","
+        + "\"password\":" + "\"" + getPassword() + "\","
+        + "\"role\":" + "\"" + getRole() + "\""
+        + "}";
   }
 }

@@ -25,13 +25,94 @@ public class UserDAO implements IUserDAO {
         return null;
     }
 
-    @Override
+
+
+    @Override public void createUser(User user)
+    {
+        Connection connection = getConnectionToDB();
+
+        try
+        {
+            PreparedStatement statement = connection.prepareStatement("Insert into Users (username, password, role) values (?,?,?)");
+            statement.setString(1,user.getUsername());
+            statement.setString(2,user.getPassword());
+            statement.setString(3,user.getRole());
+
+            statement.executeUpdate();
+
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    @Override public ArrayList<User> getUserList(String username)
+    {
+        Connection connection = getConnectionToDB();
+        ArrayList<User> userList = new ArrayList<>();
+
+        if (username == null)
+        {
+            try
+            {
+                String sql = "select * from users";
+                PreparedStatement statement = connection.prepareStatement(sql);
+
+                ResultSet resultSet = statement.executeQuery();
+
+                while (resultSet.next())
+                {
+                    User user = new User();
+                    user.setUsername(resultSet.getString(1));
+                    user.setPassword(resultSet.getString(2));
+                    user.setRole(resultSet.getString(3));
+
+                    userList.add(user);
+                }
+            }
+            catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
+
+        }
+        else {
+            try
+            {
+                String sql = "select * from users where username = " + "'" + username + "'" ;
+                PreparedStatement statement = connection.prepareStatement(sql);
+                ResultSet resultSet = statement.executeQuery();
+
+                if (resultSet.next())
+                {
+                    User user = new User();
+                    user.setUsername(resultSet.getString(1));
+                    user.setPassword(resultSet.getString(2));
+                    user.setRole(resultSet.getString(3));
+
+                    userList.add(user);
+                }
+            }
+            catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
+        }
+        return userList;
+    }
+
+}
+
+
+/*
+*  @Override
     public ArrayList<User> getAllUsers() {
         Connection connection = getConnectionToDB();
         ArrayList<User> userList = new ArrayList<>();
 
         try {
-            PreparedStatement statement = connection.prepareStatement("select * from User");
+            PreparedStatement statement = connection.prepareStatement("select * from Users");
 
             ResultSet resultSet = statement.executeQuery();
 
@@ -53,19 +134,21 @@ public class UserDAO implements IUserDAO {
     }
 
     @Override
-    public User getSpecificUser(User user) {
+    public User getSpecificUser(String username) {
         Connection connection = getConnectionToDB();
+        User user = new User();
         try {
-            PreparedStatement statement = connection.prepareStatement("select * from Users where username =" + "'" + user.getUsername() + "'");
+            PreparedStatement statement = connection.prepareStatement("select * from Users where username = ?;");
+            statement.setString(1,username);
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next())
             {
-                User user1 = new User();
-                user1.setUsername(resultSet.getString(1));
-                user1.setPassword(resultSet.getString(2));
-                user1.setRole(resultSet.getString(3));
-                return user1;
+                user.setUsername(resultSet.getString(1));
+                user.setPassword(resultSet.getString(2));
+                user.setRole(resultSet.getString(3));
+                System.out.println("\t\t\t WORK PLEASE: " + user.getUsername() + " " + user.getPassword() + " " + user.getRole() + " ");
+                return user;
             }
 
         } catch (SQLException throwables) {
@@ -74,93 +157,4 @@ public class UserDAO implements IUserDAO {
         System.out.println("No users were found");
         return null;
     }
-
-        @Override
-    public ArrayList<Customer> getAllCustomers() {
-        getAllUsers();
-
-        Connection connection = getConnectionToDB();
-        ArrayList<Customer> customerList = new ArrayList<>();
-        try {
-            PreparedStatement statement = connection.prepareStatement("select * from customer");
-
-            ResultSet resultSet = statement.executeQuery();
-
-            while (resultSet.next()){
-                Customer customer = new Customer();
-                customer.setUsername(resultSet.getString(1));
-                customer.setAddress(resultSet.getString(2));
-                customer.setPostcode(resultSet.getString(3));
-                customer.setFirstName(resultSet.getString(4));
-                customer.setLastName(resultSet.getString(5));
-                customer.setEmail(resultSet.getString(6));
-                customer.setPhoneNumber(resultSet.getInt(7));
-                customer.setRating(resultSet.getDouble(8));
-
-                customerList.add(customer);
-            }
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
-        return customerList;
-
-    }
-
-    @Override
-    public Customer getCustomer() {
-        return null;
-    }
-
-    @Override
-    public void createUser(Customer customer)
-    {
-        System.out.println("Virker: " + customer.getFirstName());
-        Connection connection = getConnectionToDB();
-
-        try
-        {
-            PreparedStatement insertUser = connection.prepareStatement("insert into Users (username, password, role) values(?, ?, ?)");
-
-            insertUser.setString(1, customer.getUsername());
-            insertUser.setString(2, customer.getPassword());
-            insertUser.setString(3, customer.getRole());
-
-
-            insertUser.executeUpdate();
-
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
-    }
-
-    public void createCustomer(Customer customer)
-    {
-
-        createUser(customer);
-        Connection connection = getConnectionToDB();
-
-        try
-        {
-            PreparedStatement insertCustomer = connection.prepareStatement("insert into Customer (username, address, postcode, firstname,lastname, email, phonenumber, rating) values(?, ?, ?, ?, ?, ?, ?, ?)");
-            insertCustomer.setString(1, customer.getUsername());
-            insertCustomer.setString(2, customer.getAddress());
-            insertCustomer.setString(3, customer.getPostcode());
-            insertCustomer.setString(4, customer.getFirstName());
-            insertCustomer.setString(5, customer.getLastName());
-            insertCustomer.setString(6, customer.getEmail());
-            insertCustomer.setInt(7, customer.getPhoneNumber());
-            insertCustomer.setDouble(8,customer.getRating());
-            insertCustomer.executeUpdate();
-
-        }
-        catch (SQLException e)
-        {
-            e.printStackTrace();
-        }
-    }
-
-}
+* */

@@ -26,58 +26,71 @@ public class BookSaleDAO implements IBookSaleDAO
     return null;
   }
 
-  @Override public ArrayList<BookSale> getAllBookSales()
+  @Override public ArrayList<BookSale> getAllBookSales(String username)
   {
     Connection connection = getConnectionToDB();
     ArrayList<BookSale> bookSaleList = new ArrayList<>();
 
-    try
-    {
-      PreparedStatement statement = connection.prepareStatement("select * from BookSale");
+    if (username == null) {
+      try {
+        PreparedStatement statement = connection.prepareStatement("select * from BookSale");
 
-      ResultSet resultSet = statement.executeQuery();
+        ResultSet resultSet = statement.executeQuery();
 
-      while (resultSet.next())
-      {
-        BookSale bookSale = new BookSale();
+        while (resultSet.next()) {
+          BookSale bookSale = new BookSale();
 
-        bookSale.setTitle(resultSet.getString(1));
-        bookSale.setAuthor(resultSet.getString(2));
-        bookSale.setEdition(resultSet.getString(3));
-        bookSale.setCondition(resultSet.getString(4));
-        bookSale.setSubject(resultSet.getString(5));
-        bookSale.setImage(resultSet.getString(6));
-        bookSale.setPrice(resultSet.getDouble(7));
-        bookSale.setHardCopy(resultSet.getBoolean(8));
-        bookSale.setDescription(resultSet.getString(9));
-        bookSale.setUsername(resultSet.getString(10));
-        bookSale.setBookSaleID(resultSet.getInt(11));
+          bookSale.setTitle(resultSet.getString(1));
+          bookSale.setAuthor(resultSet.getString(2));
+          bookSale.setEdition(resultSet.getString(3));
+          bookSale.setCondition(resultSet.getString(4));
+          bookSale.setSubject(resultSet.getString(5));
+          bookSale.setImage(resultSet.getString(6));
+          bookSale.setPrice(resultSet.getDouble(7));
+          bookSale.setHardCopy(resultSet.getBoolean(8));
+          bookSale.setDescription(resultSet.getString(9));
+          bookSale.setUsername(resultSet.getString(10));
+          bookSale.setBookSaleID(resultSet.getInt(11));
 
-        bookSaleList.add(bookSale);
+          bookSaleList.add(bookSale);
 
+        }
       }
-    }
-    catch (SQLException e)
-    {
-      e.printStackTrace();
+      catch (SQLException e) {
+        e.printStackTrace();
+      }
+
+    } else {
+      try {
+        PreparedStatement statement = connection.prepareStatement("select * from BookSale where username = " + "'" + username + "'");
+
+        ResultSet resultSet = statement.executeQuery();
+
+        while (resultSet.next()) {
+          BookSale bookSale = new BookSale();
+
+          bookSale.setTitle(resultSet.getString(1));
+          bookSale.setAuthor(resultSet.getString(2));
+          bookSale.setEdition(resultSet.getString(3));
+          bookSale.setCondition(resultSet.getString(4));
+          bookSale.setSubject(resultSet.getString(5));
+          bookSale.setImage(resultSet.getString(6));
+          bookSale.setPrice(resultSet.getDouble(7));
+          bookSale.setHardCopy(resultSet.getBoolean(8));
+          bookSale.setDescription(resultSet.getString(9));
+          bookSale.setUsername(resultSet.getString(10));
+          bookSale.setBookSaleID(resultSet.getInt(11));
+
+          bookSaleList.add(bookSale);
+
+        }
+      }
+      catch (SQLException e) {
+        e.printStackTrace();
+      }
     }
 
     return bookSaleList;
-  }
-
-  @Override public BookSale getBookSale()
-  {
-    return null;
-
-    /*
-    if(resultSet.next()){
-    * String strin1 = resultSet.GetString("columnLabel");
-    * int int1 = resultSet.getInt("customerID"); //getInt er navnet på kollonnen
-    * Booksale booksale = new BookSale(strin1,int1);
-    * return booksale
-    *}
-    */
-
   }
 
   @Override public void createBookSale(BookSale bookSale)
@@ -152,8 +165,6 @@ public class BookSaleDAO implements IBookSaleDAO
 
     try {
       PreparedStatement deleteBookSaleData = connection.prepareStatement("DELETE FROM BookSale WHERE bookSaleID =" + id);
-
-
 
       deleteBookSaleData.executeUpdate();
 

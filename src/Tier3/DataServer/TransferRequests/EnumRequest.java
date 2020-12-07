@@ -13,6 +13,7 @@ public enum EnumRequest
   //Users
   CreateUser,
   GetSpecificUser,
+  GetUserList,
   GetAllUsers,
   UpdateUser,
   DeleteUser,
@@ -20,7 +21,7 @@ public enum EnumRequest
 
   //Customers
   CreateCustomer,
-  GetCustomer,
+  GetSpecificCustomer,
   UpdateCustomer,
   DeleteCustomer,
 

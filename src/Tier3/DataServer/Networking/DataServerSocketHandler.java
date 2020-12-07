@@ -2,6 +2,8 @@ package Tier3.DataServer.Networking;
 
 import Tier3.DataServer.DAOs.BookSaleDAO.IBookSaleDAO;
 import Tier3.DataServer.DAOs.BookSaleDAO.BookSaleDAO;
+import Tier3.DataServer.DAOs.CustomerDAO.CustomerDAO;
+import Tier3.DataServer.DAOs.CustomerDAO.ICustomerDAO;
 import Tier3.DataServer.DAOs.UserDAO.IUserDAO;
 import Tier3.DataServer.DAOs.UserDAO.UserDAO;
 import Tier3.DataServer.DAOs.ProofOfConcept.IProofDAO;
@@ -19,8 +21,7 @@ import java.util.ArrayList;
 
 public class DataServerSocketHandler implements Runnable
 {
-  // Initial branch creation
-  // Branch work please?
+
   private Socket socket;
 
   private InputStream inputStream;
@@ -29,16 +30,17 @@ public class DataServerSocketHandler implements Runnable
   private Gson gson;
   private IBookSaleDAO bookSaleDAO;
   private IUserDAO userDAO;
+  private ICustomerDAO customerDAO;
 
 
   public DataServerSocketHandler(Socket socket)
   {
     this.socket = socket;
     gson = new Gson();
-    //controller = new ProofDAO();
     bookSaleDAO = new BookSaleDAO();
     userDAO = new UserDAO();
     testController = new ProofDAO();
+    customerDAO = new CustomerDAO();
 
     try
     {
@@ -53,15 +55,12 @@ public class DataServerSocketHandler implements Runnable
 
   @Override public void run()
   {
-    //while (true)
-    //{
+
       byte[] inputFromTier2 = new byte[1024];
       try
       {
         int arrLength = inputStream.read(inputFromTier2, 0, inputFromTier2.length);
         String arrString = new String(inputFromTier2, 0, arrLength);
-        //JsonReader enumReader = new JsonReader(new StringReader(arrString));
-        //enumReader.setLenient(true);
         Request request = gson.fromJson(arrString, Request.class);
 
         switch (request.getEnumRequest())
@@ -72,17 +71,14 @@ public class DataServerSocketHandler implements Runnable
               reader.setLenient(true);
 
               BookSale bookSale = gson.fromJson(reader, BookSale.class);
-             // BookSale bookSale = gson.fromJson(reader, String.class);
 
               bookSaleDAO.createBookSale(bookSale);
-              System.out.println(bookSale.toString());
               break;
             }
 
           case GetAllBookSales:
           {
-            ArrayList<BookSale> bookSales = bookSaleDAO.getAllBookSales();
-            System.out.println("SocketHandler \t:" + bookSales);
+            ArrayList<BookSale> bookSales = bookSaleDAO.getAllBookSales(request.getUsername());
 
             String jsonString = new Gson().toJson(bookSales);
 
@@ -108,15 +104,10 @@ public class DataServerSocketHandler implements Runnable
 
           case CreateUser:
           {
-            JsonReader reader = new JsonReader(new StringReader(request.getCustomer().toString()));
+            JsonReader reader = new JsonReader(new StringReader(request.getUser().toString()));
             reader.setLenient(true);
-            String message = request.getUser().toString();
-            System.out.println(message);
-
-            Customer customer = request.getCustomer();
-
-            userDAO.createUser(customer);
-            System.out.println(customer.toString());
+            User user = request.getUser();
+            userDAO.createUser(user);
             break;
           }
 
@@ -124,22 +115,15 @@ public class DataServerSocketHandler implements Runnable
           {
             JsonReader reader = new JsonReader(new StringReader(request.getCustomer().toString()));
             reader.setLenient(true);
-            String message = request.getCustomer().toString();
-            System.out.println(message);
 
             Customer customer = request.getCustomer();
-            userDAO.createUser(customer);
-            userDAO.createCustomer(customer);
-            System.out.println(customer.toString());
+            customerDAO.createCustomer(customer);
             break;
           }
 
-
-          case GetAllUsers:
+          case GetUserList:
           {
-            ArrayList<User> users = userDAO.getAllUsers();
-            System.out.println("SocketHandler \t:" + users);
-
+            ArrayList<User> users = userDAO.getUserList(request.getUsername());
             String jsonString = new Gson().toJson(users);
 
             byte[] array = jsonString.getBytes();
@@ -147,38 +131,24 @@ public class DataServerSocketHandler implements Runnable
             break;
           }
 
-          case GetSpecificUser:
+          case GetSpecificCustomer:
           {
-            //Deserializes User from Request
-            JsonReader reader = new JsonReader(new StringReader(request.getUser().toString()));
-            reader.setLenient(true);
-
-            User user = gson.fromJson(reader, User.class);
-
-            userDAO.getSpecificUser(user);
-            System.out.println(user.toString());
-
-            //Serializes from the method
-            User userToBeReturned = userDAO.getSpecificUser(user);
-
-            String jsonString = new Gson().toJson(userToBeReturned);
-            System.out.println(jsonString);
-
-            byte[] array = jsonString.getBytes();
-            outputStream.write(array, 0, array.length);
-
-            break;
-          }
-
-          case GetCustomer:
-          {
-            ArrayList<Customer> customers = userDAO.getAllCustomers();
-            System.out.println("SocketHandler \t:" + customers);
+            ArrayList<Customer> customers = customerDAO.getCustomer(request.getUsername());
 
             String jsonString = new Gson().toJson(customers);
 
             byte[] array = jsonString.getBytes();
             outputStream.write(array,0,array.length);
+            break;
+          }
+
+          case DeleteCustomer:
+          {
+            JsonReader reader = new JsonReader(new StringReader(request.getUsername()));
+            reader.setLenient(true);
+
+            String userToBeDeleted = gson.fromJson(reader, String.class);
+            customerDAO.deleteCustomer(userToBeDeleted);
             break;
           }
 
@@ -190,6 +160,28 @@ public class DataServerSocketHandler implements Runnable
             int idToDelete = gson.fromJson(reader, Integer.class);
             bookSaleDAO.deleteBookSale(idToDelete);
 
+            break;
+          }
+
+          case UpdateBookSale:
+          {
+            JsonReader reader = new JsonReader(new StringReader(request.getBookSale().toString()));
+            reader.setLenient(true);
+
+            BookSale sale = gson.fromJson(reader, BookSale.class);
+
+            bookSaleDAO.updateBookSale(sale);
+            break;
+          }
+
+          case UpdateCustomer:
+          {
+            JsonReader reader = new JsonReader(new StringReader(request.getCustomer().toString()));
+            reader.setLenient(true);
+
+            Customer customer = gson.fromJson(reader, Customer.class);
+
+            customerDAO.updateCustomer(customer);
             break;
           }
 

@@ -13,9 +13,11 @@ public class Request implements Serializable
   private BookSale BookSale;
   private ArrayList<BookSale> bookSales;
   private User User;
-  private Customer customer;
-  private Card Card;
+  private Customer Customer;
   private int Id;
+
+  private String username;
+  private String password;
 
 
 
@@ -47,22 +49,18 @@ public class Request implements Serializable
   }
 
   public Customer getCustomer(){
-    return customer;
+    return Customer;
   }
+
+  public void setCustomer(Customer customer) {
+    this.Customer = customer;
+  }
+
   public void setUser(User user)
   {
     User = user;
   }
 
-  public Card getCard()
-  {
-    return Card;
-  }
-
-  public void setCard(Card card)
-  {
-    Card = card;
-  }
 
   // Prototype
 
@@ -91,5 +89,33 @@ public class Request implements Serializable
       ArrayList<BookSale> bookSales)
   {
     this.bookSales = bookSales;
+  }
+
+  public String getUsername()
+  {
+    return username;
+  }
+
+  public void setUsername(String username)
+  {
+    this.username = username;
+  }
+
+  public String getPassword()
+  {
+    return password;
+  }
+
+  public void setPassword(String password)
+  {
+    this.password = password;
+  }
+
+  @Override public String toString() {
+    return "Request{" + "EnumRequest=" + EnumRequest + ", BookSale=" + BookSale
+        + ", bookSales=" + bookSales + ", User=" + User + ", Customer="
+        + Customer + ", Id=" + Id + ", username='" + username + '\''
+        + ", password='" + password + '\'' + ", HelloWorld='" + HelloWorld
+        + '\'' + '}';
   }
 }
