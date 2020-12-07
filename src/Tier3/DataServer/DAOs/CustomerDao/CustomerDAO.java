@@ -2,7 +2,6 @@ package Tier3.DataServer.DAOs.CustomerDAO;
 
 import Tier3.DataServer.DAOs.PersonalLogin.LoginCredentials;
 import Tier3.DataServer.Models.Customer;
-import Tier3.DataServer.Models.User;
 
 import java.sql.*;
 import java.util.ArrayList;
