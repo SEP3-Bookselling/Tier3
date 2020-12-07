@@ -38,9 +38,8 @@ public class UserDAO implements IUserDAO {
             statement.setString(2,user.getPassword());
             statement.setString(3,user.getRole());
 
-            statement.executeQuery();
+            statement.executeUpdate();
 
-            System.out.println("It workd");
         }
         catch (SQLException e)
         {
