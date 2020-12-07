@@ -43,6 +43,7 @@ select * from Customer
 drop table Customer
 
 
+
 /* BookSale */
 create domain d_title varchar(256);
 create domain d_author varchar(256);
@@ -87,15 +88,16 @@ select * from Wishlist
 drop table Wishlist
 
 /* Hardcoded User */
-select * from Usersinsert into Users (username, password, role) values ('SonSon', '1234', 'Customer');
+select * from Users
+insert into Users (username, password, role) values ('SonSon', '1234', 'Customer');
 insert into Users (username, password, role) values ('Crisiluluman', '1234', 'Customer');
 insert into Users (username, password, role) values ('AnneLindberg', '1234', 'Moderator');
 insert into Users (username, password, role) values ('MagicalTermite', '1234', 'Admin');
-insert into Users (username, password, role) values ('SonSon', '1234', 'Customer');
+
 
 /* Hardcoded Customer */
 select * from Customer
-insert into Customer (userName, address, postcode, firstName, lastName, email, phoneNumber, rating) values ('SonSon', 'Normandshave', '8700', 'Sonny', 'Haack', 'stuff@gmail.com', 12345678, 5);
+insert into Customer (userName, address, postcode, firstName, lastName, email, phoneNumber, rating) values ('SonSon', 'Normandshaven', '8700', 'Sonny', 'Haack', 'stuff@gmail.com', 12345678, 5);
 insert into Customer (userName, address, postcode, firstName, lastName, email, phoneNumber, rating) values ('Crisiluluman', 'Sankt Helenevej', '8700', 'Christoper', 'Larsen', 'christopher-larsen@hotmail.com', 12345678, 4);
 
 
@@ -110,4 +112,29 @@ insert into BookSale (title, author, edition, condition, subject, image, price, 
 /* Hardcoded Wishlist */
 select * from Wishlist
 insert into Wishlist(booksaleId, username) values(0001, 'Crisiluluman');
+
+
+/*Trigger for deleting User when Customer is deleted*/
+create or replace function deleteFunction() 
+returns trigger as
+$$
+	begin
+		delete from Users 
+		where username = old.username;
+		return old;
+	end;
+	
+$$ language plpgsql;
+
+create trigger deleteTrigger
+after delete on Customer	
+for each row
+execute procedure deleteFunction();
+
+
+-- test user insert
+delete from users where username = 'Test1'
+
+select * from users;
+
 
