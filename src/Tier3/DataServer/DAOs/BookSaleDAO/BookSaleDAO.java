@@ -142,7 +142,6 @@ public class BookSaleDAO implements IBookSaleDAO
 
     ArrayList<BookSale> toShow = getAllBookSales("");
 
-    System.out.println("before update");
 
     for (BookSale saleToShow : toShow) {
       System.out.println(saleToShow.toString());
@@ -163,7 +162,6 @@ public class BookSaleDAO implements IBookSaleDAO
 
       updateBookData.executeUpdate();
 
-      System.out.println("After update");
 
       for (BookSale saleToShow2 : toShow) {
         System.out.println(saleToShow2.toString());
