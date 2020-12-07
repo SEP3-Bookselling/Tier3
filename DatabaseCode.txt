@@ -91,11 +91,11 @@ select * from Usersinsert into Users (username, password, role) values ('SonSon'
 insert into Users (username, password, role) values ('Crisiluluman', '1234', 'Customer');
 insert into Users (username, password, role) values ('AnneLindberg', '1234', 'Moderator');
 insert into Users (username, password, role) values ('MagicalTermite', '1234', 'Admin');
-
+insert into Users (username, password, role) values ('SonSon', '1234', 'Customer');
 
 /* Hardcoded Customer */
 select * from Customer
-insert into Customer (userName, address, postcode, firstName, lastName, email, phoneNumber, rating) values ('SonSon', 'Normandshaven', '8700', 'Sonny', 'Haack', 'stuff@gmail.com', 12345678, 5);
+insert into Customer (userName, address, postcode, firstName, lastName, email, phoneNumber, rating) values ('SonSon', 'Normandshave', '8700', 'Sonny', 'Haack', 'stuff@gmail.com', 12345678, 5);
 insert into Customer (userName, address, postcode, firstName, lastName, email, phoneNumber, rating) values ('Crisiluluman', 'Sankt Helenevej', '8700', 'Christoper', 'Larsen', 'christopher-larsen@hotmail.com', 12345678, 4);
 
 
