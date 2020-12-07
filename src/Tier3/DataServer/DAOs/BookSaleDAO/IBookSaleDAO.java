@@ -8,9 +8,6 @@ import java.util.ArrayList;
 public interface IBookSaleDAO
 {
   ArrayList<BookSale> getAllBookSales(String username);
-  //ArrayList<String> getAllBookSales();
-  //String getAllBookSales();
-  BookSale getBookSale();
   void createBookSale(BookSale bookSale) throws SQLException;
   void updateBookSale(BookSale sale);
   void deleteBookSale(int id);
