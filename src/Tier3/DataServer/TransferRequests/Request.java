@@ -13,11 +13,10 @@ public class Request implements Serializable
   private BookSale BookSale;
   private ArrayList<BookSale> bookSales;
   private User User;
-  private Customer customer;
-  private Card Card;
+  private Customer Customer;
   private int Id;
 
-  private  String username;
+  private String username;
   private String password;
 
 
@@ -50,22 +49,18 @@ public class Request implements Serializable
   }
 
   public Customer getCustomer(){
-    return customer;
+    return Customer;
   }
+
+  public void setCustomer(Customer customer) {
+    this.Customer = customer;
+  }
+
   public void setUser(User user)
   {
     User = user;
   }
 
-  public Card getCard()
-  {
-    return Card;
-  }
-
-  public void setCard(Card card)
-  {
-    Card = card;
-  }
 
   // Prototype
 

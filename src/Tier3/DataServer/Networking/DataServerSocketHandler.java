@@ -85,7 +85,7 @@ public class DataServerSocketHandler implements Runnable
 
           case GetAllBookSales:
           {
-            ArrayList<BookSale> bookSales = bookSaleDAO.getAllBookSales();
+            ArrayList<BookSale> bookSales = bookSaleDAO.getAllBookSales(request.getUsername());
             System.out.println("SocketHandler \t:" + bookSales);
 
             String jsonString = new Gson().toJson(bookSales);
@@ -135,31 +135,8 @@ public class DataServerSocketHandler implements Runnable
             outputStream.write(array, 0, array.length);
             break;
           }
-/*
-          case GetAllUsers:
-          {
-            ArrayList<User> users = userDAO.getAllUsers();
-            String jsonString = new Gson().toJson(users);
 
-            System.out.println("SocketHandler \t:" + jsonString);
 
-            byte[] array = jsonString.getBytes();
-            outputStream.write(array, 0, array.length);
-            break;
-          }
-
-          case GetSpecificUser:
-          {
-            User userToBeReturned = userDAO.getSpecificUser(request.getUsername());
-            String jsonString = new Gson().toJson(userToBeReturned);
-            System.out.println(jsonString);
-
-            byte[] array = jsonString.getBytes();
-            outputStream.write(array, 0, array.length);
-
-            break;
-          }
-*/
           case GetSpecificCustomer:
           {
             ArrayList<Customer> customers = customerDAO.getCustomer(request.getUsername());
@@ -192,6 +169,18 @@ public class DataServerSocketHandler implements Runnable
             int idToDelete = gson.fromJson(reader, Integer.class);
             bookSaleDAO.deleteBookSale(idToDelete);
 
+            break;
+          }
+
+          case UpdateBookSale:
+          {
+            JsonReader reader = new JsonReader(new StringReader(request.getBookSale().toString()));
+            reader.setLenient(true);
+
+            BookSale sale = gson.fromJson(reader, BookSale.class);
+
+            bookSaleDAO.updateBookSale(sale);
+            System.out.println(sale);
             break;
           }
 
