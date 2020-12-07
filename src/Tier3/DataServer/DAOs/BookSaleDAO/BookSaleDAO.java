@@ -2,7 +2,7 @@ package Tier3.DataServer.DAOs.BookSaleDAO;
 
 
 import Tier3.DataServer.DAOs.PersonalLogin.LoginCredentials;
-import Tier3.DataServer.Models.Booksale.BookSale;
+import Tier3.DataServer.Models.BookSale;
 import java.sql.*;
 import java.util.ArrayList;
 

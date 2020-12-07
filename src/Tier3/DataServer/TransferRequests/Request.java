@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import Tier3.DataServer.Models.*;
-import Tier3.DataServer.Models.Booksale.BookSale;
+import Tier3.DataServer.Models.BookSale;
 
 public class Request implements Serializable
 {

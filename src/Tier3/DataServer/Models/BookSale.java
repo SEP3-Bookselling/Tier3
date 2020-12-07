@@ -1,8 +1,7 @@
-package Tier3.DataServer.Models.Booksale;
+package Tier3.DataServer.Models;
 
-public class BookSaleNoID
+public class BookSale
 {
-
   public String getTitle()
   {
     return title;
@@ -103,6 +102,17 @@ public class BookSaleNoID
     this.username = username;
   }
 
+  public int getBookSaleID()
+  {
+    System.out.println(bookSaleID);
+    return bookSaleID;
+  }
+
+  public void setBookSaleID(int bookSaleID)
+  {
+    this.bookSaleID = bookSaleID;
+  }
+
   private String title;
   private String author;
   private String edition;
@@ -113,6 +123,7 @@ public class BookSaleNoID
   private boolean hardCopy;
   private String description;
   private String username;
+  private Integer bookSaleID = null;
 
   @Override public String toString()
   {
@@ -142,9 +153,12 @@ public class BookSaleNoID
         + "\"price\":" + getPrice() + ","
         + "\"hardCopy\":"  + isHardCopy() + ","
         + "\"description\":" + "\"" + getDescription() + "\"" + ","
-        + "\"username\":" + "\"" + getUsername() + "\""
+        + "\"username\":" + "\"" + getUsername() + "\"" + ","
+        + "\"bookSaleID\":" + "" + getBookSaleID()
         + "}";
 
 
   }
+
+
 }
