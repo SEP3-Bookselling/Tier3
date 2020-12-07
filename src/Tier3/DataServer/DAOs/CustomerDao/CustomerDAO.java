@@ -157,7 +157,8 @@ public class CustomerDAO implements ICustomerDAO{
         Connection connection = getConnectionToDB();
 
         try {
-            PreparedStatement updateCustomerData = connection.prepareStatement("update Customer set address = ?, postcode = ?, firstname = ?, lastname = ?, email = ?, phonenumber = ?, rating = ? where username = " + customer.getUsername());
+            PreparedStatement updateCustomerData = connection.prepareStatement("update Customer set address = ?, postcode = ?, firstname = ?, lastname = ?, email = ?, phonenumber = ?, rating = ? where username = " + "'" + customer.getUsername() + "'");
+            System.out.println(customer.toString());
             //customer
             updateCustomerData.setString(1, customer.getAddress());
             updateCustomerData.setString(2, customer.getPostcode());
@@ -168,8 +169,9 @@ public class CustomerDAO implements ICustomerDAO{
             updateCustomerData.setDouble(7, customer.getRating());
             updateCustomerData.executeUpdate();
 
+
             //user
-            PreparedStatement updateUserData = connection.prepareStatement("update Users set password = ? Where username = " + customer.getUsername());
+            PreparedStatement updateUserData = connection.prepareStatement("update Users set password = ? Where username = " + "'" + customer.getUsername() + "'");
             updateUserData.setString(1, customer.getPassword());
             updateUserData.executeUpdate();
 

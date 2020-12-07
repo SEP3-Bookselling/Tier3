@@ -67,7 +67,7 @@ public class DataServerSocketHandler implements Runnable
         //JsonReader enumReader = new JsonReader(new StringReader(arrString));
         //enumReader.setLenient(true);
         Request request = gson.fromJson(arrString, Request.class);
-        System.out.println(request.getCustomer());
+        System.out.println("Request print in DSSH " + request.toString());
 
         switch (request.getEnumRequest())
         {
@@ -80,14 +80,12 @@ public class DataServerSocketHandler implements Runnable
              // BookSale bookSale = gson.fromJson(reader, String.class);
 
               bookSaleDAO.createBookSale(bookSale);
-              System.out.println(bookSale.toString());
               break;
             }
 
           case GetAllBookSales:
           {
             ArrayList<BookSale> bookSales = bookSaleDAO.getAllBookSales(request.getUsername());
-            System.out.println("SocketHandler \t:" + bookSales);
 
             String jsonString = new Gson().toJson(bookSales);
 
@@ -107,11 +105,9 @@ public class DataServerSocketHandler implements Runnable
             Customer customer = gson.fromJson(reader, Customer.class);
 
             customerDAO.createCustomer(customer);
-            System.out.println(customer.toString());
 
 
             //userDAO.createUser(user); Todo create proper method
-            System.out.println(customer.toString());
             break;
           }
 
@@ -119,12 +115,9 @@ public class DataServerSocketHandler implements Runnable
           {
             JsonReader reader = new JsonReader(new StringReader(request.getCustomer().toString()));
             reader.setLenient(true);
-            String message = request.getCustomer().toString();
-            System.out.println(message);
 
             Customer customer = request.getCustomer();
             customerDAO.createCustomer(customer);
-            System.out.println(customer.toString());
             break;
           }
 
@@ -134,7 +127,6 @@ public class DataServerSocketHandler implements Runnable
             ArrayList<User> users = userDAO.getAllUsers();
             String jsonString = new Gson().toJson(users);
 
-            System.out.println("SocketHandler \t:" + jsonString);
 
             byte[] array = jsonString.getBytes();
             outputStream.write(array, 0, array.length);
@@ -145,7 +137,6 @@ public class DataServerSocketHandler implements Runnable
           {
             User userToBeReturned = userDAO.getSpecificUser(request.getUsername());
             String jsonString = new Gson().toJson(userToBeReturned);
-            System.out.println(jsonString);
 
             byte[] array = jsonString.getBytes();
             outputStream.write(array, 0, array.length);
@@ -156,7 +147,6 @@ public class DataServerSocketHandler implements Runnable
           case GetSpecificCustomer:
           {
             ArrayList<Customer> customers = customerDAO.getCustomer(request.getUsername());
-            System.out.println("SocketHandler \t:" + customers);
 
             String jsonString = new Gson().toJson(customers);
 
@@ -192,10 +182,11 @@ public class DataServerSocketHandler implements Runnable
 
           case UpdateCustomer:
           {
+            System.out.println("Update customer DSSH reached " + request.getCustomer().toString());
             JsonReader reader = new JsonReader(new StringReader(request.getCustomer().toString()));
             reader.setLenient(true);
 
-            Customer customer = gson.fromJson(reader,Customer.class);
+            Customer customer = gson.fromJson(reader, Customer.class);
 
             customerDAO.updateCustomer(customer);
             System.out.println(customer);

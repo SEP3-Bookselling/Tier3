@@ -110,4 +110,12 @@ public class Request implements Serializable
   {
     this.password = password;
   }
+
+  @Override public String toString() {
+    return "Request{" + "EnumRequest=" + EnumRequest + ", BookSale=" + BookSale
+        + ", bookSales=" + bookSales + ", User=" + User + ", Customer="
+        + Customer + ", Id=" + Id + ", username='" + username + '\''
+        + ", password='" + password + '\'' + ", HelloWorld='" + HelloWorld
+        + '\'' + '}';
+  }
 }
