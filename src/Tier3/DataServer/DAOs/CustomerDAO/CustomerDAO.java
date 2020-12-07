@@ -66,19 +66,15 @@ public class CustomerDAO implements ICustomerDAO{
 
         Connection connection = getConnectionToDB();
         ArrayList<Customer> customerList = new ArrayList<>();
-        System.out.println("Get Reached");
 
         if (username == null) {
             try {
 
                 String sql = "select distinct c.username as Username, u.password, c.address, c.postcode, c.firstname, c.lastname, c.email, c.phonenumber, c.rating, u.role from customer c inner join users u on c.username = u.username";
 
-                System.out.println("Get specific passed");
                 PreparedStatement statement = connection.prepareStatement(sql);
-                //statement.setString(1,username);
 
                 ResultSet resultSet = statement.executeQuery();
-                System.out.println("query executed");
 
                 while (resultSet.next()) {
                     Customer customer = new Customer();
@@ -92,9 +88,6 @@ public class CustomerDAO implements ICustomerDAO{
                     customer.setPhoneNumber(resultSet.getInt(8));
                     customer.setRating(resultSet.getDouble(9));
                     customer.setRole(resultSet.getString(10));
-                    System.out.println(
-                        "\t\t\t WORK PLEASE: " + customer.getUsername() + " " + customer.getPassword() + " " + customer.getRole()
-                            + " ");
 
                     customerList.add(customer);
                 }
@@ -110,12 +103,10 @@ public class CustomerDAO implements ICustomerDAO{
                     "select distinct c.username as Username, u.password, c.address, c.postcode, c.firstname, c.lastname, c.email, c.phonenumber, c.rating, u.role from customer c inner join users u on c.username = u.username where c.username = '"
                         + username + "'";
 
-                System.out.println("Get specific passed");
                 PreparedStatement statement = connection.prepareStatement(sql);
                 //statement.setString(1,username);
 
                 ResultSet resultSet = statement.executeQuery();
-                System.out.println("query executed");
 
                 if (resultSet.next()) {
                     Customer customer = new Customer();
@@ -129,9 +120,6 @@ public class CustomerDAO implements ICustomerDAO{
                     customer.setPhoneNumber(resultSet.getInt(8));
                     customer.setRating(resultSet.getDouble(9));
                     customer.setRole(resultSet.getString(10));
-                    System.out.println(
-                        "\t\t\t WORK PLEASE: " + customer.getUsername() + " " + customer.getPassword() + " " + customer.getRole()
-                            + " ");
 
                     customerList.add(customer);
                 }
@@ -157,7 +145,6 @@ public class CustomerDAO implements ICustomerDAO{
 
         try {
             PreparedStatement updateCustomerData = connection.prepareStatement("update Customer set address = ?, postcode = ?, firstname = ?, lastname = ?, email = ?, phonenumber = ?, rating = ? where username = " + "'" + customer.getUsername() + "'");
-            System.out.println(customer.toString());
             //customer
             updateCustomerData.setString(1, customer.getAddress());
             updateCustomerData.setString(2, customer.getPostcode());

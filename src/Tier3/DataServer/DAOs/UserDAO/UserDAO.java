@@ -40,7 +40,6 @@ public class UserDAO implements IUserDAO {
 
             statement.executeQuery();
 
-            System.out.println("It workd");
         }
         catch (SQLException e)
         {
@@ -52,7 +51,6 @@ public class UserDAO implements IUserDAO {
     {
         Connection connection = getConnectionToDB();
         ArrayList<User> userList = new ArrayList<>();
-        System.out.println("User dao reached");
 
         if (username == null)
         {
@@ -69,7 +67,6 @@ public class UserDAO implements IUserDAO {
                     user.setUsername(resultSet.getString(1));
                     user.setPassword(resultSet.getString(2));
                     user.setRole(resultSet.getString(3));
-                    System.out.println("THE WATER IS FINE FATHER: " + user.getUsername() + " : " + user.getPassword());
 
                     userList.add(user);
                 }
@@ -93,7 +90,6 @@ public class UserDAO implements IUserDAO {
                     user.setUsername(resultSet.getString(1));
                     user.setPassword(resultSet.getString(2));
                     user.setRole(resultSet.getString(3));
-                    System.out.println("THE WATER IS FINE MOTHER: " + user.getUsername() + " : " + user.getPassword());
 
                     userList.add(user);
                 }

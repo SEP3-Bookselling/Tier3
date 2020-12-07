@@ -21,8 +21,7 @@ import java.util.ArrayList;
 
 public class DataServerSocketHandler implements Runnable
 {
-  // Initial branch creation
-  // Branch work please?
+
   private Socket socket;
 
   private InputStream inputStream;
@@ -38,7 +37,6 @@ public class DataServerSocketHandler implements Runnable
   {
     this.socket = socket;
     gson = new Gson();
-    //controller = new ProofDAO();
     bookSaleDAO = new BookSaleDAO();
     userDAO = new UserDAO();
     testController = new ProofDAO();
@@ -57,15 +55,12 @@ public class DataServerSocketHandler implements Runnable
 
   @Override public void run()
   {
-    //while (true)
-    //{
+
       byte[] inputFromTier2 = new byte[1024];
       try
       {
         int arrLength = inputStream.read(inputFromTier2, 0, inputFromTier2.length);
         String arrString = new String(inputFromTier2, 0, arrLength);
-        //JsonReader enumReader = new JsonReader(new StringReader(arrString));
-        //enumReader.setLenient(true);
         Request request = gson.fromJson(arrString, Request.class);
 
         switch (request.getEnumRequest())
@@ -76,7 +71,6 @@ public class DataServerSocketHandler implements Runnable
               reader.setLenient(true);
 
               BookSale bookSale = gson.fromJson(reader, BookSale.class);
-             // BookSale bookSale = gson.fromJson(reader, String.class);
 
               bookSaleDAO.createBookSale(bookSale);
               break;
@@ -133,7 +127,6 @@ public class DataServerSocketHandler implements Runnable
 
             byte[] array = jsonString.getBytes();
             outputStream.write(array,0,array.length);
-            System.out.println(customers.toString());
             break;
           }
 
@@ -167,20 +160,17 @@ public class DataServerSocketHandler implements Runnable
             BookSale sale = gson.fromJson(reader, BookSale.class);
 
             bookSaleDAO.updateBookSale(sale);
-            System.out.println(sale);
             break;
           }
 
           case UpdateCustomer:
           {
-            System.out.println("Update customer DSSH reached " + request.getCustomer().toString());
             JsonReader reader = new JsonReader(new StringReader(request.getCustomer().toString()));
             reader.setLenient(true);
 
             Customer customer = gson.fromJson(reader, Customer.class);
 
             customerDAO.updateCustomer(customer);
-            System.out.println(customer);
             break;
           }
 
