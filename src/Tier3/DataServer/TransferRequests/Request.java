@@ -19,9 +19,15 @@ public class Request implements Serializable
   private String username;
   private String password;
 
-  private PurchaseRequest purchaseRequest;
+  private ArrayList<PurchaseRequest> purchaseRequests;
 
+  public ArrayList<PurchaseRequest> getPurchaseRequests() {
+    return purchaseRequests;
+  }
 
+  public void setPurchaseRequests(ArrayList<PurchaseRequest> purchaseRequests) {
+    this.purchaseRequests = purchaseRequests;
+  }
 
 
   public EnumRequest getEnumRequest()
@@ -117,7 +123,9 @@ public class Request implements Serializable
     return "Request{" + "EnumRequest=" + EnumRequest + ", BookSale=" + BookSale
         + ", bookSales=" + bookSales + ", User=" + User + ", Customer="
         + Customer + ", Id=" + Id + ", username='" + username + '\''
-        + ", password='" + password + '\'' + ", HelloWorld='" + HelloWorld
-        + '\'' + '}';
+        + ", password='" + password + '\'' + ", purchaseRequests="
+        + purchaseRequests + ", HelloWorld='" + HelloWorld + '\'' + '}';
   }
+
+
 }

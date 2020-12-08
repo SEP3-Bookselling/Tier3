@@ -4,12 +4,15 @@ import Tier3.DataServer.DAOs.BookSaleDAO.IBookSaleDAO;
 import Tier3.DataServer.DAOs.BookSaleDAO.BookSaleDAO;
 import Tier3.DataServer.DAOs.CustomerDAO.CustomerDAO;
 import Tier3.DataServer.DAOs.CustomerDAO.ICustomerDAO;
+import Tier3.DataServer.DAOs.PurchaseDAO.IPurchaseDAO;
+import Tier3.DataServer.DAOs.PurchaseDAO.PurchaseDAO;
 import Tier3.DataServer.DAOs.UserDAO.IUserDAO;
 import Tier3.DataServer.DAOs.UserDAO.UserDAO;
 import Tier3.DataServer.DAOs.ProofOfConcept.IProofDAO;
 import Tier3.DataServer.DAOs.ProofOfConcept.ProofDAO;
 import Tier3.DataServer.Models.BookSale;
 import Tier3.DataServer.Models.Customer;
+import Tier3.DataServer.Models.PurchaseRequest;
 import Tier3.DataServer.Models.User;
 import Tier3.DataServer.TransferRequests.Request;
 import com.google.gson.Gson;
@@ -31,6 +34,7 @@ public class DataServerSocketHandler implements Runnable
   private IBookSaleDAO bookSaleDAO;
   private IUserDAO userDAO;
   private ICustomerDAO customerDAO;
+  private IPurchaseDAO purchaseDAO;
 
 
   public DataServerSocketHandler(Socket socket)
@@ -41,6 +45,7 @@ public class DataServerSocketHandler implements Runnable
     userDAO = new UserDAO();
     testController = new ProofDAO();
     customerDAO = new CustomerDAO();
+    purchaseDAO = new PurchaseDAO();
 
     try
     {
@@ -62,6 +67,7 @@ public class DataServerSocketHandler implements Runnable
         int arrLength = inputStream.read(inputFromTier2, 0, inputFromTier2.length);
         String arrString = new String(inputFromTier2, 0, arrLength);
         Request request = gson.fromJson(arrString, Request.class);
+        System.out.println(request.toString());
 
         switch (request.getEnumRequest())
         {
@@ -159,8 +165,6 @@ public class DataServerSocketHandler implements Runnable
             break;
           }
 
-
-
           case UpdateCustomer:
           {
             JsonReader reader = new JsonReader(new StringReader(request.getCustomer().toString()));
@@ -169,6 +173,16 @@ public class DataServerSocketHandler implements Runnable
             Customer customer = gson.fromJson(reader, Customer.class);
 
             customerDAO.updateCustomer(customer);
+            break;
+          }
+
+          case CreatePurchaseRequest:
+          {
+            JsonReader reader = new JsonReader(new StringReader(request.getPurchaseRequests().toString()));
+            reader.setLenient(true);
+
+            ArrayList<PurchaseRequest> purchaseRequests = request.getPurchaseRequests();
+            purchaseDAO.createPurchaseRequest(purchaseRequests);
             break;
           }
 

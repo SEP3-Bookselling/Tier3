@@ -26,9 +26,9 @@ public enum EnumRequest
   DeleteCustomer,
 
   //PurchaseRequest
-  CreateRequest,
-  GetRequest,
-  DeleteRequest,
+  CreatePurchaseRequest,
+  GetPurchaseRequest,
+  DeletePurchaseRequest,
 
 
   // Prototype
