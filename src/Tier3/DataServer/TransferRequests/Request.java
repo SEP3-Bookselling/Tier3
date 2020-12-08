@@ -15,6 +15,7 @@ public class Request implements Serializable
   private User User;
   private Customer Customer;
   private int Id;
+  private double rating;
 
   private String username;
   private String password;
@@ -117,5 +118,13 @@ public class Request implements Serializable
         + Customer + ", Id=" + Id + ", username='" + username + '\''
         + ", password='" + password + '\'' + ", HelloWorld='" + HelloWorld
         + '\'' + '}';
+  }
+
+  public double getRating() {
+    return rating;
+  }
+
+  public void setRating(double rating) {
+    this.rating = rating;
   }
 }

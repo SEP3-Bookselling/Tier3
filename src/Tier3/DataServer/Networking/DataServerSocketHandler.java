@@ -160,7 +160,6 @@ public class DataServerSocketHandler implements Runnable
           }
 
 
-
           case UpdateCustomer:
           {
             JsonReader reader = new JsonReader(new StringReader(request.getCustomer().toString()));
@@ -169,6 +168,27 @@ public class DataServerSocketHandler implements Runnable
             Customer customer = gson.fromJson(reader, Customer.class);
 
             customerDAO.updateCustomer(customer);
+            break;
+          }
+
+          case GetRatings:
+          {
+            String username = request.getUsername();
+            customerDAO.getRatings(username);
+
+            ArrayList<Double> rating = customerDAO.getRatings(username);
+            String jsonString = new Gson().toJson(rating);
+
+            byte[] array = jsonString.getBytes();
+            outputStream.write(array, 0, array.length);
+
+            break;
+          }
+
+          case RateCustomer:
+          {
+            double rating = request.getRating();
+
             break;
           }
 

@@ -24,6 +24,8 @@ public enum EnumRequest
   GetSpecificCustomer,
   UpdateCustomer,
   DeleteCustomer,
+  GetRatings,
+  RateCustomer,
 
   // Prototype
   recieveProofOfConcept,
