@@ -19,6 +19,8 @@ public class Request implements Serializable
   private String username;
   private String password;
 
+  private PurchaseRequest purchaseRequest;
+
 
 
 

@@ -25,6 +25,12 @@ public enum EnumRequest
   UpdateCustomer,
   DeleteCustomer,
 
+  //PurchaseRequest
+  CreateRequest,
+  GetRequest,
+  DeleteRequest,
+
+
   // Prototype
   recieveProofOfConcept,
   sendProofOfConcept
