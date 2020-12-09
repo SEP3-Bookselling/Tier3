@@ -34,7 +34,7 @@ public class PurchaseDAO implements IPurchaseDAO {
         PreparedStatement insertPurchaseData = connection
                 .prepareStatement(sqlPurchaseRequest);
 
-        insertPurchaseData.setInt(1, purchaseRequest.getBookSaleId());
+        insertPurchaseData.setInt(1, purchaseRequest.getBookSale().getBookSaleID());
         insertPurchaseData.setString(2, purchaseRequest.getBuyer());
         insertPurchaseData.setString(3, purchaseRequest.getSeller());
 
@@ -55,7 +55,8 @@ public class PurchaseDAO implements IPurchaseDAO {
 
     if (username == null) {
       try {
-        PreparedStatement statement = connection.prepareStatement("select * from Purchase");
+        PreparedStatement statement = connection.prepareStatement("select distinct p.booksaleId as BooksaleId, p.reqid, p.buyer, p.seller, b.title, b.author, b.edition, b.condition, b.subject, b.image, b.price, b.hardcopy, b.description, b.username from Purchase p inner join booksale b on p.booksaleid = b.booksaleid");
+
 
 
         ResultSet resultSet = statement.executeQuery();
@@ -63,10 +64,20 @@ public class PurchaseDAO implements IPurchaseDAO {
         while (resultSet.next()) {
           PurchaseRequest request = new PurchaseRequest();
 
-          request.setRequestId(resultSet.getInt(1));
-          request.setBookSaleId(resultSet.getInt(2));
+          request.getBookSale().setBookSaleID(resultSet.getInt(1));
+          request.setRequestId(resultSet.getInt(2));
           request.setBuyer(resultSet.getString(3));
           request.setSeller(resultSet.getString(4));
+          request.getBookSale().setTitle(resultSet.getString(5));
+          request.getBookSale().setAuthor(resultSet.getString(6));
+          request.getBookSale().setEdition(resultSet.getString(7));
+          request.getBookSale().setCondition(resultSet.getString(8));
+          request.getBookSale().setSubject(resultSet.getString(9));
+          request.getBookSale().setImage(resultSet.getString(10));
+          request.getBookSale().setPrice(resultSet.getDouble(11));
+          request.getBookSale().setHardCopy(resultSet.getBoolean(12));
+          request.getBookSale().setDescription(resultSet.getString(13));
+          request.getBookSale().setUsername(resultSet.getString(14));
 
           purchaseList.add(request);
 
@@ -76,17 +87,30 @@ public class PurchaseDAO implements IPurchaseDAO {
       }
     } else {
       try {
-        PreparedStatement statement = connection.prepareStatement("select * from Purchase where buyer = '" + username + "'");
+
+        String getPurchaseRequestSQL = "select distinct p.booksaleId as BooksaleId, p.reqid, p.buyer, p.seller, b.title, b.author, b.edition, b.condition, b.subject, b.image, b.price, b.hardcopy, b.description, b.username from Purchase p inner join booksale b on p.booksaleid = b.booksaleid where username = '" + username + "'";
+
+        PreparedStatement statement = connection.prepareStatement(getPurchaseRequestSQL);
 
         ResultSet resultSet = statement.executeQuery();
 
         while (resultSet.next()) {
           PurchaseRequest request = new PurchaseRequest();
 
-          request.setRequestId(resultSet.getInt(1));
-          request.setBookSaleId(resultSet.getInt(2));
+          request.getBookSale().setBookSaleID(resultSet.getInt(1));
+          request.setRequestId(resultSet.getInt(2));
           request.setBuyer(resultSet.getString(3));
           request.setSeller(resultSet.getString(4));
+          request.getBookSale().setTitle(resultSet.getString(5));
+          request.getBookSale().setAuthor(resultSet.getString(6));
+          request.getBookSale().setEdition(resultSet.getString(7));
+          request.getBookSale().setCondition(resultSet.getString(8));
+          request.getBookSale().setSubject(resultSet.getString(9));
+          request.getBookSale().setImage(resultSet.getString(10));
+          request.getBookSale().setPrice(resultSet.getDouble(11));
+          request.getBookSale().setHardCopy(resultSet.getBoolean(12));
+          request.getBookSale().setDescription(resultSet.getString(13));
+          request.getBookSale().setUsername(resultSet.getString(14));
 
           purchaseList.add(request);
 

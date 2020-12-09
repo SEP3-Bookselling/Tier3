@@ -1,9 +1,10 @@
 package Tier3.DataServer.Models;
 
+
 public class PurchaseRequest {
 
   public Integer requestId = null;
-  public int bookSaleId;
+  public BookSale bookSale;
   public String buyer;
   public String seller;
 
@@ -13,8 +14,8 @@ public class PurchaseRequest {
     return requestId;
   }
 
-  public int getBookSaleId() {
-    return bookSaleId;
+  public BookSale getBookSale() {
+    return bookSale;
   }
 
   public String getBuyer() {
@@ -31,8 +32,8 @@ public class PurchaseRequest {
     this.requestId = requestId;
   }
 
-  public void setBookSaleId(int bookSaleId) {
-    this.bookSaleId = bookSaleId;
+  public void setBookSaleId(BookSale bookSale) {
+    this.bookSale = bookSale;
   }
 
   public void setBuyer(String buyer) {
@@ -46,7 +47,7 @@ public class PurchaseRequest {
 
   @Override public String toString() {
     return "{"
-        + "\"bookSaleId\":" + "" + getBookSaleId() + ","
+        + "\"bookSale\":" + "\"" + getBookSale() + "\","
         + "\"buyer\":" + "\"" + getBuyer() + "\","
         + "\"seller\":" + "\"" + getSeller()
         + "}";

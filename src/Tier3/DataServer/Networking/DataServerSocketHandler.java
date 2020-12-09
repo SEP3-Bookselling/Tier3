@@ -67,7 +67,8 @@ public class DataServerSocketHandler implements Runnable
         int arrLength = inputStream.read(inputFromTier2, 0, inputFromTier2.length);
         String arrString = new String(inputFromTier2, 0, arrLength);
         Request request = gson.fromJson(arrString, Request.class);
-        System.out.println(request.toString());
+
+        System.out.println(request.toString()); //Writes to request to console
 
         switch (request.getEnumRequest())
         {

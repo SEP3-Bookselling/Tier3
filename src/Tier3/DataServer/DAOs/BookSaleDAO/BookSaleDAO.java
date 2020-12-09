@@ -31,6 +31,7 @@ public class BookSaleDAO implements IBookSaleDAO
     Connection connection = getConnectionToDB();
     ArrayList<BookSale> bookSaleList = new ArrayList<>();
 
+
     if (username == null) {
       try {
         PreparedStatement statement = connection.prepareStatement("select * from BookSale");
