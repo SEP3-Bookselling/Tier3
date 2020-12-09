@@ -72,21 +72,10 @@ public class Request implements Serializable
 
   // Prototype
 
-  private String HelloWorld;
-
-  public String getHelloWorld()
-  {
-    return HelloWorld;
-  }
-
   public int getId() {
     return Id;
   }
 
-  public void setHelloWorld(String helloWorld)
-  {
-    HelloWorld = helloWorld;
-  }
 
   public ArrayList<BookSale> getBookSales()
   {
@@ -124,7 +113,7 @@ public class Request implements Serializable
         + ", bookSales=" + bookSales + ", User=" + User + ", Customer="
         + Customer + ", Id=" + Id + ", username='" + username + '\''
         + ", password='" + password + '\'' + ", purchaseRequests="
-        + purchaseRequests + ", HelloWorld='" + HelloWorld + '\'' + '}';
+        + purchaseRequests + '\'' + '}';
   }
 
 
