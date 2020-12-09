@@ -72,15 +72,15 @@ public class DataServerSocketHandler implements Runnable
         switch (request.getEnumRequest())
         {
           case CreateBookSale:
-            {
-              JsonReader reader = new JsonReader(new StringReader(request.getBookSale().toString()));
-              reader.setLenient(true);
+          {
+            JsonReader reader = new JsonReader(new StringReader(request.getBookSale().toString()));
+            reader.setLenient(true);
 
-              BookSale bookSale = gson.fromJson(reader, BookSale.class);
+            BookSale bookSale = gson.fromJson(reader, BookSale.class);
 
-              bookSaleDAO.createBookSale(bookSale);
-              break;
-            }
+            bookSaleDAO.createBookSale(bookSale);
+            break;
+          }
 
           case GetAllBookSales:
           {
@@ -183,6 +183,17 @@ public class DataServerSocketHandler implements Runnable
 
             ArrayList<PurchaseRequest> purchaseRequests = request.getPurchaseRequests();
             purchaseDAO.createPurchaseRequest(purchaseRequests);
+            break;
+          }
+
+          case GetPurchaseRequest:
+          {
+            ArrayList<PurchaseRequest> purchaseRequests = purchaseDAO.getPurchaseRequest(request.getUsername());
+
+            String jsonString = new Gson().toJson(purchaseRequests);
+
+            byte[] array = jsonString.getBytes();
+            outputStream.write(array, 0, array.length);
             break;
           }
 

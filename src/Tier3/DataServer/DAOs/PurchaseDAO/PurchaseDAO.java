@@ -1,6 +1,7 @@
 package Tier3.DataServer.DAOs.PurchaseDAO;
 
 import Tier3.DataServer.DAOs.PersonalLogin.LoginCredentials;
+import Tier3.DataServer.Models.BookSale;
 import Tier3.DataServer.Models.PurchaseRequest;
 
 import java.sql.*;
@@ -35,7 +36,7 @@ public class PurchaseDAO implements IPurchaseDAO {
         PreparedStatement insertPurchaseData = connection
             .prepareStatement(sqlPurchaseRequest);
 
-        insertPurchaseData.setInt(1, purchaseRequest.getBookSale().getBookSaleID());
+        insertPurchaseData.setInt(1, purchaseRequest.getBookSaleId());
         insertPurchaseData.setString(2, purchaseRequest.getBuyer());
         insertPurchaseData.setString(3, purchaseRequest.getSeller());
 
@@ -51,6 +52,31 @@ public class PurchaseDAO implements IPurchaseDAO {
 
   @Override public ArrayList<PurchaseRequest> getPurchaseRequest(
       String username) {
+
+    Connection connection = getConnectionToDB();
+    ArrayList<PurchaseRequest> purchaseList = new ArrayList<>();
+
+    if (username == null) {
+      try {
+        PreparedStatement statement = connection.prepareStatement("select * from Purchase");
+
+
+        ResultSet resultSet = statement.executeQuery();
+
+
+
+        while (resultSet.next()) {
+          PurchaseRequest request = new PurchaseRequest();
+
+          request.setRequestId(resultSet.getInt(1));
+          request.setBookSaleId(resultSet.getInt(2));
+        }
+      }
+      catch (SQLException e) {
+        e.printStackTrace();
+      }
+    }
+
     return null;
   }
 
