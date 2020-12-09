@@ -4,6 +4,7 @@ import Tier3.DataServer.DAOs.PersonalLogin.LoginCredentials;
 import Tier3.DataServer.Models.BookSale;
 import Tier3.DataServer.Models.PurchaseRequest;
 
+import java.awt.print.Book;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -63,22 +64,24 @@ public class PurchaseDAO implements IPurchaseDAO {
 
         while (resultSet.next()) {
           PurchaseRequest request = new PurchaseRequest();
+          BookSale saleInRequest = new BookSale();
 
-          request.getBookSale().setBookSaleID(resultSet.getInt(1));
+          saleInRequest.setBookSaleID(resultSet.getInt(1));
           request.setRequestId(resultSet.getInt(2));
           request.setBuyer(resultSet.getString(3));
           request.setSeller(resultSet.getString(4));
-          request.getBookSale().setTitle(resultSet.getString(5));
-          request.getBookSale().setAuthor(resultSet.getString(6));
-          request.getBookSale().setEdition(resultSet.getString(7));
-          request.getBookSale().setCondition(resultSet.getString(8));
-          request.getBookSale().setSubject(resultSet.getString(9));
-          request.getBookSale().setImage(resultSet.getString(10));
-          request.getBookSale().setPrice(resultSet.getDouble(11));
-          request.getBookSale().setHardCopy(resultSet.getBoolean(12));
-          request.getBookSale().setDescription(resultSet.getString(13));
-          request.getBookSale().setUsername(resultSet.getString(14));
+          saleInRequest.setTitle(resultSet.getString(5));
+          saleInRequest.setAuthor(resultSet.getString(6));
+          saleInRequest.setEdition(resultSet.getString(7));
+          saleInRequest.setCondition(resultSet.getString(8));
+          saleInRequest.setSubject(resultSet.getString(9));
+          saleInRequest.setImage(resultSet.getString(10));
+          saleInRequest.setPrice(resultSet.getDouble(11));
+          saleInRequest.setHardCopy(resultSet.getBoolean(12));
+          saleInRequest.setDescription(resultSet.getString(13));
+          saleInRequest.setUsername(resultSet.getString(14));
 
+          request.setBookSale(saleInRequest);
           purchaseList.add(request);
 
         }

@@ -32,7 +32,7 @@ public class PurchaseRequest {
     this.requestId = requestId;
   }
 
-  public void setBookSaleId(BookSale bookSale) {
+  public void setBookSale(BookSale bookSale) {
     this.bookSale = bookSale;
   }
 
