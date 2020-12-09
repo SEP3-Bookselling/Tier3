@@ -46,7 +46,7 @@ public class PurchaseRequest {
 
   @Override public String toString() {
     return "{"
-        + "\"bookSale\":" + "\"" + getBookSaleId() + "\","
+        + "\"bookSale\":" + "" + getBookSaleId() + ","
         + "\"buyer\":" + "\"" + getBuyer() + "\","
         + "\"seller\":" + "\"" + getSeller()
         + "}";
