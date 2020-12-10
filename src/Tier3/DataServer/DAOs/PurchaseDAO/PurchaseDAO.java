@@ -3,6 +3,7 @@ package Tier3.DataServer.DAOs.PurchaseDAO;
 import Tier3.DataServer.DAOs.PersonalLogin.LoginCredentials;
 import Tier3.DataServer.Models.BookSale;
 import Tier3.DataServer.Models.PurchaseRequest;
+import com.sun.tools.jconsole.JConsoleContext;
 
 import java.awt.print.Book;
 import java.sql.*;
@@ -98,13 +99,13 @@ public class PurchaseDAO implements IPurchaseDAO {
         ResultSet resultSet = statement.executeQuery();
 
         while (resultSet.next()) {
-          PurchaseRequest request = new PurchaseRequest();
+          PurchaseRequest requestToGet = new PurchaseRequest();
           BookSale saleInRequest = new BookSale();
 
           saleInRequest.setBookSaleID(resultSet.getInt(1));
-          request.setRequestId(resultSet.getInt(2));
-          request.setBuyer(resultSet.getString(3));
-          request.setSeller(resultSet.getString(4));
+          requestToGet.setRequestId(resultSet.getInt(2));
+          requestToGet.setBuyer(resultSet.getString(3));
+          requestToGet.setSeller(resultSet.getString(4));
           saleInRequest.setTitle(resultSet.getString(5));
           saleInRequest.setAuthor(resultSet.getString(6));
           saleInRequest.setEdition(resultSet.getString(7));
@@ -116,8 +117,8 @@ public class PurchaseDAO implements IPurchaseDAO {
           saleInRequest.setDescription(resultSet.getString(13));
           saleInRequest.setUsername(resultSet.getString(14));
 
-          request.setBookSale(saleInRequest);
-          purchaseList.add(request);
+          requestToGet.setBookSale(saleInRequest);
+          purchaseList.add(requestToGet);
 
         }
       } catch (SQLException e) {
@@ -133,13 +134,15 @@ public class PurchaseDAO implements IPurchaseDAO {
 
     try
     {
-      String deletePurchaseRequestSQL = "delete from purchase where reqId = ?";
+      String deletePurchaseRequestSQL = "DELETE FROM purchase WHERE reqId = " + id;
       PreparedStatement deletePurchaseRequest = connection.prepareStatement(deletePurchaseRequestSQL);
-      deletePurchaseRequest.setInt(1,id);
+
       deletePurchaseRequest.executeUpdate();
+
       System.out.println("Deletepurchase 3");
-    } catch (SQLException throwables) {
-      throwables.printStackTrace();
+
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
 
 
