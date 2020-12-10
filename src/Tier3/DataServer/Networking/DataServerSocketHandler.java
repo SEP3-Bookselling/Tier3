@@ -68,7 +68,7 @@ public class DataServerSocketHandler implements Runnable
         String arrString = new String(inputFromTier2, 0, arrLength);
         Request request = gson.fromJson(arrString, Request.class);
 
-        System.out.println(request.toString()); //Writes to request to console
+        System.out.println("Print of request dataServerSocketHandler: " + request.toString()); //Writes request to console
 
         switch (request.getEnumRequest())
         {
@@ -189,6 +189,7 @@ public class DataServerSocketHandler implements Runnable
 
           case GetPurchaseRequest:
           {
+            System.out.println("Print in get purchase request case in DSSH: " + request.toString());
             ArrayList<PurchaseRequest> purchaseRequests = purchaseDAO.getPurchaseRequest(request.getUsername());
 
             String jsonString = new Gson().toJson(purchaseRequests);
