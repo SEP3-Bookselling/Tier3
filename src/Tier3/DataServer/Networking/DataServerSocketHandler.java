@@ -205,6 +205,8 @@ public class DataServerSocketHandler implements Runnable
 
             int idToDelete = gson.fromJson(reader, Integer.class);
             purchaseDAO.deletePurchaseRequest(idToDelete);
+            System.out.println("Deletepurchase 2");
+
           }
 
         }

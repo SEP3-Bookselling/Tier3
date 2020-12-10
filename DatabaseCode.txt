@@ -121,6 +121,7 @@ insert into BookSale (title, author, edition, condition, subject, image, price, 
 insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, description , username) values('Will it blend? That is the question', 'Max William', '5th', 'Good', 'Cooking', 'Path', 100, true, 'insert long as description', 'SonSon');
 insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, description , username) values('Can sharks swim backwards?', 'Dorthe Larsen', '3rd', 'Bad', 'Biology', 'Path', 50, false, 'insert long as description', 'Crisiluluman');
 insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, description , username) values('Engrish for biginers', 'Julie Langholm', 'First', 'Mint', 'English', 'Path', 5000, true, 'insert long as description', 'Crisiluluman');
+insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, description , username) values('Food for bigrinders', 'Mads Langholm', 'Second', 'Mint', 'English', 'Path', 5000, true, 'insert long as description', 'Crisiluluman');
 
 /* Hardcoded Wishlist */
 select * from Wishlist

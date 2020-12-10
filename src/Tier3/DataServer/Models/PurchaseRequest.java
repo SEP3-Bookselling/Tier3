@@ -3,7 +3,7 @@ package Tier3.DataServer.Models;
 
 public class PurchaseRequest {
 
-  public Integer requestId = null;
+  public int requestId;
   public BookSale bookSale;
   public String buyer;
   public String seller;

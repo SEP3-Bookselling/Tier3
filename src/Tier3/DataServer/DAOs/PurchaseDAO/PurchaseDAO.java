@@ -133,11 +133,11 @@ public class PurchaseDAO implements IPurchaseDAO {
 
     try
     {
-      String deletePurchaseRequestSQL = "delete from purchase where =?";
+      String deletePurchaseRequestSQL = "delete from purchase where reqId = ?";
       PreparedStatement deletePurchaseRequest = connection.prepareStatement(deletePurchaseRequestSQL);
       deletePurchaseRequest.setInt(1,id);
       deletePurchaseRequest.executeUpdate();
-
+      System.out.println("Deletepurchase 3");
     } catch (SQLException throwables) {
       throwables.printStackTrace();
     }
