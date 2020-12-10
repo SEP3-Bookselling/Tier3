@@ -189,7 +189,6 @@ public class DataServerSocketHandler implements Runnable
 
           case GetPurchaseRequest:
           {
-            System.out.println("Print in get purchase request case in DSSH: " + request.toString());
             ArrayList<PurchaseRequest> purchaseRequests = purchaseDAO.getPurchaseRequest(request.getUsername());
 
             String jsonString = new Gson().toJson(purchaseRequests);
