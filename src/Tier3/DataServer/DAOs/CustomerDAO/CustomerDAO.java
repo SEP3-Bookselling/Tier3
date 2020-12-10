@@ -2,6 +2,7 @@ package Tier3.DataServer.DAOs.CustomerDAO;
 
 import Tier3.DataServer.DAOs.PersonalLogin.LoginCredentials;
 import Tier3.DataServer.Models.Customer;
+import Tier3.DataServer.Models.Rating;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -201,8 +202,28 @@ public class CustomerDAO implements ICustomerDAO{
 
 
     @Override
-    public void rateCustomer(String username, double rating) {
+    public void rateCustomer(Rating rating)
+    {
+        Connection connection = getConnectionToDB();
 
+        String sqlRating = "insert into Rating (username, rating, userThatRated) values (?,?,?);";
+
+        try
+        {
+            System.out.println("\t\t CustomerDAO" + "Rating: " + rating.getUsername() + " : " + rating.getRating() + " : " + rating.getOtherUsername() );
+
+            PreparedStatement statement = connection.prepareStatement(sqlRating);
+            statement.setString(1, rating.getOtherUsername());
+            statement.setDouble(2, rating.getRating());
+            statement.setString(3, rating.getUsername());
+
+            statement.executeUpdate();
+
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
     }
 }
 

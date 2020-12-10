@@ -12,12 +12,11 @@ public enum EnumRequest
 
   //Users
   CreateUser,
-  GetSpecificUser,
+  GetSpecificUserLogin,
   GetUserList,
   GetAllUsers,
   UpdateUser,
   DeleteUser,
-  RateUser,
 
   //Customers
   CreateCustomer,
@@ -25,7 +24,7 @@ public enum EnumRequest
   UpdateCustomer,
   DeleteCustomer,
   GetRatings,
-  RateCustomer,
+  Rate,
 
   // Prototype
   recieveProofOfConcept,

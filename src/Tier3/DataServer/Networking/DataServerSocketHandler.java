@@ -10,6 +10,7 @@ import Tier3.DataServer.DAOs.ProofOfConcept.IProofDAO;
 import Tier3.DataServer.DAOs.ProofOfConcept.ProofDAO;
 import Tier3.DataServer.Models.BookSale;
 import Tier3.DataServer.Models.Customer;
+import Tier3.DataServer.Models.Rating;
 import Tier3.DataServer.Models.User;
 import Tier3.DataServer.TransferRequests.Request;
 import com.google.gson.Gson;
@@ -185,12 +186,50 @@ public class DataServerSocketHandler implements Runnable
             break;
           }
 
-          case RateCustomer:
+          case Rate:
           {
-            double rating = request.getRating();
+            Rating rating = request.getRating();
+            customerDAO.rateCustomer(rating);
 
             break;
           }
+
+          case GetSpecificUserLogin:
+          {
+            User user = userDAO.getSpecificUserLogin(request.getUsername(), request.getPassword());
+
+            String jsonString = new Gson().toJson(user);
+
+            byte[] array = jsonString.getBytes();
+            outputStream.write(array,0,array.length);
+
+            break;
+          }
+
+          case DeleteUser:
+          {
+            JsonReader reader = new JsonReader(new StringReader(request.getUsername()));
+            reader.setLenient(true);
+
+            String username = gson.fromJson(reader, String.class);
+            userDAO.deleteUser(username);
+
+            break;
+          }
+
+          case UpdateUser:
+          {
+            JsonReader reader = new JsonReader(new StringReader(request.getUser().toString()));
+            reader.setLenient(true);
+
+            User user = gson.fromJson(reader, User.class);
+
+            userDAO.updateUser(user);
+
+            break;
+          }
+
+
 
           /*
           case sendProofOfConcept:
