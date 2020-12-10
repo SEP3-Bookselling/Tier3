@@ -198,16 +198,14 @@ public class DataServerSocketHandler implements Runnable
             break;
           }
 
-          /*
-          case sendProofOfConcept:
-            {
-              JsonReader reader = new JsonReader(new StringReader(request.getHelloWorld()));
-              reader.setLenient(true);
-              String putMessage = gson.fromJson(reader, String.class);
-              testController.insertMessage(putMessage);
-              break;
-            }
-            */
+          case DeletePurchaseRequest:
+          {
+            JsonReader reader = new JsonReader(new StringReader("" + request.getId()));
+            reader.setLenient(true);
+
+            int idToDelete = gson.fromJson(reader, Integer.class);
+            purchaseDAO.deletePurchaseRequest(idToDelete);
+          }
 
         }
 
@@ -217,7 +215,6 @@ public class DataServerSocketHandler implements Runnable
         e.printStackTrace();
       }
 
-    //}
   }
 
 

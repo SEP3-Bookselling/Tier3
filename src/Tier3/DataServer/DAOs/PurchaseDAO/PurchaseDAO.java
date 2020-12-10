@@ -127,7 +127,21 @@ public class PurchaseDAO implements IPurchaseDAO {
     return purchaseList;
 }
 
-  @Override public void deletePurchaseRequest(int id) {
+  @Override public void deletePurchaseRequest(int id)
+  {
+    Connection connection = getConnectionToDB();
+
+    try
+    {
+      String deletePurchaseRequestSQL = "delete from purchase where =?";
+      PreparedStatement deletePurchaseRequest = connection.prepareStatement(deletePurchaseRequestSQL);
+      deletePurchaseRequest.setInt(1,id);
+      deletePurchaseRequest.executeUpdate();
+
+    } catch (SQLException throwables) {
+      throwables.printStackTrace();
+    }
+
 
   }
 }
