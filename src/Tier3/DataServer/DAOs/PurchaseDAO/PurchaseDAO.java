@@ -128,6 +128,33 @@ public class PurchaseDAO implements IPurchaseDAO {
     return purchaseList;
 }
 
+  @Override public ArrayList<PurchaseRequest> getPurchaseRequestFromId(int id) {
+    Connection connection = getConnectionToDB();
+    ArrayList<PurchaseRequest> purchaseList = new ArrayList<>();
+
+    try {
+      PreparedStatement statement = connection.prepareStatement("select * from purchase where booksaleId =" + id);
+
+      ResultSet resultSet = statement.executeQuery();
+
+      while (resultSet.next()) {
+        PurchaseRequest requestToGet = new PurchaseRequest();
+
+        requestToGet.setRequestId(resultSet.getInt(1));
+        requestToGet.setBuyer(resultSet.getString(3));
+        requestToGet.setSeller(resultSet.getString(4));
+
+        purchaseList.add(requestToGet);
+      }
+
+    }
+    catch (SQLException e) {
+      e.printStackTrace();
+    }
+
+    return purchaseList;
+  }
+
   @Override public void deletePurchaseRequest(int id)
   {
     Connection connection = getConnectionToDB();

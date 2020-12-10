@@ -198,6 +198,17 @@ public class DataServerSocketHandler implements Runnable
             break;
           }
 
+          case GetPurchaseRequestFromId:
+          {
+            ArrayList purchaseRequests = purchaseDAO.getPurchaseRequestFromId(request.getId());
+
+            String jsonString = new Gson().toJson(purchaseRequests);
+
+            byte[] array = jsonString.getBytes();
+            outputStream.write(array, 0, array.length);
+            break;
+          }
+
           case DeletePurchaseRequest:
           {
             JsonReader reader = new JsonReader(new StringReader("" + request.getId()));

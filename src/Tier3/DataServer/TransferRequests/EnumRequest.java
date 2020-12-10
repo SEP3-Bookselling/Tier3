@@ -28,6 +28,7 @@ public enum EnumRequest
   //PurchaseRequest
   CreatePurchaseRequest,
   GetPurchaseRequest,
+  GetPurchaseRequestFromId,
   DeletePurchaseRequest,
 
 

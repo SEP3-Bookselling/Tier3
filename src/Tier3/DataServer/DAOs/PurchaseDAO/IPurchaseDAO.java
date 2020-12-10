@@ -8,5 +8,6 @@ public interface IPurchaseDAO {
 
   void createPurchaseRequest(ArrayList<PurchaseRequest> purchaseRequests);
   ArrayList<PurchaseRequest> getPurchaseRequest(String username);
+  ArrayList<PurchaseRequest> getPurchaseRequestFromId(int id);
   void deletePurchaseRequest(int id);
 }
