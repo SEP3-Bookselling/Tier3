@@ -96,20 +96,6 @@ create table Wishlist(
 	foreign key(username) references Users(username) on delete cascade
 );
 
-
-/* Purchase */
-create table Purchase(
-    reqID serial,
-    booksaleID int NOT NULL,
-    buyer d_username NOT NULL,
-    seller d_username NOT NULL,
-    foreign key(booksaleID) references Booksale(booksaleID),
-    foreign key(buyer) references Users(username),
-    foreign key(seller) references USers(username),
-    PRIMARY KEY (reqID)
-);
-
-
 /* Hardcoded User */
 insert into Users (username, password, role) values ('SonSon', '1234', 'Customer');
 insert into Users (username, password, role) values ('Crisiluluman', '1234', 'Customer');
