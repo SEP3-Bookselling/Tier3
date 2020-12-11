@@ -30,7 +30,6 @@ public class DataServerSocketHandler implements Runnable
 
   private InputStream inputStream;
   private OutputStream outputStream;
-  private IProofDAO testController; //TODO: May or may not work depending on the Interface injection stuff
   private Gson gson;
   private IBookSaleDAO bookSaleDAO;
   private IUserDAO userDAO;
@@ -44,7 +43,6 @@ public class DataServerSocketHandler implements Runnable
     gson = new Gson();
     bookSaleDAO = new BookSaleDAO();
     userDAO = new UserDAO();
-    testController = new ProofDAO();
     customerDAO = new CustomerDAO();
     purchaseDAO = new PurchaseDAO();
 
@@ -284,96 +282,11 @@ public class DataServerSocketHandler implements Runnable
             int idToDelete = gson.fromJson(reader, Integer.class);
             purchaseDAO.deletePurchaseRequestFromSaleId(idToDelete);
           }
-
         }
-
       }
       catch (Exception e)
       {
         e.printStackTrace();
       }
-
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  /*
-  @Override public void run()
-  {
-    // TODO: Make sure the GSON file is V_2.8.2
-    while (true)
-    {
-      byte[] byteArr = new byte[1024];
-
-      try
-      {
-        int arrLength = inputStream.read(byteArr, 0, byteArr.length);
-        String arrString = new String(byteArr, 0, arrLength);
-        Request request = gson.fromJson(arrString, Request.class);
-
-        switch (request.getEnumRequest())
-        {
-          case recieveProofOfConcept:
-          {
-            ArrayList<String> list = controller.getAllMessages();
-            StringBuffer sb = new StringBuffer();
-
-            for (String s: list)
-            {
-              sb.append(s);
-              sb.append(" : ");
-            }
-
-            String str = '"' + sb.toString() + '"';
-            byte[] array = str.getBytes();
-            outputStream.write(array, 0, array.length);
-
-            break;
-          }
-
-          case sendProofOfConcept:
-          {
-            JsonReader reader = new JsonReader(new StringReader(request.getHelloWorld()));
-            reader.setLenient(true);
-            String putMessage = gson.fromJson(reader, String.class);
-            controller.insertMessage(putMessage);
-            break;
-
-          }
-        }
-
-      }
-      catch (IOException | IllegalStateException | JsonSyntaxException e)
-      {
-        e.printStackTrace();
-      }
-    }
-  }
-*/
 }
