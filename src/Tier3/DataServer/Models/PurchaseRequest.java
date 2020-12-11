@@ -49,7 +49,7 @@ public class PurchaseRequest {
     return "{"
         + "\"bookSale\":" + "\"" + getBookSale() + "\","
         + "\"buyer\":" + "\"" + getBuyer() + "\","
-        + "\"seller\":" + "\"" + getSeller()
+        + "\"seller\":" + "\"" + getSeller() + "\""
         + "}";
   }
 }
