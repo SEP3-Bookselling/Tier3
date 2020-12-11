@@ -10,4 +10,5 @@ public interface IPurchaseDAO {
   ArrayList<PurchaseRequest> getPurchaseRequest(String username);
   ArrayList<PurchaseRequest> getPurchaseRequestFromId(int id);
   void deletePurchaseRequest(int id);
+  void deletePurchaseRequestFromSaleId(int id);
 }

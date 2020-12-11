@@ -29,6 +29,7 @@ public enum EnumRequest
   GetPurchaseRequest,
   GetPurchaseRequestFromId,
   DeletePurchaseRequest,
+  DeletePurchaseRequestFromSaleId,
 
 
   // Prototype

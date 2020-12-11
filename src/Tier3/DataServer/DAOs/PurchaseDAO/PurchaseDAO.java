@@ -166,7 +166,6 @@ public class PurchaseDAO implements IPurchaseDAO {
 
       deletePurchaseRequest.executeUpdate();
 
-      System.out.println("Deletepurchase 3");
 
     } catch (SQLException e) {
       e.printStackTrace();
@@ -174,4 +173,19 @@ public class PurchaseDAO implements IPurchaseDAO {
 
 
   }
+
+  @Override public void deletePurchaseRequestFromSaleId(int id) {
+    Connection connection = getConnectionToDB();
+
+    try {
+      String deleteWithSaleIdSQL = "Delete from purchase where bookSaleId = " + id;
+      PreparedStatement deleteWithSaleId = connection.prepareStatement(deleteWithSaleIdSQL);
+
+      deleteWithSaleId.executeUpdate();
+    }
+    catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
 }
