@@ -9,6 +9,9 @@ public interface IUserDAO {
 
     void createUser(User user);
     ArrayList<User> getUserList(String username);
+    void deleteUser(String username);
+    void updateUser(User user);
+    User getSpecificUserLogin(String username, String password);
 
 }
 

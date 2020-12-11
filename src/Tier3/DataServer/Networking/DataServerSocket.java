@@ -8,7 +8,7 @@ public class DataServerSocket
 {
   public void start() throws IOException
   {
-    System.out.println("Server starting");
+    System.out.println("Server started");
     ServerSocket serverSocket = new ServerSocket(1236);
 
     while (true)

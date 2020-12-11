@@ -13,6 +13,7 @@ import Tier3.DataServer.DAOs.ProofOfConcept.ProofDAO;
 import Tier3.DataServer.Models.BookSale;
 import Tier3.DataServer.Models.Customer;
 import Tier3.DataServer.Models.PurchaseRequest;
+import Tier3.DataServer.Models.Rating;
 import Tier3.DataServer.Models.User;
 import Tier3.DataServer.TransferRequests.Request;
 import com.google.gson.Gson;
@@ -67,8 +68,6 @@ public class DataServerSocketHandler implements Runnable
         int arrLength = inputStream.read(inputFromTier2, 0, inputFromTier2.length);
         String arrString = new String(inputFromTier2, 0, arrLength);
         Request request = gson.fromJson(arrString, Request.class);
-
-        System.out.println("Print of request dataServerSocketHandler: " + request.toString()); //Writes request to console
 
         switch (request.getEnumRequest())
         {
@@ -176,6 +175,64 @@ public class DataServerSocketHandler implements Runnable
             customerDAO.updateCustomer(customer);
             break;
           }
+
+          case GetRatings:
+          {
+            String username = request.getUsername();
+            customerDAO.getRatings(username);
+
+            ArrayList<Double> rating = customerDAO.getRatings(username);
+            String jsonString = new Gson().toJson(rating);
+
+            byte[] array = jsonString.getBytes();
+            outputStream.write(array, 0, array.length);
+
+            break;
+          }
+
+          case Rate:
+          {
+            Rating rating = request.getRating();
+            customerDAO.rateCustomer(rating);
+
+            break;
+          }
+
+          case GetSpecificUserLogin:
+          {
+            User user = userDAO.getSpecificUserLogin(request.getUsername(), request.getPassword());
+
+            String jsonString = new Gson().toJson(user);
+
+            byte[] array = jsonString.getBytes();
+            outputStream.write(array,0,array.length);
+
+            break;
+          }
+
+          case DeleteUser:
+          {
+            JsonReader reader = new JsonReader(new StringReader(request.getUsername()));
+            reader.setLenient(true);
+
+            String username = gson.fromJson(reader, String.class);
+            userDAO.deleteUser(username);
+
+            break;
+          }
+
+          case UpdateUser:
+          {
+            JsonReader reader = new JsonReader(new StringReader(request.getUser().toString()));
+            reader.setLenient(true);
+
+            User user = gson.fromJson(reader, User.class);
+
+            userDAO.updateUser(user);
+
+            break;
+          }
+
 
           case CreatePurchaseRequest:
           {

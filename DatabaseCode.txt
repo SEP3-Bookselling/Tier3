@@ -14,8 +14,6 @@ create table Users(
 	PRIMARY KEY (username)
 );
 
-select * from Users;
-drop table Users;
 
 /* Customer */
 create domain d_address varchar(256);
@@ -25,6 +23,14 @@ create domain d_lastName varchar(256);
 create domain d_email varchar(256);
 create domain d_phoneNumber varchar(15);
 create domain d_rating varchar(5);
+create domain d_userThatRated varchar(256);
+
+create table Rating(
+	username d_username,
+	rating d_rating,
+	userThatRated d_userThatRated,
+	primary key (username, rating)
+);
 
 create table Customer(
 	username d_username,
@@ -36,12 +42,9 @@ create table Customer(
 	phoneNumber d_phoneNumber NOT NULL,
 	rating d_rating,
 	PRIMARY KEY (username),
-	FOREIGN KEY (username) references Users(username) on delete cascade
+	FOREIGN KEY (username) references Users(username) on delete cascade,
+	foreign key (username,rating) references Rating(username, rating)
 );
-
-select * from Customer
-drop table Customer
-
 
 
 /* BookSale */
@@ -72,8 +75,17 @@ create table BookSale(
 	PRIMARY KEY (bookSaleID)
 );
 
-select * from BookSale;
-drop table BookSale
+-- Purchase book
+create table Purchase(
+    reqID serial,
+    booksaleID int NOT NULL,
+    buyer d_username NOT NULL,
+    seller d_username NOT NULL,
+    foreign key(booksaleID) references Booksale(booksaleID),
+    foreign key(buyer) references Users(username),
+    foreign key(seller) references USers(username),
+    PRIMARY KEY (reqID)
+);
 
 /*  Wishlist */
 create table Wishlist(
@@ -84,8 +96,6 @@ create table Wishlist(
 	foreign key(username) references Users(username) on delete cascade
 );
 
-select * from Wishlist
-drop table Wishlist
 
 /* Purchase */
 create table Purchase(
@@ -101,7 +111,6 @@ create table Purchase(
 
 
 /* Hardcoded User */
-select * from Users
 insert into Users (username, password, role) values ('SonSon', '1234', 'Customer');
 insert into Users (username, password, role) values ('Crisiluluman', '1234', 'Customer');
 insert into Users (username, password, role) values ('AnneLindberg', '1234', 'Moderator');
@@ -109,13 +118,11 @@ insert into Users (username, password, role) values ('MagicalTermite', '1234', '
 
 
 /* Hardcoded Customer */
-select * from Customer
-insert into Customer (userName, address, postcode, firstName, lastName, email, phoneNumber, rating) values ('SonSon', 'Normandshaven', '8700', 'Sonny', 'Haack', 'stuff@gmail.com', 12345678, 5);
-insert into Customer (userName, address, postcode, firstName, lastName, email, phoneNumber, rating) values ('Crisiluluman', 'Sankt Helenevej', '8700', 'Christoper', 'Larsen', 'christopher-larsen@hotmail.com', 12345678, 4);
+insert into Customer (userName, address, postcode, firstName, lastName, email, phoneNumber, rating) values ('SonSon', 'Normandshaven', '8700', 'Sonny', 'Haack', 'stuff@gmail.com', 12345678, 0);
+insert into Customer (userName, address, postcode, firstName, lastName, email, phoneNumber, rating) values ('Crisiluluman', 'Sankt Helenevej', '8700', 'Christoper', 'Larsen', 'christopher-larsen@hotmail.com', 12345678, 0);
 
 
 /* Hardcoded BookSale */
-select * from BookSale
 insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, description , username) values('Is math, related to science?', 'Wolfgang von Idunno', 'First', 'Mint', 'Math', 'Path', 2000, true, 'insert long as description', 'SonSon');
 insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, description , username) values('How to build a bomb in 3 easy steps', 'Andreas Køskov', '2nd', 'Used', 'Chemistry', 'Path', 400, false, 'insert long as description', 'SonSon');
 insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, description , username) values('Will it blend? That is the question', 'Max William', '5th', 'Good', 'Cooking', 'Path', 100, true, 'insert long as description', 'SonSon');
@@ -124,12 +131,10 @@ insert into BookSale (title, author, edition, condition, subject, image, price, 
 insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, description , username) values('Food for bigrinders', 'Mads Langholm', 'Second', 'Mint', 'English', 'Path', 5000, true, 'insert long as description', 'Crisiluluman');
 
 /* Hardcoded Wishlist */
-select * from Wishlist
 insert into Wishlist(booksaleId, username) values(0001, 'Crisiluluman');
 
-
-/*Trigger for deleting User when Customer is deleted*/
-create or replace function deleteFunction() 
+--Trigger for deleting Users, Customer, Rating and Purchase Book tables when deleting customer
+create or replace function deleteUserFunction() 
 returns trigger as
 $$
 	begin
@@ -137,18 +142,60 @@ $$
 		where username = old.username;
 		return old;
 	end;
-	
 $$ language plpgsql;
 
-create trigger deleteTrigger
+create trigger deleteUser
 after delete on Customer	
 for each row
-execute procedure deleteFunction();
+execute procedure deleteUserFunction();
+
+create or replace function deleteRatingFunction() 
+returns trigger as
+$$
+	begin
+		delete from Rating
+		where username = old.username;
+		return old;
+	end;
+$$ language plpgsql;
+
+create trigger deleteRating
+after delete on Customer	
+for each row
+execute procedure deleteRatingFunction();
+
+create or replace function deletePurchaseBookFunction() 
+returns trigger as
+$$
+	begin
+		delete from Purchase
+		where buyer = old.username or seller = old.username;
+		return old;
+	end;
+$$ language plpgsql;
+
+create trigger deletePurchaseBook
+after delete on Customer
+for each row
+execute procedure deletePurchaseBookFunction();
 
 
--- test user insert
-delete from users where username = 'Test1'
+-- Trigger for insert on Rating on Customer insert
+create or replace function createRatingList() 
+returns trigger as
+$$
+	begin
+    	insert into
+        Rating(username,rating)
+			VALUES(new.username,new.rating);
+    	RETURN new;
+	end;
+$$ language plpgsql;
 
-select * from users;
+create trigger createRating1
+before insert on Customer	
+for each row
+execute procedure createRatingList();
+
 
 

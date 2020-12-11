@@ -12,18 +12,19 @@ public enum EnumRequest
 
   //Users
   CreateUser,
-  GetSpecificUser,
+  GetSpecificUserLogin,
   GetUserList,
   GetAllUsers,
   UpdateUser,
   DeleteUser,
-  RateUser,
 
   //Customers
   CreateCustomer,
   GetSpecificCustomer,
   UpdateCustomer,
   DeleteCustomer,
+  GetRatings,
+  Rate,
 
   //PurchaseRequest
   CreatePurchaseRequest,

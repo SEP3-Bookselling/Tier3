@@ -15,6 +15,7 @@ public class Request implements Serializable
   private User User;
   private Customer Customer;
   private int Id;
+  private Rating rating;
 
   private String username;
   private String password;
@@ -108,6 +109,14 @@ public class Request implements Serializable
     this.password = password;
   }
 
+  public Rating getRating() {
+    return rating;
+  }
+
+  public void setRating(Rating rating) {
+    this.rating = rating;
+  }
+
   @Override public String toString() {
     return "Request{" + "EnumRequest=" + EnumRequest + ", BookSale=" + BookSale
         + ", bookSales=" + bookSales + ", User=" + User + ", Customer="
@@ -115,6 +124,4 @@ public class Request implements Serializable
         + ", password='" + password + '\'' + ", purchaseRequests="
         + purchaseRequests + '\'' + '}';
   }
-
-
 }
