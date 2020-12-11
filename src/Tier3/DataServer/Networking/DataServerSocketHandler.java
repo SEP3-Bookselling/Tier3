@@ -62,7 +62,7 @@ public class DataServerSocketHandler implements Runnable
   @Override public void run()
   {
 
-      byte[] inputFromTier2 = new byte[1024];
+      byte[] inputFromTier2 = new byte[1024*1024];
       try
       {
         int arrLength = inputStream.read(inputFromTier2, 0, inputFromTier2.length);
