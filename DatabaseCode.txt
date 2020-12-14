@@ -75,26 +75,8 @@ create table BookSale(
 	PRIMARY KEY (bookSaleID)
 );
 
--- Purchase book
-create table Purchase(
-    reqID serial,
-    booksaleID int NOT NULL,
-    buyer d_username NOT NULL,
-    seller d_username NOT NULL,
-    foreign key(booksaleID) references Booksale(booksaleID),
-    foreign key(buyer) references Users(username),
-    foreign key(seller) references USers(username),
-    PRIMARY KEY (reqID)
-);
 
-/*  Wishlist */
-create table Wishlist(
-	bookSaleId serial,
-	username d_username NOT NULL,
-	primary key (bookSaleId),
-	foreign key(bookSaleId) references BookSale(bookSaleId) on delete cascade,
-	foreign key(username) references Users(username) on delete cascade
-);
+
 
 
 /* Purchase */
@@ -130,8 +112,6 @@ insert into BookSale (title, author, edition, condition, subject, image, price, 
 insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, description , username) values('Engrish for biginers', 'Julie Langholm', 'First', 'Mint', 'English', 'Path', 5000, true, 'insert long as description', 'Crisiluluman');
 insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, description , username) values('Food for bigrinders', 'Mads Langholm', 'Second', 'Mint', 'English', 'Path', 5000, true, 'insert long as description', 'Crisiluluman');
 
-/* Hardcoded Wishlist */
-insert into Wishlist(booksaleId, username) values(0001, 'Crisiluluman');
 
 --Trigger for deleting Users, Customer, Rating and Purchase Book tables when deleting customer
 create or replace function deleteUserFunction() 
