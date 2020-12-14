@@ -47,6 +47,19 @@ create table Customer(
 );
 
 
+/* Purchase */
+create table Purchase(
+    reqID serial,
+    booksaleID int NOT NULL,
+    buyer d_username NOT NULL,
+    seller d_username NOT NULL,
+    foreign key(booksaleID) references Booksale(booksaleID),
+    foreign key(buyer) references Users(username),
+    foreign key(seller) references USers(username),
+    PRIMARY KEY (reqID)
+);
+
+
 /* BookSale */
 create domain d_title varchar(256);
 create domain d_author varchar(256);
