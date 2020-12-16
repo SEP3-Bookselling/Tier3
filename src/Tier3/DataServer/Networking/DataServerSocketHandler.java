@@ -8,8 +8,6 @@ import Tier3.DataServer.DAOs.PurchaseDAO.IPurchaseDAO;
 import Tier3.DataServer.DAOs.PurchaseDAO.PurchaseDAO;
 import Tier3.DataServer.DAOs.UserDAO.IUserDAO;
 import Tier3.DataServer.DAOs.UserDAO.UserDAO;
-import Tier3.DataServer.DAOs.ProofOfConcept.IProofDAO;
-import Tier3.DataServer.DAOs.ProofOfConcept.ProofDAO;
 import Tier3.DataServer.Models.BookSale;
 import Tier3.DataServer.Models.Customer;
 import Tier3.DataServer.Models.PurchaseRequest;
