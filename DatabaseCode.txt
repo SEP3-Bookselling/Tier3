@@ -47,17 +47,7 @@ create table Customer(
 );
 
 
-/* Purchase */
-create table Purchase(
-    reqID serial,
-    booksaleID int NOT NULL,
-    buyer d_username NOT NULL,
-    seller d_username NOT NULL,
-    foreign key(booksaleID) references Booksale(booksaleID),
-    foreign key(buyer) references Users(username),
-    foreign key(seller) references USers(username),
-    PRIMARY KEY (reqID)
-);
+
 
 
 /* BookSale */
@@ -88,6 +78,82 @@ create table BookSale(
 	PRIMARY KEY (bookSaleID)
 );
 
+/* Purchase */
+create table Purchase(
+    reqID serial,
+    booksaleID int NOT NULL,
+    buyer d_username NOT NULL,
+    seller d_username NOT NULL,
+    foreign key(booksaleID) references Booksale(booksaleID),
+    foreign key(buyer) references Users(username),
+    foreign key(seller) references USers(username),
+    PRIMARY KEY (reqID)
+);
+
+--Trigger for deleting Users, Customer, Rating and Purchase Book tables when deleting customer
+create or replace function deleteUserFunction()
+returns trigger as
+$$
+	begin
+		delete from Users
+		where username = old.username;
+		return old;
+	end;
+$$ language plpgsql;
+
+create trigger deleteUser
+after delete on Customer
+for each row
+execute procedure deleteUserFunction();
+
+create or replace function deleteRatingFunction()
+returns trigger as
+$$
+	begin
+		delete from Rating
+		where username = old.username;
+		return old;
+	end;
+$$ language plpgsql;
+
+create trigger deleteRating
+after delete on Customer
+for each row
+execute procedure deleteRatingFunction();
+
+create or replace function deletePurchaseBookFunction()
+returns trigger as
+$$
+	begin
+		delete from Purchase
+		where buyer = old.username or seller = old.username;
+		return old;
+	end;
+$$ language plpgsql;
+
+create trigger deletePurchaseBook
+after delete on Customer
+for each row
+execute procedure deletePurchaseBookFunction();
+
+
+-- Trigger for insert on Rating on Customer insert
+create or replace function createRatingList()
+returns trigger as
+$$
+	begin
+    	insert into
+        Rating(username,rating)
+			VALUES(new.username,new.rating);
+    	RETURN new;
+	end;
+$$ language plpgsql;
+
+create trigger createRating1
+before insert on Customer
+for each row
+execute procedure createRatingList();
+
 
 
 
@@ -110,71 +176,6 @@ insert into BookSale (title, author, edition, condition, subject, image, price, 
 insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, description , username) values('Can sharks swim backwards?', 'Dorthe Larsen', '3rd', 'Bad', 'Biology', 'Path', 50, false, 'insert long as description', 'Crisiluluman');
 insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, description , username) values('Engrish for biginers', 'Julie Langholm', 'First', 'Mint', 'English', 'Path', 5000, true, 'insert long as description', 'Crisiluluman');
 insert into BookSale (title, author, edition, condition, subject, image, price, hardCopy, description , username) values('Food for bigrinders', 'Mads Langholm', 'Second', 'Mint', 'English', 'Path', 5000, true, 'insert long as description', 'Crisiluluman');
-
-
---Trigger for deleting Users, Customer, Rating and Purchase Book tables when deleting customer
-create or replace function deleteUserFunction() 
-returns trigger as
-$$
-	begin
-		delete from Users 
-		where username = old.username;
-		return old;
-	end;
-$$ language plpgsql;
-
-create trigger deleteUser
-after delete on Customer	
-for each row
-execute procedure deleteUserFunction();
-
-create or replace function deleteRatingFunction() 
-returns trigger as
-$$
-	begin
-		delete from Rating
-		where username = old.username;
-		return old;
-	end;
-$$ language plpgsql;
-
-create trigger deleteRating
-after delete on Customer	
-for each row
-execute procedure deleteRatingFunction();
-
-create or replace function deletePurchaseBookFunction() 
-returns trigger as
-$$
-	begin
-		delete from Purchase
-		where buyer = old.username or seller = old.username;
-		return old;
-	end;
-$$ language plpgsql;
-
-create trigger deletePurchaseBook
-after delete on Customer
-for each row
-execute procedure deletePurchaseBookFunction();
-
-
--- Trigger for insert on Rating on Customer insert
-create or replace function createRatingList() 
-returns trigger as
-$$
-	begin
-    	insert into
-        Rating(username,rating)
-			VALUES(new.username,new.rating);
-    	RETURN new;
-	end;
-$$ language plpgsql;
-
-create trigger createRating1
-before insert on Customer	
-for each row
-execute procedure createRatingList();
 
 
 
