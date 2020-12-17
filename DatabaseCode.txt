@@ -1,5 +1,5 @@
 create schema "thirdsemesterexam";
-set search_path to "thirdsemesterexam"
+set search_path to "thirdsemesterexam";
 
 
 /* User */
